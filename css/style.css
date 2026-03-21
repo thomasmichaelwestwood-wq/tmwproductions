@@ -1,6 +1,6 @@
 /* =============================================
    TMW PRODUCTIONS — Main Stylesheet
-   Colours: #722E80 (bg), #BA8DBD (accent), #FFFFFF (text), #13001e (dark)
+   Colours: #722E80 (bg), #BA8DBD (accent/dark), #FFFFFF (text)
    Fonts: Bebas Neue (Bitcheese placeholder), Montserrat Light (Gotham sub)
 ============================================= */
 
@@ -20,7 +20,7 @@
   --purple-clarity: #722E80;
   --purple-mist: #BA8DBD;
   --white: #FFFFFF;
-  --black: #13001e;
+  --black: #BA8DBD;
 
   --font-display: 'Bebas Neue', sans-serif; /* swap to 'Bitcheese' when available */
   --font-body: 'Montserrat', sans-serif;
@@ -311,7 +311,7 @@ section {
 .hero__bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #13001e 0%, #3d1545 40%, #722E80 100%);
+  background: linear-gradient(135deg, #BA8DBD 0%, #3d1545 40%, #722E80 100%);
   z-index: 0;
 }
 
@@ -829,7 +829,7 @@ section {
 ============================================= */
 
 .cta-banner {
-  background: linear-gradient(135deg, #13001e 0%, #3d1545 50%, #722E80 100%);
+  background: linear-gradient(135deg, #BA8DBD 0%, #3d1545 50%, #722E80 100%);
   text-align: center;
   padding: 6rem 5%;
   position: relative;
@@ -1028,7 +1028,7 @@ section {
 
 .page-hero {
   padding: 10rem 5% 5rem;
-  background: linear-gradient(135deg, #13001e 0%, #3d1545 50%, #722E80 100%);
+  background: linear-gradient(135deg, #BA8DBD 0%, #3d1545 50%, #722E80 100%);
   position: relative;
   overflow: hidden;
 }
