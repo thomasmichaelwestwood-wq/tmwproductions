@@ -234,6 +234,103 @@
       line-height: 1.8;
     }
 
+    /* VENUE AUTOCOMPLETE */
+    #venue-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #1a0a2e;
+      border: 1px solid rgba(186,141,189,0.35);
+      border-top: none;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      z-index: 100;
+      display: none;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    #venue-dropdown li {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      border-bottom: 1px solid rgba(186,141,189,0.1);
+      transition: background 0.2s;
+    }
+
+    #venue-dropdown li:last-child { border-bottom: none; }
+
+    #venue-dropdown li:hover {
+      background: rgba(186,141,189,0.12);
+    }
+
+    .venue-name {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .venue-star {
+      color: #f0c040;
+      margin-left: 0.3rem;
+    }
+
+    .venue-location {
+      font-size: 0.75rem;
+      opacity: 0.5;
+      letter-spacing: 0.05em;
+    }
+
+    /* VENUE RECOMMENDATION CARD */
+    #venue-card {
+      margin-top: 0.75rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(186,141,189,0.25);
+      background: rgba(186,141,189,0.07);
+    }
+
+    .venue-card__badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .venue-setup--white .venue-card__badge,
+    .venue-setup--white {
+      background: rgba(255,255,255,0.12);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .venue-setup--rustic .venue-card__badge,
+    .venue-setup--rustic {
+      background: rgba(180,120,60,0.15);
+      color: #d4935a;
+      border: 1px solid rgba(180,120,60,0.35);
+    }
+
+    .venue-setup--custom .venue-card__badge,
+    .venue-setup--custom {
+      background: rgba(186,141,189,0.15);
+      color: var(--purple-mist);
+      border: 1px solid rgba(186,141,189,0.35);
+    }
+
+    .venue-card__note {
+      font-size: 0.85rem;
+      opacity: 0.75;
+      line-height: 1.7;
+      margin: 0;
+    }
+
     @media (max-width: 768px) {
       .contact-main__grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .form-row { grid-template-columns: 1fr; }
@@ -537,6 +634,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/venues.js"></script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
