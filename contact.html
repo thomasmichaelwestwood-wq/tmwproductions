@@ -150,6 +150,28 @@
       margin: 2rem 0;
     }
 
+    /* CALENDLY SECTION */
+    .book-call {
+      background: var(--black);
+      padding: 5rem 2rem;
+    }
+
+    .book-call__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .book-call__header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .book-call__embed {
+      border: 1px solid rgba(186,141,189,0.2);
+      overflow: hidden;
+      background: #0d0515;
+    }
+
     .faq-section {
       background: var(--black);
     }
@@ -358,6 +380,23 @@
     </div>
   </section>
 
+  <!-- BOOK A CALL -->
+  <section class="book-call">
+    <div class="book-call__inner">
+      <div class="book-call__header reveal">
+        <span class="section__label">Prefer to Talk?</span>
+        <h2 class="section__title">Book a Free Enquiry Call</h2>
+        <p style="max-width: 560px; margin: 0 auto; opacity: 0.75;">Rather than filling in a form, pick a time that suits you and we'll have a quick 30-minute chat about your event — no pressure, no obligation.</p>
+      </div>
+      <div class="book-call__embed reveal">
+        <div class="calendly-inline-widget"
+          data-url="https://calendly.com/tmwproductions-info/30min?background_color=0d0515&text_color=ffffff&primary_color=ba8dbd&hide_gdpr_banner=1"
+          style="min-width:320px;height:700px;">
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="faq-section">
     <div class="container">
@@ -484,5 +523,6 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
