@@ -35,6 +35,46 @@ const TMW_SUPPLIERS = [
   indicator.style.display = 'none';
   dateRow.insertAdjacentElement('afterend', indicator);
 
+  // ── Vibe section ──────────────────────────────────────────
+
+  const vibeSection    = document.getElementById('vibe-section');
+  const vibeChipsEl    = document.getElementById('vibeChips');
+  const vibeGenresInput = document.getElementById('vibeGenresInput');
+  const MAX_GENRES = 3;
+
+  if (vibeChipsEl && vibeGenresInput) {
+    vibeChipsEl.addEventListener('click', function (e) {
+      const chip = e.target.closest('.vibe__chip');
+      if (!chip || chip.classList.contains('disabled')) return;
+
+      const selected = vibeChipsEl.querySelectorAll('.vibe__chip.selected');
+
+      if (chip.classList.contains('selected')) {
+        chip.classList.remove('selected');
+      } else {
+        if (selected.length >= MAX_GENRES) return; // already at max
+        chip.classList.add('selected');
+      }
+
+      // Update disabled state on unselected chips
+      const nowSelected = vibeChipsEl.querySelectorAll('.vibe__chip.selected');
+      vibeChipsEl.querySelectorAll('.vibe__chip:not(.selected)').forEach(c => {
+        c.classList.toggle('disabled', nowSelected.length >= MAX_GENRES);
+      });
+
+      // Sync hidden input
+      vibeGenresInput.value = Array.from(nowSelected).map(c => c.dataset.genre).join(', ');
+    });
+  }
+
+  function showVibe() {
+    if (vibeSection) vibeSection.classList.add('vibe--visible');
+  }
+
+  function hideVibe() {
+    if (vibeSection) vibeSection.classList.remove('vibe--visible');
+  }
+
   // ── Helpers ──────────────────────────────────────────────
 
   function getSelectedDate() {
@@ -70,9 +110,11 @@ const TMW_SUPPLIERS = [
         <p>Fill in the rest of the form and he'll be in touch to confirm.</p>
       </div>
     `;
+    showVibe();
   }
 
   function showUnavailable(dateStr) {
+    hideVibe();
     indicator.style.display = 'block';
     indicator.className = 'avail avail--no';
 
@@ -111,6 +153,7 @@ const TMW_SUPPLIERS = [
   }
 
   function hideIndicator() {
+    hideVibe();
     indicator.style.display = 'none';
     indicator.className = '';
     indicator.innerHTML = '';

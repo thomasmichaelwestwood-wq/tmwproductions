@@ -234,6 +234,84 @@
       line-height: 1.8;
     }
 
+    /* VIBE SELECTOR */
+    #vibe-section {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease, padding 0.4s ease;
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0px solid rgba(186,141,189,0.2);
+    }
+
+    #vibe-section.vibe--visible {
+      max-height: 700px;
+      opacity: 1;
+      padding-top: 1.5rem;
+      margin-top: 0.5rem;
+      border-top: 1px solid rgba(186,141,189,0.2);
+    }
+
+    .vibe__label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 0.4rem;
+    }
+
+    .vibe__sublabel {
+      font-size: 0.82rem;
+      opacity: 0.5;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .vibe__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .vibe__chip {
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(186,141,189,0.3);
+      background: rgba(186,141,189,0.07);
+      color: var(--white);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .vibe__chip:hover {
+      border-color: var(--purple-mist);
+      background: rgba(186,141,189,0.15);
+    }
+
+    .vibe__chip.selected {
+      border-color: var(--purple-mist);
+      background: rgba(186,141,189,0.25);
+      color: var(--purple-mist);
+    }
+
+    .vibe__chip.disabled {
+      opacity: 0.35;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .vibe__chip.selected.disabled {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     /* AVAILABILITY INDICATOR */
     .avail {
       display: flex;
@@ -540,9 +618,32 @@
             <input type="text" id="venue" name="venue" placeholder="e.g. Prestwold Hall, Loughborough" />
           </div>
 
+          <!-- VIBE SECTION — revealed once date is confirmed available -->
+          <div id="vibe-section">
+            <span class="vibe__label">What's Your Sound? <span style="opacity:0.45; font-weight:300; text-transform:none; letter-spacing:0; font-style:italic;">optional</span></span>
+            <p class="vibe__sublabel">Pick up to 3 genres — helps me get a feel for the vibe before we even speak.</p>
+            <div class="vibe__chips" id="vibeChips">
+              <span class="vibe__chip" data-genre="80s Classics">80s Classics</span>
+              <span class="vibe__chip" data-genre="90s Anthems">90s Anthems</span>
+              <span class="vibe__chip" data-genre="Chart Bangers">Chart Bangers</span>
+              <span class="vibe__chip" data-genre="Indie / Alt">Indie / Alt</span>
+              <span class="vibe__chip" data-genre="R&amp;B / Soul">R&amp;B / Soul</span>
+              <span class="vibe__chip" data-genre="Rock">Rock</span>
+              <span class="vibe__chip" data-genre="Dance / House">Dance / House</span>
+              <span class="vibe__chip" data-genre="Country / Folk">Country / Folk</span>
+              <span class="vibe__chip" data-genre="Disco">Disco</span>
+              <span class="vibe__chip" data-genre="Timeless Classics">Timeless Classics</span>
+            </div>
+            <input type="hidden" name="vibeGenres" id="vibeGenresInput" />
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="vibeArtists">Name 3 artists that capture your sound <span style="opacity:0.45; font-weight:300; text-transform:none; letter-spacing:0; font-style:italic;">optional</span></label>
+              <input type="text" id="vibeArtists" name="vibeArtists" placeholder="e.g. Fleetwood Mac, Beyoncé, The Killers" />
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="message">Anything else I should know?</label>
-            <textarea id="message" name="message" placeholder="Tell me a bit more about what you're looking for — music style, guest numbers, timings, anything..."></textarea>
+            <textarea id="message" name="message" placeholder="Tell me a bit more about what you're looking for — guest numbers, timings, anything..."></textarea>
           </div>
 
           <button type="submit" class="btn btn--primary form-submit">Check Availability &amp; Send Enquiry</button>
