@@ -108,14 +108,14 @@ p {
 }
 
 .nav__logo {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  letter-spacing: 0.1em;
-  color: var(--white);
+  display: flex;
+  align-items: center;
 }
 
-.nav__logo span {
-  color: var(--purple-mist);
+.nav__logo-img {
+  height: 48px;
+  width: auto;
+  display: block;
 }
 
 .nav__links {
@@ -878,14 +878,13 @@ section {
 }
 
 .footer__logo {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  letter-spacing: 0.1em;
   margin-bottom: 1rem;
 }
 
-.footer__logo span {
-  color: var(--purple-mist);
+.footer__logo-img {
+  height: 56px;
+  width: auto;
+  display: block;
 }
 
 .footer__tagline {
