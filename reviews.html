@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TMW Productions Reviews — 5-star rated across Google, Bridebook and more. See what real clients say about Tom Westwood, Wedding DJ of the Year East Midlands 2024." />
+  <title>Reviews | TMW Productions</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .reviews-score {
+      background: var(--black);
+      padding: 4rem 5%;
+    }
+
+    .reviews-score__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .score-card {
+      background: rgba(186,141,189,0.08);
+      border: 1px solid rgba(186,141,189,0.3);
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .score-card__number {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      color: var(--purple-mist);
+      line-height: 1;
+    }
+
+    .score-card__stars {
+      font-size: 1.5rem;
+      color: #FFD700;
+      letter-spacing: 4px;
+      margin: 0.5rem 0;
+    }
+
+    .score-card__label {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .score-platforms {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .platform-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .platform-row__name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      min-width: 120px;
+    }
+
+    .platform-row__bar {
+      flex: 1;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .platform-row__fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--purple-mist), var(--purple-clarity));
+      border-radius: 3px;
+      transition: width 1.5s ease;
+    }
+
+    .platform-row__stars {
+      color: #FFD700;
+      font-size: 0.85rem;
+      min-width: 80px;
+      text-align: right;
+    }
+
+    .reviews-grid {
+      background: var(--purple-clarity);
+    }
+
+    .reviews-grid__inner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .review-card {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(186,141,189,0.15);
+      padding: 2rem;
+      position: relative;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .review-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(186,141,189,0.5);
+    }
+
+    .review-card__quote {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-family: Georgia, serif;
+      font-size: 4rem;
+      color: var(--purple-mist);
+      opacity: 0.2;
+      line-height: 1;
+    }
+
+    .review-card__stars {
+      color: #FFD700;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .review-card__text {
+      font-size: 0.9rem;
+      opacity: 0.88;
+      font-style: italic;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .review-card__divider {
+      width: 30px;
+      height: 2px;
+      background: var(--purple-mist);
+      margin-bottom: 1rem;
+    }
+
+    .review-card__author-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .review-card__author-event {
+      font-size: 0.78rem;
+      opacity: 0.55;
+      letter-spacing: 0.08em;
+    }
+
+    .review-card__source {
+      font-size: 0.72rem;
+      opacity: 0.4;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+
+    .award-section {
+      background: var(--black);
+      text-align: center;
+    }
+
+    .award-section__badge {
+      display: inline-block;
+      margin: 2rem auto;
+      padding: 3rem 4rem;
+      border: 2px solid rgba(186,141,189,0.4);
+      position: relative;
+    }
+
+    .award-section__badge::before,
+    .award-section__badge::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--purple-mist);
+    }
+
+    .award-section__badge::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+    .award-section__badge::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+    .award-section__icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .award-section__title {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      letter-spacing: 0.1em;
+      color: var(--purple-mist);
+      margin-bottom: 0.5rem;
+    }
+
+    .award-section__subtitle {
+      font-size: 1rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+
+    .award-section__note {
+      font-size: 0.8rem;
+      opacity: 0.45;
+      font-style: italic;
+    }
+
+    @media (max-width: 1024px) {
+      .reviews-grid__inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .reviews-score__inner { grid-template-columns: 1fr; gap: 2rem; }
+      .reviews-grid__inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo">TMW<span>.</span></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__content">
+      <span class="section__label" style="animation: fadeInDown 0.8s ease both;">Reviews</span>
+      <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">Don't Take<br>My Word for It.</h1>
+      <p style="max-width: 550px; opacity: 0.85; margin-top: 1rem; animation: fadeInUp 0.8s ease 0.4s both;">
+        These are real people, sharing real experiences. Every single one of them trusted me with something important — and I'm incredibly proud of what they have to say.
+      </p>
+    </div>
+  </section>
+
+  <!-- SCORES -->
+  <section class="reviews-score">
+    <div class="reviews-score__inner">
+      <div class="score-card reveal">
+        <div class="score-card__number">5.0</div>
+        <div class="score-card__stars">★★★★★</div>
+        <div class="score-card__label">Average rating across all platforms</div>
+      </div>
+      <div class="score-platforms reveal-right">
+        <div class="platform-row">
+          <div class="platform-row__name">Google</div>
+          <div class="platform-row__bar"><div class="platform-row__fill" style="width: 100%"></div></div>
+          <div class="platform-row__stars">★★★★★</div>
+        </div>
+        <div class="platform-row">
+          <div class="platform-row__name">Bridebook</div>
+          <div class="platform-row__bar"><div class="platform-row__fill" style="width: 100%"></div></div>
+          <div class="platform-row__stars">★★★★★</div>
+        </div>
+        <div class="platform-row">
+          <div class="platform-row__name">Yell</div>
+          <div class="platform-row__bar"><div class="platform-row__fill" style="width: 100%"></div></div>
+          <div class="platform-row__stars">★★★★★</div>
+        </div>
+        <div class="platform-row">
+          <div class="platform-row__name">Facebook</div>
+          <div class="platform-row__bar"><div class="platform-row__fill" style="width: 100%"></div></div>
+          <div class="platform-row__stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS GRID -->
+  <section class="reviews-grid">
+    <div class="container">
+      <span class="section__label reveal">What People Say</span>
+      <h2 class="section__title reveal">Straight From the People Who Matter</h2>
+
+      <div class="reviews-grid__inner">
+
+        <div class="review-card reveal">
+          <div class="review-card__quote">"</div>
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"A beautiful rustic booth, lights that matched the colour scheme of the wedding — very slick, in keeping with the venue and very modern looking. Tom kept everyone on the dancefloor all night. Absolutely brilliant."</p>
+          <div class="review-card__divider"></div>
+          <div class="review-card__author-name">Sarah & James</div>
+          <div class="review-card__author-event">Wedding — Prestwold Hall</div>
+          <div class="review-card__source">Google</div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-1">
+          <div class="review-card__quote">"</div>
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"From the very first enquiry Tom was professional, friendly and put us completely at ease. The planning portal made everything so simple, and on the night he was absolutely outstanding. Best decision we made for our wedding."</p>
+          <div class="review-card__divider"></div>
+          <div class="review-card__author-name">Laura & Chris</div>
+          <div class="review-card__author-event">Wedding — Quorn Grange Hotel</div>
+          <div class="review-card__source">Bridebook</div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-card__quote">"</div>
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"Tom did our charity fundraiser and had the room absolutely rocking from start to finish. He read the crowd perfectly and the energy never dropped once. Will definitely be booking again."</p>
+          <div class="review-card__divider"></div>
+          <div class="review-card__author-name">Mark T.</div>
+          <div class="review-card__author-event">Charity Fundraiser — Leicester</div>
+          <div class="review-card__source">Facebook</div>
+        </div>
+
+        <div class="review-card reveal">
+          <div class="review-card__quote">"</div>
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"We were so impressed from start to finish. Tom listened to exactly what we wanted, kept in touch throughout the planning process and then delivered an incredible night. Our guests are still talking about it."</p>
+          <div class="review-card__divider"></div>
+          <div class="review-card__author-name">Rebecca & Dan</div>
+          <div class="review-card__author-event">Wedding — The Manor House</div>
+          <div class="review-card__source">Google</div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-1">
+          <div class="review-card__quote">"</div>
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"Booked Tom for my 40th birthday party and he absolutely smashed it. Perfect mix of music, brilliant energy, and everyone was on the dancefloor all night. Couldn't recommend him more highly."</p>
+          <div class="review-card__divider"></div>
+          <div class="review-card__author-name">Claire M.</div>
+          <div class="review-card__author-event">40th Birthday Party — Leicester</div>
+          <div class="review-card__source">Facebook</div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-card__quote">"</div>
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"Genuinely the best DJ we've ever had at any event. Tom just gets it — he knows exactly how to build the atmosphere and keep things going. Professional, personable, and absolutely brilliant at what he does."</p>
+          <div class="review-card__divider"></div>
+          <div class="review-card__author-name">James & Sophie</div>
+          <div class="review-card__author-event">Wedding Evening — Leicestershire</div>
+          <div class="review-card__source">Bridebook</div>
+        </div>
+
+        <div class="review-card reveal">
+          <div class="review-card__quote">"</div>
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"Used Tom for our company Christmas party and he was fantastic. Got everyone involved, kept the energy high all night and managed to please a really varied crowd. Already booked him for next year."</p>
+          <div class="review-card__divider"></div>
+          <div class="review-card__author-name">David H.</div>
+          <div class="review-card__author-event">Corporate Christmas Party</div>
+          <div class="review-card__source">Google</div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-1">
+          <div class="review-card__quote">"</div>
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"Tom did the most amazing job at our wedding. The planning was so easy with the portal, he remembered every single thing we discussed and the night was absolutely perfect. Highly, highly recommend."</p>
+          <div class="review-card__divider"></div>
+          <div class="review-card__author-name">Amy & Rob</div>
+          <div class="review-card__author-event">Wedding — Queniborough</div>
+          <div class="review-card__source">Google</div>
+        </div>
+
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-card__quote">"</div>
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"The kids' disco Tom did for my daughter's birthday was absolutely amazing. The kids loved every second of it and it took all the stress away from us. Would book again in a heartbeat."</p>
+          <div class="review-card__divider"></div>
+          <div class="review-card__author-name">Karen P.</div>
+          <div class="review-card__author-event">Children's Party — Leicester</div>
+          <div class="review-card__source">Facebook</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARD SECTION -->
+  <section class="award-section">
+    <div class="container">
+      <span class="section__label reveal">Recognition</span>
+      <h2 class="section__title reveal">The Award That Means Everything</h2>
+      <p style="opacity: 0.75; max-width: 600px; margin: 0 auto 2rem;" class="reveal">Industry awards are voted on by real couples who trusted me with their wedding day. Winning on the very first entry made it even more special.</p>
+
+      <div class="award-section__badge reveal">
+        <span class="award-section__icon">🏆</span>
+        <div class="award-section__title">TWIA 2024</div>
+        <div class="award-section__subtitle">Wedding DJ of the Year — East Midlands</div>
+        <div class="award-section__note">The Wedding Industry Awards — voted entirely by real clients</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <span class="section__label reveal">Join the List</span>
+    <h2 class="reveal">Ready to Be the Next Happy Client?</h2>
+    <p class="reveal">Get in touch and let's start planning something you'll be raving about long after the night is over.</p>
+    <div class="reveal">
+      <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Book Now</a>
+      <a href="tel:07737460322" class="btn btn--outline">Call 07737 460322</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo">TMW<span>.</span></div>
+        <p class="footer__tagline">Award-winning DJ & event host serving Leicestershire and the East Midlands since 1999.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties & Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Karaoke</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://booking.tmwproductions.co.uk" target="_blank">Planning Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading">Get In Touch</div>
+        <p><a href="tel:07737460322">07737 460322</a></p>
+        <p>Queniborough, Leicestershire</p>
+        <br>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 TMW Productions. All rights reserved.</p>
+      <div class="footer__eco">🌳 Proud partner of Future Forest — a tree planted for every wedding booked</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

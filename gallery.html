@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TMW Productions Gallery — See the setup, the dancefloor, the venues. Award-winning Wedding & Event DJ based in Leicestershire." />
+  <title>Gallery | TMW Productions</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .gallery-filters {
+      background: var(--black);
+      padding: 3rem 5% 0;
+    }
+
+    .gallery-filters__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1.4rem;
+      border: 1px solid rgba(186,141,189,0.3);
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--purple-mist);
+      border-color: var(--purple-mist);
+      color: var(--white);
+    }
+
+    .gallery-grid {
+      background: var(--black);
+      padding: 3rem 5% 6rem;
+    }
+
+    .gallery-grid__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 1;
+    }
+
+    .gallery-item--wide {
+      grid-column: span 2;
+      aspect-ratio: 2/1;
+    }
+
+    .gallery-item--tall {
+      grid-row: span 2;
+      aspect-ratio: 1/2;
+    }
+
+    .gallery-item__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item__placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: transform 0.6s ease;
+      font-size: 3rem;
+    }
+
+    .gallery-item__placeholder span {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .gallery-item:hover .gallery-item__placeholder,
+    .gallery-item:hover .gallery-item__img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(114,46,128,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition-slow);
+    }
+
+    .gallery-item:hover .gallery-item__overlay {
+      background: rgba(114,46,128,0.5);
+    }
+
+    .gallery-item__label {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.15em;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-item__label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox__close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 2rem;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity var(--transition);
+    }
+
+    .lightbox__close:hover { opacity: 1; }
+
+    .lightbox__img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .instagram-cta {
+      background: var(--purple-clarity);
+      text-align: center;
+      padding: 5rem 5%;
+    }
+
+    .instagram-cta__handle {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--purple-mist);
+      margin: 1rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid__inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-item--wide { grid-column: span 2; }
+      .gallery-item--tall { grid-row: span 1; aspect-ratio: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid__inner {
+        grid-template-columns: 1fr;
+      }
+      .gallery-item--wide { grid-column: span 1; aspect-ratio: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo">TMW<span>.</span></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__content">
+      <span class="section__label" style="animation: fadeInDown 0.8s ease both;">Gallery</span>
+      <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">See It in<br>Action.</h1>
+      <p style="max-width: 550px; opacity: 0.85; margin-top: 1rem; animation: fadeInUp 0.8s ease 0.4s both;">
+        Every event is different — but the goal is always the same. A packed dancefloor, a great atmosphere, and memories that last a lifetime.
+      </p>
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <div class="gallery-filters">
+    <div class="gallery-filters__inner">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="weddings">Weddings</button>
+      <button class="filter-btn" data-filter="parties">Parties</button>
+      <button class="filter-btn" data-filter="setup">Setup & Booth</button>
+      <button class="filter-btn" data-filter="lighting">Lighting</button>
+    </div>
+  </div>
+
+  <!-- GALLERY GRID -->
+  <div class="gallery-grid">
+    <div class="gallery-grid__inner" id="galleryGrid">
+
+      <!-- Row 1 -->
+      <div class="gallery-item gallery-item--wide reveal" data-category="weddings">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #3d1545, #722E80);">
+          💍<span>Wedding — Prestwold Hall</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">Prestwold Hall</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" data-category="setup">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #1a0a1f, #4a1e55);">
+          🎛️<span>DJ Booth Setup</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">The Booth</span>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="gallery-item reveal" data-category="lighting">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #2d0d3a, #722E80);">
+          💡<span>Uplighting</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">Uplighting</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" data-category="parties">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #0a0010, #3d1545);">
+          🎉<span>Birthday Party</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">Party Night</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2" data-category="weddings">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #3d1545, #BA8DBD);">
+          💒<span>Wedding Evening</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">Wedding Evening</span>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="gallery-item gallery-item--wide reveal" data-category="lighting">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #1a0a1f, #722E80);">
+          ✨<span>Dancefloor Lighting</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">Dancefloor Magic</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" data-category="setup">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #0a0010, #2d0d3a);">
+          🎵<span>Equipment</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">Setup</span>
+        </div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="gallery-item reveal" data-category="weddings">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #2d0d3a, #BA8DBD);">
+          💍<span>Quorn Grange</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">Quorn Grange Hotel</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" data-category="parties">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #3d1545, #722E80);">
+          🎂<span>30th Birthday</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">Birthday Party</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2" data-category="lighting">
+        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #1a0a1f, #4a1e55);">
+          🌈<span>Colour Wash</span>
+        </div>
+        <div class="gallery-item__overlay">
+          <span class="gallery-item__label">Colour Wash Lighting</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- INSTAGRAM CTA -->
+  <section class="instagram-cta">
+    <span class="section__label reveal">More Content</span>
+    <div class="instagram-cta__handle reveal">@tmwproductionsuk</div>
+    <p class="reveal" style="opacity: 0.75; max-width: 500px; margin: 0 auto 2rem;">Follow along on Instagram and Facebook for behind-the-scenes content, venue visits and the latest events.</p>
+    <div class="reveal">
+      <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" class="btn btn--outline" style="margin-right: 1rem;">Instagram</a>
+      <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" class="btn btn--outline">Facebook</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <span class="section__label reveal">Like What You See?</span>
+    <h2 class="reveal">Let's Create Your Night</h2>
+    <p class="reveal">Get in touch and let's talk about making your event look and sound just as good as these.</p>
+    <div class="reveal">
+      <a href="contact.html" class="btn btn--primary">Check Your Date</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo">TMW<span>.</span></div>
+        <p class="footer__tagline">Award-winning DJ & event host serving Leicestershire and the East Midlands since 1999.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties & Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Karaoke</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://booking.tmwproductions.co.uk" target="_blank">Planning Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading">Get In Touch</div>
+        <p><a href="tel:07737460322">07737 460322</a></p>
+        <p>Queniborough, Leicestershire</p>
+        <br>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 TMW Productions. All rights reserved.</p>
+      <div class="footer__eco">🌳 Proud partner of Future Forest — a tree planted for every wedding booked</div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightboxClose">✕</button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

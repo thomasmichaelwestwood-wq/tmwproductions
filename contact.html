@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact TMW Productions — Book your Wedding DJ or event DJ in Leicestershire. Check availability, get a quote or ask a question." />
+  <title>Contact & Book | TMW Productions</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .contact-main {
+      background: var(--purple-clarity);
+    }
+
+    .contact-main__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    /* FORM */
+    .contact-form {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(186,141,189,0.2);
+      padding: 3rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(186,141,189,0.25);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 300;
+      transition: border-color var(--transition), background var(--transition);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--purple-mist);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .form-group select option {
+      background: var(--purple-clarity);
+      color: var(--white);
+    }
+
+    .form-group textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .form-group input[type="date"] {
+      color-scheme: dark;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+    }
+
+    .form-note {
+      font-size: 0.78rem;
+      opacity: 0.5;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* CONTACT INFO SIDEBAR */
+    .contact-info {
+      padding-top: 0.5rem;
+    }
+
+    .contact-info__item {
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-info__icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .contact-info__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-info__value {
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-info__value a {
+      transition: color var(--transition);
+    }
+
+    .contact-info__value a:hover {
+      color: var(--purple-mist);
+    }
+
+    .contact-info__note {
+      font-size: 0.82rem;
+      opacity: 0.55;
+    }
+
+    .contact-info__divider {
+      border: none;
+      border-top: 1px solid rgba(186,141,189,0.15);
+      margin: 2rem 0;
+    }
+
+    .faq-section {
+      background: var(--black);
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 3rem auto 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(186,141,189,0.15);
+    }
+
+    .faq-item__question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 1.5rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: color var(--transition);
+    }
+
+    .faq-item__question:hover {
+      color: var(--purple-mist);
+    }
+
+    .faq-item__icon {
+      font-size: 1.2rem;
+      color: var(--purple-mist);
+      transition: transform var(--transition);
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-item__icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-item__answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+
+    .faq-item.open .faq-item__answer {
+      max-height: 300px;
+      padding-bottom: 1.5rem;
+    }
+
+    .faq-item__answer p {
+      opacity: 0.75;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 768px) {
+      .contact-main__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo">TMW<span>.</span></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__content">
+      <span class="section__label" style="animation: fadeInDown 0.8s ease both;">Get in Touch</span>
+      <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">Let's Make<br>It Happen.</h1>
+      <p style="max-width: 550px; opacity: 0.85; margin-top: 1rem; animation: fadeInUp 0.8s ease 0.4s both;">
+        Fill in the form, give me a call, or drop me a message — whatever works for you. I'll get back to you quickly and we can start planning something great.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT MAIN -->
+  <section class="contact-main">
+    <div class="contact-main__grid">
+
+      <!-- FORM -->
+      <div class="contact-form reveal">
+        <h3 style="font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Check Your Date</h3>
+        <p style="font-size: 0.85rem; opacity: 0.65; margin-bottom: 2rem;">Tell me a bit about your event and I'll come back to you to confirm availability and pricing.</p>
+
+        <form id="contactForm" action="#" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" required placeholder="Tom" />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" required placeholder="Westwood" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required placeholder="hello@example.com" />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="07700 000000" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="eventType">Event Type *</label>
+              <select id="eventType" name="eventType" required>
+                <option value="" disabled selected>Select an event...</option>
+                <option value="wedding-full">Wedding — Full Day</option>
+                <option value="wedding-evening">Wedding — Evening Only</option>
+                <option value="birthday">Birthday Party</option>
+                <option value="corporate">Corporate Event</option>
+                <option value="charity">Charity Fundraiser</option>
+                <option value="karaoke">Karaoke Night</option>
+                <option value="kids">Kids' Party / School Disco</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="eventDate">Event Date *</label>
+              <input type="date" id="eventDate" name="eventDate" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="venue">Venue Name & Location</label>
+            <input type="text" id="venue" name="venue" placeholder="e.g. Prestwold Hall, Loughborough" />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Anything else I should know?</label>
+            <textarea id="message" name="message" placeholder="Tell me a bit more about what you're looking for — music style, guest numbers, timings, anything..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary form-submit">Send Enquiry</button>
+          <p class="form-note">I aim to respond within 24 hours. A £100 deposit secures your date once we've confirmed details.</p>
+        </form>
+      </div>
+
+      <!-- INFO -->
+      <div class="contact-info reveal-right">
+        <div class="contact-info__item">
+          <div class="contact-info__icon">📞</div>
+          <div class="contact-info__label">Phone</div>
+          <div class="contact-info__value"><a href="tel:07737460322">07737 460322</a></div>
+          <div class="contact-info__note">Happy to chat — call or text anytime</div>
+        </div>
+
+        <div class="contact-info__item">
+          <div class="contact-info__icon">📍</div>
+          <div class="contact-info__label">Based in</div>
+          <div class="contact-info__value">Queniborough, Leicestershire</div>
+          <div class="contact-info__note">Covering the East Midlands and beyond</div>
+        </div>
+
+        <div class="contact-info__item">
+          <div class="contact-info__icon">🌐</div>
+          <div class="contact-info__label">Planning Portal</div>
+          <div class="contact-info__value"><a href="https://booking.tmwproductions.co.uk" target="_blank">booking.tmwproductions.co.uk</a></div>
+          <div class="contact-info__note">Already booked? Start planning your event online</div>
+        </div>
+
+        <hr class="contact-info__divider">
+
+        <div class="contact-info__item">
+          <div class="contact-info__icon">📱</div>
+          <div class="contact-info__label">Social Media</div>
+          <div class="contact-info__value">
+            <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" style="display: block; margin-bottom: 0.3rem;">Facebook — @tmwproductionsuk</a>
+            <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank">Instagram — @tmwproductionsuk</a>
+          </div>
+        </div>
+
+        <hr class="contact-info__divider">
+
+        <div style="background: rgba(186,141,189,0.1); border: 1px solid rgba(186,141,189,0.25); padding: 1.5rem;">
+          <div style="font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.1em; margin-bottom: 0.8rem;">🏆 Award-Winning Service</div>
+          <p style="font-size: 0.85rem; opacity: 0.8; line-height: 1.7;">Wedding DJ of the Year — East Midlands 2024 (TWIA). Voted entirely by real clients on the very first entry.</p>
+        </div>
+
+        <div style="margin-top: 1.5rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(186,141,189,0.15); padding: 1.5rem;">
+          <div style="font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.1em; margin-bottom: 0.8rem;">🛡️ Fully Insured</div>
+          <p style="font-size: 0.85rem; opacity: 0.8; line-height: 1.7;">£10,000,000 Public Liability Insurance via MDJN membership. Required by most venues — already covered.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <span class="section__label reveal">FAQ</span>
+      <h2 class="section__title reveal">Common Questions</h2>
+
+      <div class="faq-list">
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question">
+            How far in advance should I book?
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>As soon as possible — especially for Saturday weddings and dates between May and September. Popular dates can book up a year or more in advance. A £100 deposit secures your date once we've confirmed everything.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question">
+            What's included in the price?
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>All packages include professional sound system, full LED lighting rig, setup and breakdown, the online planning portal, and my time on the night. Evening packages start from £545, full day from £995. Uplighting and add-ons are available separately.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question">
+            Do you take requests on the night?
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Absolutely. I love requests — they're often what makes a night truly special. You can submit requests through the planning portal beforehand, and I'm always happy to take them on the night too. I'll use my experience to judge whether and when to play them.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question">
+            Are you insured? Do you have PAT testing?
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Yes to both. I hold £10,000,000 public liability insurance through my MDJN membership, and all equipment is PAT tested. I'm used to providing documentation for venues that require it — just ask.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question">
+            How does the online planning portal work?
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Once you're booked, I'll set you up with access to my planning portal at booking.tmwproductions.co.uk. From there you can build your playlist, add must-plays and must-not-plays, set your running order and timeline, and leave any notes for me. You can do it at your own pace, whenever suits you.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question">
+            Do you travel outside Leicestershire?
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Yes — I'm based in Queniborough but cover events across the East Midlands and further afield. Travel costs may apply for events outside the local area. Just ask when you enquire and I'll let you know.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <span class="section__label reveal">Still Not Sure?</span>
+    <h2 class="reveal">Just Pick Up the Phone</h2>
+    <p class="reveal">Sometimes a quick conversation is all it takes. Call or text me and we can have a chat about what you're looking for.</p>
+    <div class="reveal">
+      <a href="tel:07737460322" class="btn btn--primary" style="margin-right: 1rem;">Call 07737 460322</a>
+      <a href="https://booking.tmwproductions.co.uk" target="_blank" class="btn btn--outline">Planning Portal</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo">TMW<span>.</span></div>
+        <p class="footer__tagline">Award-winning DJ & event host serving Leicestershire and the East Midlands since 1999.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties & Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Karaoke</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://booking.tmwproductions.co.uk" target="_blank">Planning Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading">Get In Touch</div>
+        <p><a href="tel:07737460322">07737 460322</a></p>
+        <p>Queniborough, Leicestershire</p>
+        <br>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 TMW Productions. All rights reserved.</p>
+      <div class="footer__eco">🌳 Proud partner of Future Forest — a tree planted for every wedding booked</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

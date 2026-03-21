@@ -1,0 +1,190 @@
+/* =============================================
+   TMW PRODUCTIONS — Main JavaScript
+   Handles: nav scroll, hamburger menu, scroll
+   animations, particles, gallery filters, FAQ
+============================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ================================
+  // NAV — scroll effect
+  // ================================
+  const nav = document.getElementById('nav');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+  }
+
+  // ================================
+  // NAV — hamburger menu
+  // ================================
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      const isOpen = navLinks.classList.contains('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target)) {
+        navLinks.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  // ================================
+  // SCROLL ANIMATIONS — Intersection Observer
+  // ================================
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+  if (revealEls.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealEls.forEach(el => observer.observe(el));
+  }
+
+  // ================================
+  // HERO PARTICLES
+  // ================================
+  const particleContainer = document.getElementById('particles');
+  if (particleContainer) {
+    const count = 25;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.classList.add('particle');
+      const size = Math.random() * 6 + 2;
+      p.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${Math.random() * 100}%;
+        animation-duration: ${Math.random() * 12 + 8}s;
+        animation-delay: ${Math.random() * 10}s;
+        filter: blur(${Math.random() * 2}px);
+      `;
+      particleContainer.appendChild(p);
+    }
+  }
+
+  // ================================
+  // GALLERY FILTERS
+  // ================================
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  if (filterBtns.length && galleryItems.length) {
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active state
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+
+        galleryItems.forEach(item => {
+          const category = item.dataset.category;
+          const show = filter === 'all' || category === filter;
+          item.style.opacity = show ? '1' : '0.2';
+          item.style.pointerEvents = show ? 'all' : 'none';
+        });
+      });
+    });
+  }
+
+  // ================================
+  // FAQ ACCORDION
+  // ================================
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-item__question');
+    if (question) {
+      question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        // Close all
+        faqItems.forEach(f => f.classList.remove('open'));
+        // Open clicked if it was closed
+        if (!isOpen) item.classList.add('open');
+      });
+    }
+  });
+
+  // ================================
+  // CONTACT FORM — basic handling
+  // ================================
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Sent! I\'ll be in touch soon.';
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+      // In production: replace this with a real form handler / email service
+    });
+  }
+
+  // ================================
+  // SMOOTH ANCHOR SCROLL
+  // ================================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ================================
+  // REVIEW RATING BARS — animate on scroll
+  // ================================
+  const bars = document.querySelectorAll('.platform-row__fill');
+  if (bars.length) {
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Bars are already set to 100% width via inline style
+          // Just trigger the CSS transition by briefly setting to 0
+          const el = entry.target;
+          const finalWidth = el.style.width;
+          el.style.width = '0';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              el.style.width = finalWidth;
+            });
+          });
+          barObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    bars.forEach(bar => barObserver.observe(bar));
+  }
+
+});

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TMW Productions — Award-winning Wedding DJ in Leicestershire. Full day hosting, ceremony music, uplighting and more. Wedding DJ of the Year – East Midlands 2024." />
+  <title>Wedding DJ Leicestershire | TMW Productions</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ---- Weddings-specific styles ---- */
+    .packages {
+      background: var(--black);
+    }
+
+    .packages__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .package-card {
+      border: 1px solid rgba(186,141,189,0.25);
+      padding: 2.5rem;
+      position: relative;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .package-card:hover {
+      border-color: var(--purple-mist);
+      transform: translateY(-4px);
+    }
+
+    .package-card--featured {
+      border-color: var(--purple-mist);
+      background: rgba(186,141,189,0.08);
+    }
+
+    .package-card--featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -1px;
+      right: 2rem;
+      background: var(--purple-mist);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      padding: 0.3rem 0.8rem;
+    }
+
+    .package-card__name {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .package-card__price {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--purple-mist);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .package-card__price-note {
+      font-size: 0.8rem;
+      opacity: 0.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .package-card__divider {
+      border: none;
+      border-top: 1px solid rgba(186,141,189,0.2);
+      margin: 1.5rem 0;
+    }
+
+    .package-card__features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .package-card__features li {
+      font-size: 0.9rem;
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      opacity: 0.85;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .package-card__features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--purple-mist);
+      font-weight: 600;
+    }
+
+    .what-to-expect {
+      background: var(--purple-clarity);
+    }
+
+    .steps {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step__number {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      color: rgba(186,141,189,0.3);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .step__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .step__desc {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    .add-ons {
+      background: var(--black);
+    }
+
+    .add-ons__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .add-on-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(186,141,189,0.2);
+      text-align: center;
+      transition: all var(--transition);
+    }
+
+    .add-on-card:hover {
+      border-color: var(--purple-mist);
+      background: rgba(186,141,189,0.05);
+    }
+
+    .add-on-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .add-on-card__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .add-on-card__desc {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      .packages__grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .add-ons__grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; }
+      .add-ons__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo">TMW<span>.</span></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__content">
+      <span class="section__label" style="animation: fadeInDown 0.8s ease both;">Weddings</span>
+      <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">Your Day.<br>Your Soundtrack.</h1>
+      <p style="max-width: 550px; opacity: 0.85; margin-top: 1rem; animation: fadeInUp 0.8s ease 0.4s both;">
+        From the moment your guests arrive to the very last song of the night, I'll make sure every moment of your wedding day sounds exactly how it should — perfect.
+      </p>
+      <div style="margin-top: 2rem; animation: fadeInUp 0.8s ease 0.6s both;">
+        <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Check Your Date</a>
+        <a href="#packages" class="btn btn--outline">See Packages</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARD STRIP -->
+  <div class="award-strip">
+    <div class="award-strip__inner">
+      <div class="award-strip__item">
+        <span class="award-strip__icon">🏆</span>
+        <div class="award-strip__text">
+          <strong>TWIA 2024 Winner</strong>
+          <span>Wedding DJ of the Year — East Midlands</span>
+        </div>
+      </div>
+      <div class="award-strip__divider"></div>
+      <div class="award-strip__item">
+        <span class="award-strip__icon">💍</span>
+        <div class="award-strip__text">
+          <strong>Voted by Real Clients</strong>
+          <span>100% client-voted award — on our very first entry</span>
+        </div>
+      </div>
+      <div class="award-strip__divider"></div>
+      <div class="award-strip__item">
+        <span class="award-strip__icon">🎵</span>
+        <div class="award-strip__text">
+          <strong>Full Day Available</strong>
+          <span>Ceremony music, hosting, evening entertainment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PACKAGES -->
+  <section class="packages" id="packages">
+    <div class="container">
+      <span class="section__label reveal">Pricing</span>
+      <h2 class="section__title reveal">Wedding Packages</h2>
+      <p class="section__subtitle reveal">Simple, transparent pricing. No hidden costs. A £100 deposit secures your date, with the balance due closer to the day.</p>
+
+      <div class="packages__grid">
+
+        <div class="package-card reveal">
+          <div class="package-card__name">Evening Entertainment</div>
+          <div class="package-card__price">£545</div>
+          <div class="package-card__price-note">from — final price confirmed at enquiry</div>
+          <hr class="package-card__divider">
+          <ul class="package-card__features">
+            <li>Evening DJ set (typically 7pm–midnight)</li>
+            <li>Professional sound system</li>
+            <li>Full LED lighting rig</li>
+            <li>Online music planning portal</li>
+            <li>First dance coordination</li>
+            <li>Unlimited music requests portal</li>
+            <li>DJ announcement & hosting</li>
+            <li>Setup and breakdown included</li>
+            <li>£100 deposit to secure date</li>
+          </ul>
+          <a href="contact.html" class="btn btn--outline" style="width: 100%; text-align: center;">Enquire Now</a>
+        </div>
+
+        <div class="package-card package-card--featured reveal reveal-delay-1">
+          <div class="package-card__name">Full Day Package</div>
+          <div class="package-card__price">£995</div>
+          <div class="package-card__price-note">from — final price confirmed at enquiry</div>
+          <hr class="package-card__divider">
+          <ul class="package-card__features">
+            <li>Everything in Evening Entertainment</li>
+            <li>Ceremony music coverage</li>
+            <li>Wedding breakfast background music</li>
+            <li>Full day MC / hosting services</li>
+            <li>Guest announcement coordination</li>
+            <li>Pre-ceremony guest arrival music</li>
+            <li>Cocktail hour music</li>
+            <li>Coordination with your venue team</li>
+            <li>£100 deposit to secure date</li>
+          </ul>
+          <a href="contact.html" class="btn btn--primary" style="width: 100%; text-align: center;">Enquire Now</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ADD ONS -->
+  <section class="add-ons">
+    <div class="container text-center">
+      <span class="section__label reveal">Extras</span>
+      <h2 class="section__title reveal">Add-Ons & Upgrades</h2>
+      <p class="section__subtitle reveal">Take things to the next level with a few extra touches to make your night truly unforgettable.</p>
+
+      <div class="add-ons__grid">
+        <div class="add-on-card reveal">
+          <div class="add-on-card__icon">💡</div>
+          <div class="add-on-card__title">Uplighting</div>
+          <p class="add-on-card__desc">Wash your venue in your wedding colours. Stunning, elegant, and transformative.</p>
+        </div>
+        <div class="add-on-card reveal reveal-delay-1">
+          <div class="add-on-card__icon">🎤</div>
+          <div class="add-on-card__title">Karaoke</div>
+          <p class="add-on-card__desc">Add a karaoke session to your evening for a fun twist your guests won't forget.</p>
+        </div>
+        <div class="add-on-card reveal reveal-delay-2">
+          <div class="add-on-card__icon">🎵</div>
+          <div class="add-on-card__title">Ceremony Music</div>
+          <p class="add-on-card__desc">Walk down the aisle to exactly the right song. Live or recorded — your choice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="what-to-expect">
+    <div class="container text-center">
+      <span class="section__label reveal">The Process</span>
+      <h2 class="section__title reveal">Stress-Free From Start to Finish</h2>
+      <p class="section__subtitle reveal">I handle everything — so you can focus on enjoying your day.</p>
+
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step__number">01</div>
+          <div class="step__title">Get in Touch</div>
+          <p class="step__desc">Check your date is available and have a chat about what you're looking for.</p>
+        </div>
+        <div class="step reveal reveal-delay-1">
+          <div class="step__number">02</div>
+          <div class="step__title">Secure Your Date</div>
+          <p class="step__desc">A £100 deposit locks in your date so you can stop worrying about it.</p>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step__number">03</div>
+          <div class="step__title">Plan Together</div>
+          <p class="step__desc">Use my online planning portal to build your perfect playlist and timeline at your own pace.</p>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step__number">04</div>
+          <div class="step__title">Enjoy the Day</div>
+          <p class="step__desc">Leave it all with me. I'll keep the dancefloor packed and the night running perfectly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL SNIPPET -->
+  <section style="background: var(--black); padding: 5rem 5%;">
+    <div class="container text-center">
+      <div style="max-width: 700px; margin: 0 auto;">
+        <div style="font-size: 4rem; color: var(--purple-mist); opacity: 0.4; font-family: Georgia, serif; line-height: 1; margin-bottom: 1rem;">"</div>
+        <p style="font-size: 1.2rem; font-style: italic; opacity: 0.9; line-height: 1.8; margin-bottom: 2rem;" class="reveal">
+          "Tom kept everyone on the dancefloor from the first dance to the very last song. He read the room perfectly and the energy was incredible all night. Couldn't have asked for more — absolutely brilliant."
+        </p>
+        <div class="reveal">
+          <strong style="font-size: 0.95rem;">Emma & Dan</strong>
+          <span style="opacity: 0.5; font-size: 0.85rem;"> — Wedding at The Manor House</span>
+        </div>
+        <div style="margin-top: 2.5rem;" class="reveal">
+          <a href="reviews.html" class="btn btn--outline">Read All Reviews</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <span class="section__label reveal">Ready to Book?</span>
+    <h2 class="reveal">Let's Make It Unforgettable</h2>
+    <p class="reveal">Dates get booked up quickly — especially Saturdays and summer weekends. Get in touch now and let's make sure your date is still available.</p>
+    <div class="reveal">
+      <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Check Your Date</a>
+      <a href="https://booking.tmwproductions.co.uk" target="_blank" class="btn btn--outline">Planning Portal</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo">TMW<span>.</span></div>
+        <p class="footer__tagline">Award-winning DJ & event host serving Leicestershire and the East Midlands since 1999.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties & Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Karaoke</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://booking.tmwproductions.co.uk" target="_blank">Planning Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading">Get In Touch</div>
+        <p><a href="tel:07737460322">07737 460322</a></p>
+        <p>Queniborough, Leicestershire</p>
+        <br>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 TMW Productions. All rights reserved.</p>
+      <div class="footer__eco">🌳 Proud partner of Future Forest — a tree planted for every wedding booked</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Tom Westwood — TMW Productions. Award-winning Wedding DJ of the Year – East Midlands 2024. 25+ years experience across Leicestershire and the East Midlands." />
+  <title>About Tom | TMW Productions</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .about-story {
+      background: var(--purple-clarity);
+    }
+
+    .about-story__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-story__image-wrap {
+      position: relative;
+    }
+
+    .about-story__image-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 15px -15px -15px 15px;
+      border: 2px solid var(--purple-mist);
+      opacity: 0.35;
+      z-index: 0;
+    }
+
+    .about-story__img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-story__placeholder {
+      width: 100%;
+      height: 560px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(186,141,189,0.2));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+      opacity: 0.5;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-story__award-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(186,141,189,0.15);
+      border: 1px solid rgba(186,141,189,0.4);
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-story__award-badge span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+    }
+
+    .about-values {
+      background: var(--black);
+    }
+
+    .about-values__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .value-card {
+      padding: 2rem;
+      border-top: 3px solid var(--purple-mist);
+      background: rgba(255,255,255,0.03);
+      transition: background var(--transition);
+    }
+
+    .value-card:hover {
+      background: rgba(186,141,189,0.08);
+    }
+
+    .value-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .value-card__title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+
+    .value-card__desc {
+      font-size: 0.9rem;
+      opacity: 0.75;
+      line-height: 1.7;
+    }
+
+    .credentials {
+      background: var(--purple-clarity);
+    }
+
+    .credentials__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .credential-item {
+      display: flex;
+      gap: 1.2rem;
+      align-items: start;
+      padding: 1.5rem;
+      border: 1px solid rgba(186,141,189,0.2);
+    }
+
+    .credential-item__icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .credential-item__title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
+    }
+
+    .credential-item__desc {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    .timeline {
+      background: var(--black);
+    }
+
+    .timeline__list {
+      max-width: 700px;
+      margin: 3rem auto 0;
+      position: relative;
+    }
+
+    .timeline__list::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20px;
+      height: 100%;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--purple-mist), transparent);
+    }
+
+    .timeline__item {
+      padding-left: 60px;
+      padding-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .timeline__dot {
+      position: absolute;
+      left: 13px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--purple-mist);
+      border: 3px solid var(--black);
+    }
+
+    .timeline__year {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--purple-mist);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline__title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline__desc {
+      font-size: 0.85rem;
+      opacity: 0.65;
+    }
+
+    @media (max-width: 768px) {
+      .about-story__grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-story__img, .about-story__placeholder { height: 350px; }
+      .about-values__grid { grid-template-columns: 1fr; }
+      .credentials__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo">TMW<span>.</span></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__content">
+      <span class="section__label" style="animation: fadeInDown 0.8s ease both;">About</span>
+      <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">Hi, I'm Tom.</h1>
+      <p style="max-width: 550px; opacity: 0.85; margin-top: 1rem; animation: fadeInUp 0.8s ease 0.4s both;">
+        25+ years behind the decks, an award on the shelf, and a genuine passion for making people have the best night of their lives.
+      </p>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="about-story">
+    <div class="about-story__grid">
+      <div class="reveal-left">
+        <div class="about-story__placeholder">[ Tom's Photo Here ]</div>
+      </div>
+      <div class="reveal-right">
+        <div class="about-story__award-badge">
+          <span>🏆</span>
+          <span>Wedding DJ of the Year — East Midlands 2024</span>
+        </div>
+        <span class="section__label">The Story</span>
+        <h2 class="section__title">More Than Just a DJ</h2>
+        <p style="opacity: 0.85; margin-bottom: 1.2rem;">
+          I've been doing this since before most people had a mobile phone. What started as a passion for music and a love of seeing people enjoy themselves has turned into a 25-year career that I'm genuinely proud of.
+        </p>
+        <p style="opacity: 0.85; margin-bottom: 1.2rem;">
+          I'm based in Queniborough, Leicestershire, and I cover events across the East Midlands and beyond. From school discos when I was just starting out, through years of nightclub residencies, right through to the most important day of people's lives — I've done it all.
+        </p>
+        <p style="opacity: 0.85; margin-bottom: 2rem;">
+          What drives me is simple: I want every single person at your event to have the best time possible. That means reading the room, knowing when to build the energy and when to take it down, and always, always delivering for you and your guests.
+        </p>
+        <p style="opacity: 0.85; margin-bottom: 2rem;">
+          In 2024, I entered The Wedding Industry Awards for the very first time — and won. Wedding DJ of the Year, East Midlands. Voted entirely by real clients. That meant the world to me.
+        </p>
+        <a href="contact.html" class="btn btn--primary">Work With Tom</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="about-values">
+    <div class="container">
+      <span class="section__label reveal text-center" style="display: block;">How I Work</span>
+      <h2 class="section__title reveal text-center">What You Can Expect</h2>
+
+      <div class="about-values__grid">
+        <div class="value-card reveal">
+          <div class="value-card__icon">🤝</div>
+          <div class="value-card__title">Personal Service</div>
+          <p class="value-card__desc">When you book TMW Productions, you get me — Tom — every single time. No subcontractors, no agencies, no surprises on the day. Just a DJ who genuinely cares about your event.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-1">
+          <div class="value-card__icon">🎵</div>
+          <div class="value-card__title">It's All About the Music</div>
+          <p class="value-card__desc">I take the time to understand exactly what you want — your must-plays, your must-not-plays, the vibe you're going for. Then I make it happen and adapt on the night as needed.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <div class="value-card__icon">😌</div>
+          <div class="value-card__title">Stress-Free Planning</div>
+          <p class="value-card__desc">My online planning portal lets you build your perfect event at your own pace, whenever suits you. No chasing, no hassle — everything is organised and ready when the big day comes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section class="credentials">
+    <div class="container text-center">
+      <span class="section__label reveal">Trust & Credentials</span>
+      <h2 class="section__title reveal">You're in Safe Hands</h2>
+
+      <div class="credentials__grid">
+        <div class="credential-item reveal">
+          <div class="credential-item__icon">🏆</div>
+          <div>
+            <div class="credential-item__title">TWIA Winner 2024</div>
+            <p class="credential-item__desc">Wedding DJ of the Year — East Midlands. Voted entirely by real clients on the very first entry.</p>
+          </div>
+        </div>
+        <div class="credential-item reveal reveal-delay-1">
+          <div class="credential-item__icon">🛡️</div>
+          <div>
+            <div class="credential-item__title">£10m Public Liability</div>
+            <p class="credential-item__desc">Full public liability insurance via MDJN membership — required by most venues and completely covered.</p>
+          </div>
+        </div>
+        <div class="credential-item reveal reveal-delay-2">
+          <div class="credential-item__icon">🎛️</div>
+          <div>
+            <div class="credential-item__title">MDJN Member</div>
+            <p class="credential-item__desc">Proud member of the Mobile DJ Network — a professional body dedicated to raising standards across the industry.</p>
+          </div>
+        </div>
+        <div class="credential-item reveal reveal-delay-3">
+          <div class="credential-item__icon">🌳</div>
+          <div>
+            <div class="credential-item__title">Future Forest Partner</div>
+            <p class="credential-item__desc">Every wedding booked with TMW Productions means a tree is planted. Because doing the right thing matters.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline">
+    <div class="container">
+      <span class="section__label reveal">The Journey</span>
+      <h2 class="section__title reveal">25 Years in the Making</h2>
+
+      <div class="timeline__list">
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__year">1999</div>
+          <div class="timeline__title">First event — and immediately hooked</div>
+          <p class="timeline__desc">Started with school discos and small private parties, quickly realising this was more than just a hobby.</p>
+        </div>
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__year">2000s</div>
+          <div class="timeline__title">Nightclub residencies & building a reputation</div>
+          <p class="timeline__desc">Years of nightclub residencies across the East Midlands — learning how to read a crowd, build energy and keep dancefloors moving all night.</p>
+        </div>
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__year">2010s</div>
+          <div class="timeline__title">Wedding & events specialist</div>
+          <p class="timeline__desc">Shifting focus to weddings and private events, becoming a recommended supplier at some of Leicestershire's finest venues.</p>
+        </div>
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__year">2024</div>
+          <div class="timeline__title">Wedding DJ of the Year — East Midlands</div>
+          <p class="timeline__desc">Won The Wedding Industry Awards on the very first entry. Voted 100% by real clients. One of the proudest moments of the career.</p>
+        </div>
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__year">Today</div>
+          <div class="timeline__title">Still loving every minute of it</div>
+          <p class="timeline__desc">Still doing what I love — making sure every single guest goes home having had the best night of their lives.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <span class="section__label reveal">Let's Work Together</span>
+    <h2 class="reveal">Ready to Make Something Special?</h2>
+    <p class="reveal">Get in touch — let's have a chat about your event and how I can make it unforgettable.</p>
+    <div class="reveal">
+      <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Get in Touch</a>
+      <a href="reviews.html" class="btn btn--outline">Read the Reviews</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo">TMW<span>.</span></div>
+        <p class="footer__tagline">Award-winning DJ & event host serving Leicestershire and the East Midlands since 1999.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties & Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Karaoke</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://booking.tmwproductions.co.uk" target="_blank">Planning Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading">Get In Touch</div>
+        <p><a href="tel:07737460322">07737 460322</a></p>
+        <p>Queniborough, Leicestershire</p>
+        <br>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 TMW Productions. All rights reserved.</p>
+      <div class="footer__eco">🌳 Proud partner of Future Forest — a tree planted for every wedding booked</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
