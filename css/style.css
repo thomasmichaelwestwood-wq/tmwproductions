@@ -980,6 +980,235 @@ section {
 }
 
 /* =============================================
+   PROCESS / TMW EXPERIENCE
+============================================= */
+
+.process {
+  background: #06000e;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 5%;
+}
+
+.process::before,
+.process::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(186,141,189,0.25), transparent);
+  pointer-events: none;
+}
+
+.process::before { top: 0; }
+.process::after  { bottom: 0; }
+
+/* Ambient glow blob */
+.process__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(186,141,189,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Timeline wrapper */
+.process__timeline {
+  position: relative;
+  max-width: 960px;
+  margin: 4.5rem auto 0;
+}
+
+/* Center vertical line */
+.process__line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+  background: rgba(186,141,189,0.1);
+  z-index: 0;
+}
+
+.process__line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(to bottom, rgba(186,141,189,0.8), rgba(186,141,189,0.2));
+  box-shadow: 0 0 10px rgba(186,141,189,0.35);
+}
+
+/* Each step row */
+.process__step {
+  display: grid;
+  grid-template-columns: 1fr 48px 1fr;
+  align-items: center;
+  min-height: 200px;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Dot on the line */
+.process__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(186,141,189,0.25);
+  background: #06000e;
+  justify-self: center;
+  align-self: center;
+  position: relative;
+  z-index: 2;
+  transition: border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
+  flex-shrink: 0;
+}
+
+.process__step.is-active .process__dot {
+  border-color: var(--purple-mist);
+  background: var(--purple-mist);
+  box-shadow: 0 0 0 4px rgba(186,141,189,0.15), 0 0 18px rgba(186,141,189,0.5);
+}
+
+/* Content card */
+.process__content {
+  padding: 2rem 2.2rem;
+  border: 1px solid rgba(186,141,189,0.1);
+  background: rgba(255,255,255,0.02);
+  position: relative;
+  transition: border-color 0.5s ease, background 0.5s ease;
+}
+
+.process__step.is-active .process__content {
+  border-color: rgba(186,141,189,0.28);
+  background: rgba(186,141,189,0.05);
+}
+
+/* Grid column placement — left & right variants */
+.process__step--left .process__content { grid-column: 1; margin-right: 2rem; }
+.process__step--left .process__dot     { grid-column: 2; }
+.process__step--left .process__num     { grid-column: 3; padding-left: 1.5rem; }
+
+.process__step--right .process__num     { grid-column: 1; text-align: right; padding-right: 1.5rem; }
+.process__step--right .process__dot     { grid-column: 2; }
+.process__step--right .process__content { grid-column: 3; margin-left: 2rem; }
+
+/* Large parallax step number */
+.process__num {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 11vw, 11rem);
+  line-height: 1;
+  color: rgba(186,141,189,0.055);
+  user-select: none;
+  pointer-events: none;
+  will-change: transform;
+  align-self: center;
+  transition: color 0.5s ease;
+}
+
+.process__step.is-active .process__num {
+  color: rgba(186,141,189,0.11);
+}
+
+/* Icon */
+.process__icon {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(186,141,189,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--purple-mist);
+  margin-bottom: 1rem;
+  transition: border-color 0.4s, background 0.4s;
+}
+
+.process__step.is-active .process__icon {
+  border-color: var(--purple-mist);
+  background: rgba(186,141,189,0.1);
+}
+
+/* Step label */
+.process__step-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--purple-mist);
+  opacity: 0.6;
+  margin-bottom: 0.35rem;
+}
+
+.process__content h3 {
+  font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.65rem;
+  line-height: 1.15;
+}
+
+.process__content p {
+  font-size: 0.88rem;
+  opacity: 0.6;
+  line-height: 1.85;
+}
+
+/* Process CTA */
+.process__cta {
+  text-align: center;
+  margin-top: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Mobile ───────────────────────────────── */
+
+@media (max-width: 768px) {
+  .process__line {
+    left: 7px;
+    transform: none;
+  }
+
+  .process__step {
+    grid-template-columns: 22px 1fr;
+    grid-template-rows: auto;
+    min-height: auto;
+    margin-bottom: 2.5rem;
+    align-items: start;
+  }
+
+  .process__step--left .process__dot,
+  .process__step--right .process__dot {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 1.6rem;
+    justify-self: center;
+  }
+
+  .process__step--left .process__content,
+  .process__step--right .process__content {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0 0 0 1.2rem;
+    padding: 1.4rem;
+  }
+
+  .process__step--left .process__num,
+  .process__step--right .process__num {
+    display: none;
+  }
+}
+
+/* =============================================
    SCROLL ANIMATIONS
 ============================================= */
 

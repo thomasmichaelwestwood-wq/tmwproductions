@@ -149,6 +149,61 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ================================
+  // PROCESS SECTION — line fill, parallax, active step
+  // ================================
+  const processTimeline = document.querySelector('.process__timeline');
+  const processLineFill = document.getElementById('processLineFill');
+  const processSteps    = document.querySelectorAll('.process__step');
+  const processNums     = document.querySelectorAll('.process__num');
+
+  if (processTimeline && processLineFill && processSteps.length) {
+
+    function updateProcess() {
+      const tlRect     = processTimeline.getBoundingClientRect();
+      const tlHeight   = processTimeline.offsetHeight;
+      const winH       = window.innerHeight;
+
+      // ── Line fill progress ──────────────────────────────
+      // 0 when top of timeline is at bottom of viewport
+      // 1 when bottom of timeline is at top of viewport
+      const progress = Math.max(0, Math.min(1,
+        (winH - tlRect.top) / (tlHeight + winH)
+      ));
+      processLineFill.style.height = (progress * 100) + '%';
+
+      // ── Active step (closest to viewport centre) ────────
+      const viewCentre = winH / 2;
+      let closestStep = null;
+      let closestDist = Infinity;
+
+      processSteps.forEach(step => {
+        const r    = step.getBoundingClientRect();
+        const mid  = r.top + r.height / 2;
+        const dist = Math.abs(mid - viewCentre);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestStep = step;
+        }
+        step.classList.remove('is-active');
+      });
+
+      if (closestStep) closestStep.classList.add('is-active');
+
+      // ── Parallax on step numbers ─────────────────────────
+      processNums.forEach(num => {
+        const step   = num.closest('.process__step');
+        if (!step) return;
+        const r      = step.getBoundingClientRect();
+        const offset = (viewCentre - (r.top + r.height / 2)) * 0.12;
+        num.style.transform = `translateY(${offset}px)`;
+      });
+    }
+
+    window.addEventListener('scroll', updateProcess, { passive: true });
+    updateProcess(); // run once on load
+  }
+
+  // ================================
   // SMOOTH ANCHOR SCROLL
   // ================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
