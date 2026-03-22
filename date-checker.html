@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMW Productions — Date Checker</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple-dark:    #1a0a2e;
+      --purple-clarity: #722E80;
+      --purple-mist:    #BA8DBD;
+      --purple-light:   #f5f3f7;
+      --white:          #ffffff;
+      --green:          #2ecc71;
+      --red:            #e74c3c;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--purple-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+      color: var(--white);
+    }
+
+    /* ── Logo / header ── */
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    header .brand {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+      margin-bottom: 0.4rem;
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+    header h1 span { color: var(--purple-mist); }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(186,141,189,0.25);
+      border-radius: 4px;
+      padding: 2rem 2rem 2.5rem;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+      margin-bottom: 0.6rem;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      font-size: 1.2rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(186,141,189,0.4);
+      border-radius: 3px;
+      color: var(--white);
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    input[type="date"]:focus { border-color: var(--purple-mist); }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) opacity(0.6);
+      cursor: pointer;
+    }
+
+    /* ── Result banner ── */
+    #result {
+      margin-top: 1.5rem;
+      border-radius: 3px;
+      padding: 1.4rem 1.6rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    #result.available {
+      display: block;
+      background: rgba(46,204,113,0.15);
+      border: 1px solid rgba(46,204,113,0.5);
+    }
+    #result.booked {
+      display: block;
+      background: rgba(231,76,60,0.15);
+      border: 1px solid rgba(231,76,60,0.5);
+    }
+
+    .result-status {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .available .result-status { color: var(--green); }
+    .booked    .result-status { color: var(--red); }
+
+    .result-detail {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: rgba(186,141,189,0.2);
+      margin: 2rem 0 1.5rem;
+    }
+
+    /* ── Booked list ── */
+    .list-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+      margin-bottom: 1rem;
+    }
+
+    .year-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .year-tab {
+      padding: 0.35rem 1rem;
+      border: 1px solid rgba(186,141,189,0.35);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--purple-mist);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .year-tab.active {
+      background: var(--purple-clarity);
+      border-color: var(--purple-clarity);
+      color: var(--white);
+    }
+
+    .booked-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .booked-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.8rem;
+      background: rgba(255,255,255,0.04);
+      border-left: 2px solid var(--purple-clarity);
+      font-size: 0.85rem;
+      gap: 1rem;
+    }
+    .booked-item .bdate {
+      color: var(--purple-mist);
+      white-space: nowrap;
+      font-size: 0.8rem;
+    }
+    .booked-item .bname {
+      text-align: right;
+      opacity: 0.9;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(186,141,189,0.4);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="brand">TMW Productions</p>
+    <h1>Date <span>Checker</span></h1>
+  </header>
+
+  <div class="card">
+    <label for="datePicker">Select a date</label>
+    <input type="date" id="datePicker">
+
+    <div id="result"></div>
+
+    <div class="divider"></div>
+
+    <p class="list-label">All booked dates</p>
+
+    <div class="year-tabs">
+      <button class="year-tab active" onclick="showYear(2026, this)">2026</button>
+      <button class="year-tab" onclick="showYear(2027, this)">2027</button>
+    </div>
+
+    <div class="booked-list" id="bookedList"></div>
+  </div>
+
+  <footer>Planning Beats Calendar &mdash; Last synced 22 Mar 2026</footer>
+
+<script>
+  const BOOKED = {
+    2026: [
+      { date: "2026-03-26", name: "Tam & Lydia" },
+      { date: "2026-03-28", name: "Amelia" },
+      { date: "2026-04-04", name: "Courtney & Josh" },
+      { date: "2026-04-09", name: "Sophie & Stephen England" },
+      { date: "2026-04-11", name: "Kevin & Michelle" },
+      { date: "2026-04-12", name: "Ellie & Ashlee Regan" },
+      { date: "2026-05-30", name: "Sophie Green" },
+      { date: "2026-06-18", name: "Newbridge Prom" },
+      { date: "2026-07-12", name: "Tamara" },
+      { date: "2026-07-22", name: "Emily & Dexter" },
+      { date: "2026-08-02", name: "Christian & Megan" },
+      { date: "2026-08-08", name: "Kathryn & Charles" },
+      { date: "2026-11-14", name: "Leah 30th" },
+    ],
+    2027: [
+      { date: "2027-03-12", name: "Chloe Wedding" },
+      { date: "2027-03-27", name: "Natalie Maguire" },
+      { date: "2027-04-23", name: "Steph & James" },
+      { date: "2027-04-28", name: "Karleen Wedding" },
+      { date: "2027-05-03", name: "Corn Biggs" },
+      { date: "2027-05-29", name: "Paula Smith" },
+      { date: "2027-05-30", name: "Phoebe Ackroyd" },
+      { date: "2027-06-12", name: "Matthew & Sophie" },
+      { date: "2027-06-17", name: "Charlotte & Oliver" },
+      { date: "2027-06-26", name: "Nicole Jarratt" },
+      { date: "2027-07-09", name: "Danny Staniforth" },
+      { date: "2027-07-10", name: "Emma Till" },
+      { date: "2027-07-17", name: "Emily Dunthorpe" },
+      { date: "2027-07-25", name: "Foongyee & Sam" },
+      { date: "2027-07-26", name: "Charlie Johnson" },
+      { date: "2027-08-14", name: "Lyndsey Wedding" },
+      { date: "2027-08-21", name: "Owen & Marisa" },
+      { date: "2027-10-22", name: "Melissa & Lewis" },
+    ]
+  };
+
+  const allBooked = [...BOOKED[2026], ...BOOKED[2027]];
+  const bookedDates = new Set(allBooked.map(e => e.date));
+
+  // ── Date checker ──
+  const picker = document.getElementById("datePicker");
+  const result = document.getElementById("result");
+
+  picker.addEventListener("change", () => {
+    const val = picker.value;
+    if (!val) { result.className = ""; result.style.display = "none"; return; }
+
+    const d = new Date(val + "T00:00:00");
+    const formatted = d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+    if (bookedDates.has(val)) {
+      const entry = allBooked.find(e => e.date === val);
+      result.className = "booked";
+      result.innerHTML = `<div class="result-status">&#10006; Already Booked</div>
+        <div class="result-detail">${formatted}<br><strong>${entry.name}</strong></div>`;
+    } else {
+      result.className = "available";
+      result.innerHTML = `<div class="result-status">&#10003; Available</div>
+        <div class="result-detail">${formatted}</div>`;
+    }
+
+    // Auto-switch year tab
+    const year = d.getFullYear();
+    if (BOOKED[year]) {
+      document.querySelectorAll(".year-tab").forEach(t => t.classList.remove("active"));
+      const tab = [...document.querySelectorAll(".year-tab")].find(t => t.textContent == year);
+      if (tab) { tab.classList.add("active"); renderList(year); }
+    }
+  });
+
+  // ── Booked list ──
+  function fmt(dateStr) {
+    const d = new Date(dateStr + "T00:00:00");
+    return d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  }
+
+  function renderList(year) {
+    const list = document.getElementById("bookedList");
+    list.innerHTML = (BOOKED[year] || [])
+      .map(e => `<div class="booked-item"><span class="bdate">${fmt(e.date)}</span><span class="bname">${e.name}</span></div>`)
+      .join("");
+  }
+
+  function showYear(year, btn) {
+    document.querySelectorAll(".year-tab").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+    renderList(year);
+  }
+
+  renderList(2026);
+</script>
+</body>
+</html>
