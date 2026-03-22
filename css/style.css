@@ -846,6 +846,92 @@ section {
    CTA BANNER
 ============================================= */
 
+/* =============================================
+   AVAILABILITY
+============================================= */
+
+.availability {
+  background: #1a0a2e;
+  padding: 5rem 2rem;
+}
+
+.availability__inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.availability .section__title,
+.availability .section__subtitle {
+  color: var(--white);
+}
+
+.avail__bars {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  text-align: left;
+}
+
+.avail__row {}
+
+.avail__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.7rem;
+}
+
+.avail__year {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  color: var(--white);
+}
+
+.avail__stat {
+  font-size: 0.85rem;
+  color: var(--purple-mist);
+  letter-spacing: 0.05em;
+}
+
+.avail__stat strong {
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.avail__track {
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.avail__fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--purple-clarity), var(--purple-mist));
+  border-radius: 4px;
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.avail__fill.animated {
+  width: var(--pct);
+}
+
+.avail__note {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(186,141,189,0.55);
+}
+
+/* =============================================
+   CTA BANNER
+============================================= */
+
 .cta-banner {
   background: linear-gradient(135deg, #BA8DBD 0%, #3d1545 50%, #722E80 100%);
   text-align: center;

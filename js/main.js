@@ -242,4 +242,19 @@ document.addEventListener('DOMContentLoaded', () => {
     bars.forEach(bar => barObserver.observe(bar));
   }
 
+  // AVAILABILITY BARS — animate on scroll
+  // ================================
+  const availFills = document.querySelectorAll('.avail__fill');
+  if (availFills.length) {
+    const availObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          availObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    availFills.forEach(el => availObserver.observe(el));
+  }
+
 });
