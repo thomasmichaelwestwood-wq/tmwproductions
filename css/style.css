@@ -842,6 +842,60 @@ section {
   border-color: var(--purple-mist);
 }
 
+/* Logo card variant — used on homepage venues section */
+.venues__logos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.venue-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 1.5rem 1.8rem;
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+  min-height: 110px;
+}
+
+.venue-logo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(186,141,189,0.2);
+  opacity: 0.92;
+}
+
+.venue-logo img {
+  max-width: 100%;
+  max-height: 70px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.venue-logo__name {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.5);
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .venues__logos { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .venues__logos { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .venue-logo { padding: 1.2rem; min-height: 90px; }
+  .venue-logo img { max-height: 55px; }
+}
+
 /* =============================================
    CTA BANNER
 ============================================= */
