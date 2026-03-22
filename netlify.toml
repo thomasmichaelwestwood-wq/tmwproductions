@@ -1,0 +1,15 @@
+[build]
+  # No build command needed for a static HTML site.
+  # Netlify will auto-detect and install dependencies from package.json.
+  publish = "."
+  functions = "netlify/functions"
+
+# Expose the function at the friendlier /api/... path expected by the front-end.
+[[redirects]]
+  from   = "/api/enquiry-webhook"
+  to     = "/.netlify/functions/enquiry-webhook"
+  status = 200
+
+[functions]
+  # Bundle each function with its node_modules using esbuild.
+  node_bundler = "esbuild"

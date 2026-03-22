@@ -1,0 +1,12 @@
+{
+  "name": "tmwproductions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TMW Productions website — static HTML + Netlify Functions",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "twilio": "^5.0.0"
+  }
+}
