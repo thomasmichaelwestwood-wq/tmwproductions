@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /wedding.html
 
 Sitemap: https://www.tmwproductions.co.uk/sitemap.xml
