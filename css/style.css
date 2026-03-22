@@ -985,10 +985,11 @@ section {
 ============================================= */
 
 .process {
-  background: #06000e;
+  background: #f5f3f7;
   position: relative;
   overflow: hidden;
   padding: 6rem 5%;
+  color: #1a0a2e;
 }
 
 .process::before,
@@ -1064,7 +1065,7 @@ section {
   height: 14px;
   border-radius: 50%;
   border: 2px solid rgba(186,141,189,0.25);
-  background: #06000e;
+  background: #f5f3f7;
   justify-self: center;
   align-self: center;
   position: relative;
@@ -1082,15 +1083,15 @@ section {
 /* Content card */
 .process__content {
   padding: 2rem 2.2rem;
-  border: 1px solid rgba(186,141,189,0.1);
-  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(186,141,189,0.3);
+  background: rgba(255,255,255,0.6);
   position: relative;
   transition: border-color 0.5s ease, background 0.5s ease;
 }
 
 .process__step.is-active .process__content {
-  border-color: rgba(186,141,189,0.28);
-  background: rgba(186,141,189,0.05);
+  border-color: rgba(186,141,189,0.6);
+  background: rgba(186,141,189,0.08);
 }
 
 /* Grid column placement — left & right variants */
@@ -1107,7 +1108,7 @@ section {
   font-family: var(--font-display);
   font-size: clamp(5rem, 11vw, 11rem);
   line-height: 1;
-  color: rgba(186,141,189,0.055);
+  color: rgba(186,141,189,0.18);
   user-select: none;
   pointer-events: none;
   will-change: transform;
@@ -1116,7 +1117,7 @@ section {
 }
 
 .process__step.is-active .process__num {
-  color: rgba(186,141,189,0.11);
+  color: rgba(186,141,189,0.28);
 }
 
 /* Icon */
@@ -1155,12 +1156,20 @@ section {
   letter-spacing: 0.08em;
   margin-bottom: 0.65rem;
   line-height: 1.15;
+  color: #1a0a2e;
 }
 
 .process__content p {
   font-size: 0.88rem;
-  opacity: 0.6;
+  opacity: 0.7;
   line-height: 1.85;
+  color: #1a0a2e;
+}
+
+.process .section__label,
+.process .section__title,
+.process .section__subtitle {
+  color: #1a0a2e;
 }
 
 /* Process CTA */
