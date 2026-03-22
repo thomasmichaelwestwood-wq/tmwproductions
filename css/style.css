@@ -852,21 +852,11 @@ section {
 
 .availability {
   background: #1a0a2e;
-  padding: 5rem 2rem;
-}
-
-.availability .section__title,
-.availability .section__subtitle {
-  color: var(--white);
-}
-
-.availability__inner {
-  max-width: 680px;
-  margin: 0 auto;
 }
 
 .avail__bars {
-  margin-top: 3rem;
+  max-width: 680px;
+  margin: 3rem auto 0;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
