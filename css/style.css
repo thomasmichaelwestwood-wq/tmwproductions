@@ -157,7 +157,8 @@ p {
 .nav__cta {
   background: var(--white);
   color: var(--purple-clarity) !important;
-  padding: 0.5rem 1.4rem;
+  padding: 0.65rem 1.8rem;
+  border-radius: 2rem;
   border-radius: 2px;
   font-weight: 600 !important;
   letter-spacing: 0.1em;
