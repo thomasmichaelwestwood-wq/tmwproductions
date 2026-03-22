@@ -1,58 +1,37 @@
 /* =============================================
    TMW PRODUCTIONS — Main Stylesheet
    Colours: #722E80 (bg), #BA8DBD (accent/dark), #FFFFFF (text)
-   Fonts: Bebas Neue (Bitcheese placeholder), Montserrat Light (Gotham sub)
+   Fonts: Bitcheese (headings), Gotham Light (body)
 ============================================= */
 
-/* --- Google Fonts fallback (active until local font files are added) --- */
+/* --- Google Fonts fallback (used if local fonts fail to load) --- */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600&display=swap');
 
-/* --- Local fonts ---
-     Drop font files into the /fonts folder then uncomment the blocks below.
-     Supported formats: .woff2 (preferred), .woff, .ttf, .otf
+/* --- Local fonts --- */
 
-     DISPLAY FONT — used for headings, buttons, labels
-     Add: fonts/YourDisplayFont.woff2 (and .woff as fallback)
-
-     BODY FONT — used for body copy (currently Montserrat / Gotham substitute)
-     Add: fonts/YourBodyFont-Light.woff2, YourBodyFont-Regular.woff2, YourBodyFont-SemiBold.woff2
----- */
-
-/* @font-face {
-  font-family: 'DisplayFont';
-  src: url('../fonts/YourDisplayFont.woff2') format('woff2'),
-       url('../fonts/YourDisplayFont.woff') format('woff');
+@font-face {
+  font-family: 'Bitcheese';
+  src: url('../fonts/Bitcheese.woff2') format('woff2'),
+       url('../fonts/Bitcheese.woff') format('woff'),
+       url('../fonts/Bitcheese.otf') format('opentype'),
+       url('../fonts/Bitcheese.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-} */
+}
 
-/* @font-face {
-  font-family: 'BodyFont';
-  src: url('../fonts/YourBodyFont-Light.woff2') format('woff2'),
-       url('../fonts/YourBodyFont-Light.woff') format('woff');
+@font-face {
+  font-family: 'Gotham';
+  src: url('../fonts/Gotham-Light.woff2') format('woff2'),
+       url('../fonts/Gotham-Light.woff') format('woff'),
+       url('../fonts/GothamLight.woff2') format('woff2'),
+       url('../fonts/Gotham Light.woff2') format('woff2'),
+       url('../fonts/Gotham-Light.otf') format('opentype'),
+       url('../fonts/Gotham-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
-
-@font-face {
-  font-family: 'BodyFont';
-  src: url('../fonts/YourBodyFont-Regular.woff2') format('woff2'),
-       url('../fonts/YourBodyFont-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'BodyFont';
-  src: url('../fonts/YourBodyFont-SemiBold.woff2') format('woff2'),
-       url('../fonts/YourBodyFont-SemiBold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-} */
 
 /* --- CSS Variables --- */
 :root {
@@ -61,8 +40,8 @@
   --white: #FFFFFF;
   --black: #BA8DBD;
 
-  --font-display: 'Bebas Neue', sans-serif; /* swap 'Bebas Neue' to 'DisplayFont' once added */
-  --font-body: 'Montserrat', sans-serif;    /* swap 'Montserrat' to 'BodyFont' once added */
+  --font-display: 'Bitcheese', 'Bebas Neue', sans-serif;
+  --font-body: 'Gotham', 'Montserrat', sans-serif;
 
   --transition: 0.3s ease;
   --transition-slow: 0.6s ease;
