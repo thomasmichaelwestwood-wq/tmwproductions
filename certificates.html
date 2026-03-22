@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TMW Productions certificates — PAT Testing and Public Liability Insurance documentation available for venues and clients who require them for compliance." />
+  <title>Certificates | TMW Productions</title>
+  <link rel="canonical" href="https://www.tmwproductions.co.uk/certificates.html" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+
+    /* ---- Page hero ---- */
+    .cert-hero {
+      background: linear-gradient(135deg, #1a0825 0%, #3d1545 50%, #722E80 100%);
+      padding: 10rem 5% 5rem;
+      text-align: center;
+    }
+
+    .cert-hero p {
+      max-width: 580px;
+      margin: 1.2rem auto 0;
+      opacity: 0.8;
+    }
+
+    /* ---- Cards section ---- */
+    .cert-section {
+      background: var(--purple-clarity);
+      padding: 5rem 5% 7rem;
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+      max-width: 900px;
+      margin: 3rem auto 0;
+    }
+
+    .cert-card {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(186, 141, 189, 0.25);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .cert-card:hover {
+      border-color: var(--purple-mist);
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .cert-card__icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(186, 141, 189, 0.12);
+      border: 1px solid rgba(186, 141, 189, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--purple-mist);
+      flex-shrink: 0;
+    }
+
+    .cert-card__title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+
+    .cert-card__meta {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+      opacity: 0.9;
+    }
+
+    .cert-card__desc {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .cert-card__divider {
+      height: 1px;
+      background: rgba(186, 141, 189, 0.15);
+    }
+
+    .cert-card__download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--white);
+      color: var(--purple-clarity);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.8rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition);
+      align-self: flex-start;
+    }
+
+    .cert-card__download:hover {
+      background: var(--purple-mist);
+      color: var(--white);
+    }
+
+    .cert-card__download i {
+      font-size: 0.9rem;
+    }
+
+    /* ---- Mobile ---- */
+    @media (max-width: 640px) {
+      .cert-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cert-card__download {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo"><img src="images/TMW_Full_PurpleWhite.png" alt="TMW Productions" class="nav__logo-img"></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <section class="cert-hero">
+    <span class="section__label" style="animation: fadeInDown 0.8s ease both;">Compliance & Documentation</span>
+    <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">Our Certificates</h1>
+    <p style="animation: fadeInUp 0.8s ease 0.4s both;">
+      The documents below are available for venues, event coordinators, and clients who require proof of compliance. Both files are provided for immediate download.
+    </p>
+  </section>
+
+  <!-- ======================== CERTIFICATES ======================== -->
+  <section class="cert-section">
+    <div class="cert-grid">
+
+      <!-- PAT Certificate -->
+      <div class="cert-card reveal">
+        <div class="cert-card__icon">
+          <i class="fa-solid fa-plug-circle-check"></i>
+        </div>
+        <div>
+          <div class="cert-card__title">PAT Testing Certificate</div>
+          <div class="cert-card__meta">Issued: 19 August 2025</div>
+        </div>
+        <p class="cert-card__desc">
+          Portable Appliance Testing confirms that all electrical equipment used at your event has been inspected and certified safe. Most venues require this before any DJ or supplier can bring equipment on site.
+        </p>
+        <div class="cert-card__divider"></div>
+        <a href="documents/pat-certificate.pdf" download="TMW-Productions-PAT-Certificate.pdf" class="cert-card__download">
+          <i class="fa-solid fa-download"></i> Download PAT Certificate
+        </a>
+      </div>
+
+      <!-- PLI Certificate -->
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-card__icon">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <div class="cert-card__title">Public Liability Insurance</div>
+          <div class="cert-card__meta">
+            <!-- TODO: Update this date once confirmed from the certificate document -->
+            Valid period: Please update manually
+          </div>
+        </div>
+        <p class="cert-card__desc">
+          TMW Productions holds Public Liability Insurance through the Mobile DJ Network (MDJN). This covers third-party injury or property damage arising from our work at your event, as required by most professional venues.
+        </p>
+        <div class="cert-card__divider"></div>
+        <a href="documents/pli-certificate.pdf" download="TMW-Productions-PLI-Certificate.pdf" class="cert-card__download">
+          <i class="fa-solid fa-download"></i> Download PLI Certificate
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><img src="images/TMW_Full_PurpleWhite.png" alt="TMW Productions" class="footer__logo-img"></div>
+        <p class="footer__tagline">Award-winning DJ & event host serving Leicestershire and the East Midlands.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties & Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="certificates.html">Certificates</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading"><a href="contact.html" style="color: inherit;">Get In Touch</a></div>
+        <p>Leicestershire &amp; East Midlands</p>
+        <br>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 TMW Productions. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
