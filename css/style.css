@@ -323,7 +323,7 @@ section {
   justify-content: center;
   text-align: center;
   overflow: hidden;
-  padding: 0 5%;
+  padding: 7rem 5% 5rem;
 }
 
 .hero__bg {
@@ -377,7 +377,6 @@ section {
   position: relative;
   z-index: 4;
   max-width: 900px;
-  padding-top: 6rem;
 }
 
 .hero__award {
