@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Every TMW Productions booking includes free access to the Planning Beats portal — your personal online space to plan your music, timeline, and event details." />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TMW Productions">
+  <meta property="og:title" content="Online Planning Portal | Free With Every Booking | TMW Productions">
+  <meta property="og:description" content="Every TMW Productions booking includes free access to the Planning Beats portal — your personal online space to plan your music, timeline, and event details.">
+  <meta property="og:url" content="https://www.tmwproductions.co.uk/planning-portal.html">
+  <meta property="og:image" content="https://www.tmwproductions.co.uk/images/IMG_0354.JPG">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Online Planning Portal | Free With Every Booking | TMW Productions">
+  <meta name="twitter:description" content="Every TMW Productions booking includes free access to the Planning Beats portal — your personal online space to plan your music, timeline, and event details.">
+  <meta name="twitter:image" content="https://www.tmwproductions.co.uk/images/IMG_0354.JPG">
+  <title>Online Planning Portal | Free With Every Booking | TMW Productions</title>
+  <link rel="icon" type="image/png" href="images/favcon.png" />
+  <link rel="canonical" href="https://www.tmwproductions.co.uk/planning-portal.html" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ---- Planning Portal page styles ---- */
+
+    .pb-logo-section {
+      background: var(--black);
+      padding: 4rem 5% 2rem;
+      text-align: center;
+    }
+
+    .pb-logo {
+      max-width: 220px;
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+
+    .pb-free-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(186,141,189,0.15);
+      border: 1px solid var(--purple-mist);
+      color: var(--purple-mist);
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      padding: 0.4rem 1rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Feature alternating rows */
+    .pb-features {
+      background: var(--black);
+      padding: 3rem 5% 5rem;
+    }
+
+    .pb-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto 6rem;
+    }
+
+    .pb-feature:last-child {
+      margin-bottom: 0;
+    }
+
+    .pb-feature--reverse .pb-feature__image {
+      order: 2;
+    }
+
+    .pb-feature--reverse .pb-feature__text {
+      order: 1;
+    }
+
+    .pb-feature__image {
+      display: flex;
+      justify-content: center;
+    }
+
+    .pb-feature__mockup {
+      max-width: 260px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(186,141,189,0.2);
+      display: block;
+    }
+
+    .pb-feature__icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(186,141,189,0.15);
+      border: 1px solid rgba(186,141,189,0.3);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--purple-mist);
+      margin-bottom: 1.2rem;
+    }
+
+    .pb-feature__label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--purple-mist);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .pb-feature__title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .pb-feature__desc {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      line-height: 1.8;
+    }
+
+    /* Save as web app section */
+    .pb-save-section {
+      background: var(--purple-clarity);
+      padding: 5rem 5%;
+    }
+
+    .pb-save-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pb-save__image {
+      display: flex;
+      justify-content: center;
+    }
+
+    .pb-save__mockup {
+      max-width: 280px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      display: block;
+    }
+
+    /* Included strip */
+    .pb-included {
+      background: linear-gradient(135deg, #3d1545, #1a0a1f);
+      padding: 4rem 5%;
+      text-align: center;
+      border-top: 1px solid rgba(186,141,189,0.2);
+      border-bottom: 1px solid rgba(186,141,189,0.2);
+    }
+
+    .pb-included__title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .pb-included__desc {
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      opacity: 0.85;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .pb-included__list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      list-style: none;
+    }
+
+    .pb-included__list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(186,141,189,0.25);
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .pb-included__list li i {
+      color: var(--purple-mist);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .pb-feature {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 4rem;
+      }
+
+      .pb-feature--reverse .pb-feature__image,
+      .pb-feature--reverse .pb-feature__text {
+        order: unset;
+      }
+
+      .pb-feature__image {
+        order: -1;
+      }
+
+      .pb-feature__mockup {
+        max-width: 200px;
+      }
+
+      .pb-save-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .pb-save__mockup {
+        max-width: 220px;
+        margin: 0 auto;
+      }
+
+      .pb-feature__title {
+        font-size: 1.6rem;
+      }
+
+      .pb-included__title {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo"><img src="images/TMW_Full_PurpleWhite.png" alt="TMW Productions" class="nav__logo-img"></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero__content">
+      <span class="section__label" style="animation: fadeInDown 0.8s ease both;">Planning Portal</span>
+      <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">Your Event, <br>Planned Your Way</h1>
+      <p style="max-width: 550px; opacity: 0.85; margin-top: 1rem; animation: fadeInUp 0.8s ease 0.4s both;">
+        Every booking includes free access to Planning Beats — a simple, easy-to-use online portal where you can sort your music, timeline, and event details, all in one place, at your own pace.
+      </p>
+      <div style="margin-top: 2rem; animation: fadeInUp 0.8s ease 0.6s both;">
+        <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Check Your Date</a>
+        <a href="#features" class="btn btn--outline">See How It Works</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARD STRIP -->
+  <div class="award-strip">
+    <div class="award-strip__inner">
+      <div class="award-strip__item">
+        <span class="award-strip__icon"><i class="fa-solid fa-circle-check"></i></span>
+        <div class="award-strip__text">
+          <strong>Completely Free</strong>
+          <span>Included with every booking</span>
+        </div>
+      </div>
+      <div class="award-strip__divider"></div>
+      <div class="award-strip__item">
+        <span class="award-strip__icon"><i class="fa-solid fa-mobile-screen"></i></span>
+        <div class="award-strip__text">
+          <strong>Works on Any Device</strong>
+          <span>Phone, tablet, laptop — your choice</span>
+        </div>
+      </div>
+      <div class="award-strip__divider"></div>
+      <div class="award-strip__item">
+        <span class="award-strip__icon"><i class="fa-solid fa-clock"></i></span>
+        <div class="award-strip__text">
+          <strong>Plan at Your Own Pace</strong>
+          <span>No rushing — update it whenever you like</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGO + INTRO -->
+  <div class="pb-logo-section">
+    <img src="images/Planning Beats Logo (1).png" alt="Planning Beats" class="pb-logo reveal" />
+    <span class="pb-free-badge reveal"><i class="fa-solid fa-gift"></i> Free with every booking</span>
+    <p class="section__subtitle reveal" style="max-width: 620px; margin: 0 auto; opacity: 0.75;">
+      Planning Beats is a dedicated planning portal used by professional DJs. When you book with me, you get full access — completely free. No logins to pay for, no extra steps. Just a clear, simple way to get your event exactly right.
+    </p>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="pb-features" id="features">
+
+    <!-- Song Search -->
+    <div class="pb-feature">
+      <div class="pb-feature__image reveal-left">
+        <img src="images/Song Search Mobile Graphic (1).png" alt="Song Search on Planning Beats" class="pb-feature__mockup" />
+      </div>
+      <div class="pb-feature__text reveal-right">
+        <div class="pb-feature__icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <span class="pb-feature__label">Search</span>
+        <h2 class="pb-feature__title">Find Any Song You Want</h2>
+        <p class="pb-feature__desc">
+          Browse from millions of tracks using the built-in search. Found something you love? Add it straight to your list. Found something you'd rather never hear? Mark it as a must-not-play. Simple as that.
+        </p>
+      </div>
+    </div>
+
+    <!-- Song List -->
+    <div class="pb-feature pb-feature--reverse">
+      <div class="pb-feature__image reveal-right">
+        <img src="images/Song List Mobile Graphic (2).png" alt="Song List on Planning Beats" class="pb-feature__mockup" />
+      </div>
+      <div class="pb-feature__text reveal-left">
+        <div class="pb-feature__icon"><i class="fa-solid fa-list-music"></i></div>
+        <span class="pb-feature__label">Music</span>
+        <h2 class="pb-feature__title">Your Playlist, Your Rules</h2>
+        <p class="pb-feature__desc">
+          Build your must-play list, flag songs you definitely don't want, and add any special tracks for key moments — first dance, walkout, cake cutting. Everything in one place, ready when you are.
+        </p>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="pb-feature">
+      <div class="pb-feature__image reveal-left">
+        <img src="images/Timeline Mobile Graphic (1).png" alt="Timeline on Planning Beats" class="pb-feature__mockup" />
+      </div>
+      <div class="pb-feature__text reveal-right">
+        <div class="pb-feature__icon"><i class="fa-solid fa-timeline"></i></div>
+        <span class="pb-feature__label">Timeline</span>
+        <h2 class="pb-feature__title">Map Out Your Whole Day</h2>
+        <p class="pb-feature__desc">
+          Set your key times — when guests arrive, when dinner starts, when the first dance is, when the evening ends. I'll use this to make sure the music fits perfectly around every moment of your day.
+        </p>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div class="pb-feature pb-feature--reverse">
+      <div class="pb-feature__image reveal-right">
+        <img src="images/Questions Mobile Graphic (1).png" alt="Questions on Planning Beats" class="pb-feature__mockup" />
+      </div>
+      <div class="pb-feature__text reveal-left">
+        <div class="pb-feature__icon"><i class="fa-solid fa-clipboard-question"></i></div>
+        <span class="pb-feature__label">Details</span>
+        <h2 class="pb-feature__title">Tell Me Everything I Need to Know</h2>
+        <p class="pb-feature__desc">
+          A short set of questions covers all the important details — your venue, your vibe, your guests, any special announcements. Answer them when it suits you and I'll have everything I need well before the day.
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SAVE AS WEB APP -->
+  <section class="pb-save-section">
+    <div class="pb-save-inner">
+      <div class="pb-save__image reveal-left">
+        <img src="images/Save The Web App Graphic (1).png" alt="Save Planning Beats as a Web App" class="pb-save__mockup" />
+      </div>
+      <div class="reveal-right">
+        <div style="width:48px;height:48px;background:rgba(186,141,189,0.15);border:1px solid rgba(186,141,189,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--purple-mist);margin-bottom:1.2rem;">
+          <i class="fa-solid fa-arrow-down-to-line"></i>
+        </div>
+        <span class="section__label" style="text-align:left;">One Tap Away</span>
+        <h2 class="section__title" style="text-align:left;">Save It to Your Home Screen</h2>
+        <p style="opacity: 0.8; line-height: 1.8; margin-bottom: 1.5rem;">
+          Planning Beats works as a web app — which means you can add it to your phone's home screen just like any other app. No app store needed. Tap it, you're in. It's that easy.
+        </p>
+        <p style="opacity: 0.7; font-size: 0.9rem; line-height: 1.7;">
+          On iPhone: open the portal in Safari, tap the share icon, and choose <strong>"Add to Home Screen"</strong>.<br>
+          On Android: open in Chrome, tap the three dots, and choose <strong>"Add to Home Screen"</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INCLUDED IN ALL BOOKINGS -->
+  <section class="pb-included">
+    <span class="section__label reveal">No Extra Cost</span>
+    <h2 class="pb-included__title reveal">Included in Every Booking. No Exceptions.</h2>
+    <p class="pb-included__desc reveal">
+      You don't need to pay anything extra or sign up for a separate service. The moment you book with me, you get full access to the Planning Beats portal — completely free. It's just part of how I work.
+    </p>
+    <ul class="pb-included__list reveal">
+      <li><i class="fa-solid fa-check"></i> Song search & playlist builder</li>
+      <li><i class="fa-solid fa-check"></i> Must-plays & must-not-plays</li>
+      <li><i class="fa-solid fa-check"></i> Event timeline planner</li>
+      <li><i class="fa-solid fa-check"></i> Special moment music</li>
+      <li><i class="fa-solid fa-check"></i> Event details questionnaire</li>
+      <li><i class="fa-solid fa-check"></i> Home screen web app</li>
+      <li><i class="fa-solid fa-check"></i> Access right up to your event</li>
+      <li><i class="fa-solid fa-check"></i> 100% free — always</li>
+    </ul>
+    <div class="reveal">
+      <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Check Your Date</a>
+      <a href="weddings.html" class="btn btn--outline">Wedding DJ Info</a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section style="background: var(--black); padding: 5rem 5%;">
+    <div class="container text-center">
+      <div style="max-width: 700px; margin: 0 auto;">
+        <div style="font-size: 4rem; color: var(--purple-mist); opacity: 0.4; font-family: Georgia, serif; line-height: 1; margin-bottom: 1rem;">"</div>
+        <p style="font-size: 1.2rem; font-style: italic; opacity: 0.9; line-height: 1.8; margin-bottom: 2rem;" class="reveal">
+          "He was there every step of the way. The planning was so easy — knowing exactly what was happening and when meant we could just relax and enjoy the day."
+        </p>
+        <div class="reveal">
+          <strong style="font-size: 0.95rem;">Happy Couple</strong>
+          <span style="opacity: 0.5; font-size: 0.85rem;"> — via Google ★★★★★</span>
+        </div>
+        <div style="margin-top: 2.5rem;" class="reveal">
+          <a href="reviews.html" class="btn btn--outline">Read All Reviews</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <span class="section__label reveal">Ready to Book?</span>
+    <h2 class="reveal">Let's Get You Planned</h2>
+    <p class="reveal">Book your date and you'll get access to your own planning portal straight away. No waiting, no extra setup — just a simple, stress-free way to get everything sorted.</p>
+    <div class="reveal">
+      <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Check Your Date</a>
+    </div>
+    <p style="margin-top: 2rem; opacity: 0.5; font-size: 0.8rem; text-align: center; width: 100%;" class="reveal"><span style="white-space: nowrap;">Planning portal included free</span><span style="margin: 0 0.6em; opacity: 0.5;">&middot;</span><span style="white-space: nowrap;">Evening entertainment from £545</span><span style="margin: 0 0.6em; opacity: 0.5;">&middot;</span><span style="white-space: nowrap;">£100 deposit to secure your date</span></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><img src="images/TMW_Full_PurpleWhite.png" alt="TMW Productions" class="footer__logo-img"></div>
+        <p class="footer__tagline">Award-winning DJ & event host serving Leicestershire and the East Midlands.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties & Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="planning-portal.html">Planning Portal</a></li>
+          <li><a href="certificates.html">Certificates</a></li>
+          <li><a href="people-i-recommend.html">Recommended by Me</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading"><a href="contact.html" style="color: inherit;">Get In Touch</a></div>
+        <p>Leicestershire &amp; East Midlands</p>
+        <br>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024–2026 TMW Productions. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
