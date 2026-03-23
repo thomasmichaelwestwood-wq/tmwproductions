@@ -972,6 +972,26 @@ section {
 }
 
 /* =============================================
+   PARTNER BANNER
+============================================= */
+
+.partner-banner {
+  width: 100%;
+  line-height: 0;
+}
+
+.partner-banner a {
+  display: block;
+  width: 100%;
+}
+
+.partner-banner__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* =============================================
    CTA BANNER
 ============================================= */
 
