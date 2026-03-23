@@ -395,7 +395,8 @@
               src="${escapeHtml(supplier.logo_url)}"
               alt="${escapeHtml(supplier.name)} logo"
               loading="lazy"
-              onerror="this.closest('.supplier-card__logo-wrap').replaceWith(makePlaceholder('${escapeHtml(supplier.name)}'))"
+              data-supplier-name="${escapeHtml(supplier.name)}"
+              onerror="this.closest('.supplier-card__logo-wrap').replaceWith(makePlaceholder(this.dataset.supplierName))"
             />
           </div>`;
       } else {
@@ -456,6 +457,19 @@
         .replace(/'/g, '&#39;');
     }
 
+    // ── Reveal observer for dynamically created cards ─────────────────────
+    // main.js's IntersectionObserver runs at DOMContentLoaded — before the
+    // async fetch returns — so cards added later are never observed by it.
+    // We create our own observer here that stays alive across filter changes.
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
     // ── State ─────────────────────────────────────────────────────────────
     let allSuppliers = [];
 
@@ -504,10 +518,8 @@
         grid.appendChild(renderCard(supplier));
       }
 
-      // Trigger reveal animations (main.js registers an IntersectionObserver)
-      if (window._revealObserver) {
-        grid.querySelectorAll('.reveal').forEach(el => window._revealObserver.observe(el));
-      }
+      // Register newly added cards with the local reveal observer
+      grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     }
 
     function populateCategoryDropdown(suppliers) {
