@@ -537,8 +537,8 @@
     (async function init() {
       try {
         const [suppliersRes, metaRes] = await Promise.all([
-          fetch('/public/data/suppliers.json'),
-          fetch('/public/data/sync-meta.json').catch(() => null)
+          fetch('public/data/suppliers.json'),
+          fetch('public/data/sync-meta.json').catch(() => null)
         ]);
 
         if (!suppliersRes.ok) throw new Error(`${suppliersRes.status}`);
