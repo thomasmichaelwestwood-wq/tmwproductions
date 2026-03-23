@@ -18,6 +18,9 @@
 
 'use strict';
 
+// Load .env if present (so `npm run sync-suppliers` works without prefixing env vars)
+try { require('dotenv').config({ quiet: true }); } catch (_) { /* dotenv optional */ }
+
 const fs   = require('fs');
 const path = require('path');
 

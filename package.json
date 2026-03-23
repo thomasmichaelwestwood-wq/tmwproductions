@@ -11,5 +11,8 @@
   },
   "dependencies": {
     "twilio": "^5.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1"
   }
 }
