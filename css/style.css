@@ -978,6 +978,7 @@ section {
 .partner-banner {
   width: 100%;
   line-height: 0;
+  background: #000;
 }
 
 .partner-banner a {
