@@ -1,0 +1,45 @@
+name: Sync Suppliers from Jotform
+
+# Runs every day at 3am UTC.
+# Can also be triggered manually from the Actions tab,
+# or by the Jotform webhook function via repository_dispatch.
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [new-supplier]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit suppliers.json back to the repo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run supplier sync
+        run: npm run sync-suppliers
+        env:
+          JOTFORM_API_KEY: ${{ secrets.JOTFORM_API_KEY }}
+
+      - name: Commit updated supplier data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/suppliers.json public/data/sync-meta.json
+          # Only commit if something actually changed
+          if git diff --staged --quiet; then
+            echo "No changes to supplier data — nothing to commit."
+          else
+            git commit -m "chore: sync suppliers from Jotform [skip ci]"
+            git push
+          fi

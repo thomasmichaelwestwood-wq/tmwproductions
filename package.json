@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=18"
   },
+  "scripts": {
+    "sync-suppliers": "node scripts/sync-from-jotform.js"
+  },
   "dependencies": {
     "twilio": "^5.0.0"
   }

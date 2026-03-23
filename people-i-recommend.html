@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wedding and event suppliers recommended by Tom Westwood of TMW Productions — photographers, florists, caterers and more across Leicestershire and the East Midlands." />
+  <title>People I Recommend | TMW Productions</title>
+  <link rel="canonical" href="https://www.tmwproductions.co.uk/people-i-recommend.html" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ── Supplier directory — page-specific styles ── */
+
+    /* Filter bar */
+    .supplier-filters {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .supplier-filters input[type="text"] {
+      flex: 1;
+      min-width: 220px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(186,141,189,0.35);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 0.75rem 1.1rem;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+
+    .supplier-filters input[type="text"]::placeholder {
+      color: rgba(255,255,255,0.35);
+    }
+
+    .supplier-filters input[type="text"]:focus {
+      border-color: var(--purple-mist);
+    }
+
+    .supplier-filters select {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(186,141,189,0.35);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 0.75rem 1.1rem;
+      outline: none;
+      cursor: pointer;
+      min-width: 180px;
+      transition: border-color var(--transition);
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23BA8DBD' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .supplier-filters select:focus {
+      border-color: var(--purple-mist);
+    }
+
+    .supplier-filters select option {
+      background: #2a0a3a;
+      color: var(--white);
+    }
+
+    .supplier-filters .btn--outline {
+      padding: 0.75rem 1.4rem;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Supplier grid */
+    .supplier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .supplier-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 560px) {
+      .supplier-grid { grid-template-columns: 1fr; }
+      .supplier-filters { flex-direction: column; align-items: stretch; }
+      .supplier-filters input[type="text"],
+      .supplier-filters select { width: 100%; min-width: unset; }
+    }
+
+    /* Supplier card */
+    .supplier-card {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(186,141,189,0.2);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .supplier-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--purple-mist);
+    }
+
+    /* Logo container — white box, consistent across all logo types */
+    .supplier-card__logo-wrap {
+      width: 88px;
+      height: 88px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      padding: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .supplier-card__logo-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Placeholder shown when there's no logo */
+    .supplier-card__logo-placeholder {
+      width: 88px;
+      height: 88px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .supplier-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+    }
+
+    .supplier-card__name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+    }
+
+    .supplier-card__category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+    }
+
+    .supplier-card__area {
+      font-size: 0.8rem;
+      opacity: 0.55;
+      letter-spacing: 0.05em;
+    }
+
+    .supplier-card__area i {
+      margin-right: 0.3rem;
+      font-size: 0.72rem;
+    }
+
+    .supplier-card__desc {
+      font-size: 0.88rem;
+      opacity: 0.8;
+      line-height: 1.65;
+      margin-top: 0.3rem;
+      flex: 1;
+    }
+
+    .supplier-card__footer {
+      margin-top: 0.6rem;
+    }
+
+    .supplier-card__footer .btn {
+      font-size: 0.8rem;
+      padding: 0.55rem 1.3rem;
+      letter-spacing: 0.12em;
+    }
+
+    /* Empty state */
+    .supplier-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      opacity: 0.6;
+    }
+
+    .supplier-empty i {
+      font-size: 3rem;
+      color: var(--purple-mist);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* Last updated note */
+    .directory-meta {
+      text-align: center;
+      padding: 0 5% 3.5rem;
+      font-size: 0.78rem;
+      opacity: 0.38;
+      letter-spacing: 0.08em;
+    }
+
+    /* Loading state */
+    .supplier-loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo"><img src="images/TMW_Full_PurpleWhite.png" alt="TMW Productions" class="nav__logo-img"></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- ======================== PAGE HERO ======================== -->
+  <section class="page-hero">
+    <div class="page-hero__content">
+      <span class="section__label" style="animation: fadeInDown 0.8s ease both;">Recommended Suppliers</span>
+      <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">People I Recommend</h1>
+      <p style="max-width: 580px; opacity: 0.85; margin-top: 1rem; line-height: 1.8; animation: fadeInUp 0.8s ease 0.4s both;">
+        Over 25 years behind the decks, I've worked alongside some genuinely brilliant people. These are suppliers I've seen deliver for real couples on real wedding days — people I'd recommend to any couple without a moment's hesitation.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================== DIRECTORY ======================== -->
+  <section style="background: var(--purple-clarity); padding: 5rem 5%;">
+    <div class="container">
+
+      <!-- Filter bar -->
+      <div class="supplier-filters reveal">
+        <input
+          type="text"
+          id="supplierSearch"
+          placeholder="Search by name, category or description…"
+          autocomplete="off"
+          aria-label="Search suppliers"
+        />
+        <select id="categoryFilter" aria-label="Filter by category">
+          <option value="">All categories</option>
+        </select>
+        <button id="clearFilters" class="btn btn--outline" style="display: none;">
+          <i class="fa-solid fa-xmark" style="margin-right: 0.4rem;"></i>Clear
+        </button>
+      </div>
+
+      <!-- Card grid (populated by JS) -->
+      <div class="supplier-grid" id="supplierGrid">
+        <div class="supplier-loading">
+          <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: var(--purple-mist);"></i>
+          <p style="margin-top: 1rem; font-size: 0.9rem;">Loading directory…</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== LAST UPDATED ======================== -->
+  <p class="directory-meta" id="lastUpdated" style="display: none;"></p>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><img src="images/TMW_Full_PurpleWhite.png" alt="TMW Productions" class="footer__logo-img"></div>
+        <p class="footer__tagline">Award-winning DJ &amp; event host serving Leicestershire and the East Midlands.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook">f</a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties &amp; Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="certificates.html">Certificates</a></li>
+          <li><a href="people-i-recommend.html">People I Recommend</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading"><a href="contact.html" style="color: inherit;">Get In Touch</a></div>
+        <p>Leicestershire &amp; East Midlands</p>
+        <br>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024 TMW Productions. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <script>
+    // ── Supplier directory: load, filter, render ──────────────────────────
+
+    // Placeholder background colours for suppliers without a logo.
+    // Derived consistently from the supplier name so the same supplier
+    // always gets the same colour across page loads.
+    const PLACEHOLDER_COLOURS = [
+      'linear-gradient(135deg, #722E80, #BA8DBD)',
+      'linear-gradient(135deg, #3d1545, #722E80)',
+      'linear-gradient(135deg, #BA8DBD, #3d1545)',
+      'linear-gradient(135deg, #5a2270, #c9a0cc)',
+      'linear-gradient(135deg, #2a0a3a, #722E80)',
+    ];
+
+    function colourForName(name) {
+      let hash = 0;
+      for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
+      return PLACEHOLDER_COLOURS[Math.abs(hash) % PLACEHOLDER_COLOURS.length];
+    }
+
+    function formatDate(iso) {
+      try {
+        return new Date(iso).toLocaleDateString('en-GB', {
+          day: 'numeric', month: 'long', year: 'numeric'
+        });
+      } catch { return iso; }
+    }
+
+    function buildCategoryLabel(supplier) {
+      if (supplier.subcategory) return `${supplier.category} — ${supplier.subcategory}`;
+      return supplier.category || '';
+    }
+
+    function renderCard(supplier) {
+      const card = document.createElement('div');
+      card.className = 'supplier-card reveal';
+
+      // Logo or placeholder
+      let logoHTML;
+      if (supplier.logo_url) {
+        logoHTML = `
+          <div class="supplier-card__logo-wrap">
+            <img
+              class="supplier-card__logo-img"
+              src="${escapeHtml(supplier.logo_url)}"
+              alt="${escapeHtml(supplier.name)} logo"
+              loading="lazy"
+              onerror="this.closest('.supplier-card__logo-wrap').replaceWith(makePlaceholder('${escapeHtml(supplier.name)}'))"
+            />
+          </div>`;
+      } else {
+        const initial  = (supplier.name || '?').charAt(0).toUpperCase();
+        const gradient = colourForName(supplier.name || '');
+        logoHTML = `
+          <div class="supplier-card__logo-placeholder" style="background: ${gradient};">
+            ${initial}
+          </div>`;
+      }
+
+      // Website button
+      const websiteBtn = supplier.website
+        ? `<div class="supplier-card__footer">
+             <a href="${escapeHtml(supplier.website)}" target="_blank" rel="noopener noreferrer" class="btn btn--outline">
+               Visit website <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.7rem; margin-left: 0.4rem;"></i>
+             </a>
+           </div>`
+        : '';
+
+      const catLabel   = buildCategoryLabel(supplier);
+      const areaLabel  = supplier.area
+        ? `<div class="supplier-card__area"><i class="fa-solid fa-location-dot"></i>${escapeHtml(supplier.area)}</div>`
+        : '';
+      const descHTML   = supplier.description
+        ? `<p class="supplier-card__desc">${escapeHtml(supplier.description)}</p>`
+        : '';
+
+      card.innerHTML = `
+        ${logoHTML}
+        <div class="supplier-card__body">
+          <div class="supplier-card__name">${escapeHtml(supplier.name)}</div>
+          ${catLabel  ? `<div class="supplier-card__category">${escapeHtml(catLabel)}</div>` : ''}
+          ${areaLabel}
+          ${descHTML}
+        </div>
+        ${websiteBtn}
+      `;
+      return card;
+    }
+
+    // Called from onerror on logo images
+    window.makePlaceholder = function(name) {
+      const el        = document.createElement('div');
+      el.className    = 'supplier-card__logo-placeholder';
+      el.style.background = colourForName(name);
+      el.textContent  = (name || '?').charAt(0).toUpperCase();
+      return el;
+    };
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // ── State ─────────────────────────────────────────────────────────────
+    let allSuppliers = [];
+
+    function applyFilters() {
+      const searchVal  = document.getElementById('supplierSearch').value.trim().toLowerCase();
+      const catVal     = document.getElementById('categoryFilter').value;
+      const clearBtn   = document.getElementById('clearFilters');
+
+      const active = searchVal || catVal;
+      clearBtn.style.display = active ? '' : 'none';
+
+      const filtered = allSuppliers.filter(s => {
+        const matchesCat = !catVal || s.category === catVal;
+        if (!matchesCat) return false;
+        if (!searchVal) return true;
+        return (
+          (s.name        || '').toLowerCase().includes(searchVal) ||
+          (s.category    || '').toLowerCase().includes(searchVal) ||
+          (s.subcategory || '').toLowerCase().includes(searchVal) ||
+          (s.description || '').toLowerCase().includes(searchVal)
+        );
+      });
+
+      renderGrid(filtered, active);
+    }
+
+    function renderGrid(suppliers, hasFilters) {
+      const grid = document.getElementById('supplierGrid');
+      grid.innerHTML = '';
+
+      if (suppliers.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'supplier-empty';
+        empty.innerHTML = `
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <p style="font-size: 1rem; font-weight: 300;">
+            ${hasFilters
+              ? "No suppliers match your search — try adjusting your filters."
+              : "No suppliers in the directory yet — check back soon."}
+          </p>`;
+        grid.appendChild(empty);
+        return;
+      }
+
+      for (const supplier of suppliers) {
+        grid.appendChild(renderCard(supplier));
+      }
+
+      // Trigger reveal animations (main.js registers an IntersectionObserver)
+      if (window._revealObserver) {
+        grid.querySelectorAll('.reveal').forEach(el => window._revealObserver.observe(el));
+      }
+    }
+
+    function populateCategoryDropdown(suppliers) {
+      const select = document.getElementById('categoryFilter');
+      const cats   = [...new Set(suppliers.map(s => s.category).filter(Boolean))].sort();
+      for (const cat of cats) {
+        const opt    = document.createElement('option');
+        opt.value    = cat;
+        opt.textContent = cat;
+        select.appendChild(opt);
+      }
+    }
+
+    // ── Boot: fetch data then render ──────────────────────────────────────
+    (async function init() {
+      try {
+        const [suppliersRes, metaRes] = await Promise.all([
+          fetch('/public/data/suppliers.json'),
+          fetch('/public/data/sync-meta.json').catch(() => null)
+        ]);
+
+        if (!suppliersRes.ok) throw new Error(`${suppliersRes.status}`);
+        allSuppliers = await suppliersRes.json();
+
+        // Populate category dropdown from live data
+        populateCategoryDropdown(allSuppliers);
+
+        // Initial render
+        renderGrid(allSuppliers, false);
+
+        // Last updated
+        if (metaRes && metaRes.ok) {
+          const meta = await metaRes.json();
+          if (meta.last_synced) {
+            const el   = document.getElementById('lastUpdated');
+            el.textContent = `Directory last updated: ${formatDate(meta.last_synced)}`;
+            el.style.display = '';
+          }
+        }
+
+        // Wire up filters
+        document.getElementById('supplierSearch').addEventListener('input', applyFilters);
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('clearFilters').addEventListener('click', () => {
+          document.getElementById('supplierSearch').value = '';
+          document.getElementById('categoryFilter').value = '';
+          applyFilters();
+        });
+
+      } catch (err) {
+        const grid = document.getElementById('supplierGrid');
+        grid.innerHTML = `
+          <div class="supplier-empty">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <p style="font-size: 1rem;">Couldn't load the directory right now — please try again shortly.</p>
+          </div>`;
+        console.error('Supplier directory load error:', err);
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -4,10 +4,15 @@
   publish = "."
   functions = "netlify/functions"
 
-# Expose the function at the friendlier /api/... path expected by the front-end.
+# Expose functions at the friendlier /api/... path.
 [[redirects]]
   from   = "/api/enquiry-webhook"
   to     = "/.netlify/functions/enquiry-webhook"
+  status = 200
+
+[[redirects]]
+  from   = "/api/jotform-webhook"
+  to     = "/.netlify/functions/jotform-webhook"
   status = 200
 
 [functions]
