@@ -1302,13 +1302,18 @@ section {
   letter-spacing: 0.08em;
   margin-bottom: 0.65rem;
   line-height: 1.15;
-  color: var(--white);
+  color: #1a1a2e;
 }
 
 .process__content p {
   font-size: 0.88rem;
   opacity: 0.8;
   line-height: 1.85;
+  color: #1a1a2e;
+}
+
+.process__step.is-active .process__content h3,
+.process__step.is-active .process__content p {
   color: var(--white);
 }
 
@@ -1374,9 +1379,17 @@ section {
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
+.testimonial-card.reveal {
+  opacity: 0.15;
+}
+
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.testimonial-card.reveal.visible {
+  opacity: 1;
 }
 
 .reveal-left {
