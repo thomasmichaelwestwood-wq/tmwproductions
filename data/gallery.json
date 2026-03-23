@@ -1,0 +1,10 @@
+// HOW TO ADD A NEW PHOTO:
+// 1. Drop the image file into the images/ folder
+// 2. Add a new entry below with the src path and a short alt description
+// 3. Save — it will appear in the gallery immediately
+[
+  {
+    "src": "images/IMG_0354.JPG",
+    "alt": "TMW Productions event setup"
+  }
+]

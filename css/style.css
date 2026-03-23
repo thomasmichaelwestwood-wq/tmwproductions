@@ -1417,17 +1417,26 @@ section {
   overflow: hidden;
 }
 
+/* Full-width photo background */
 .page-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('../images/page-hero-placeholder.jpg') center/cover no-repeat;
-  opacity: 0.15;
+  background: url('../images/IMG_0354.JPG') center/cover no-repeat;
+  opacity: 1;
+}
+
+/* Dark overlay so heading text stays legible */
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .page-hero__content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 700px;
 }
 

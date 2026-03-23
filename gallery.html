@@ -9,135 +9,97 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    .gallery-filters {
+    /* ── Gallery page styles ── */
+
+    .gallery-section {
       background: var(--black);
-      padding: 3rem 5% 0;
+      padding: 4rem 5% 6rem;
     }
 
-    .gallery-filters__inner {
+    /* Masonry grid using CSS columns */
+    .gallery-masonry {
       max-width: 1200px;
       margin: 0 auto;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
+      columns: 3;
+      column-gap: 6px;
     }
 
-    .filter-btn {
-      padding: 0.5rem 1.4rem;
-      border: 1px solid rgba(186,141,189,0.3);
-      background: transparent;
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all var(--transition);
+    @media (max-width: 900px) {
+      .gallery-masonry { columns: 2; }
     }
 
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--purple-mist);
-      border-color: var(--purple-mist);
-      color: var(--white);
+    @media (max-width: 560px) {
+      .gallery-masonry { columns: 1; }
     }
 
-    .gallery-grid {
-      background: var(--black);
-      padding: 3rem 5% 6rem;
-    }
-
-    .gallery-grid__inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3px;
-    }
-
-    .gallery-item {
-      position: relative;
+    .gallery-masonry__item {
+      break-inside: avoid;
+      margin-bottom: 6px;
       overflow: hidden;
       cursor: pointer;
-      aspect-ratio: 1;
+      position: relative;
     }
 
-    .gallery-item--wide {
-      grid-column: span 2;
-      aspect-ratio: 2/1;
-    }
-
-    .gallery-item--tall {
-      grid-row: span 2;
-      aspect-ratio: 1/2;
-    }
-
-    .gallery-item__img {
+    .gallery-masonry__img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
     }
 
-    .gallery-item__placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      transition: transform 0.6s ease;
-      font-size: 3rem;
+    .gallery-masonry__item:hover .gallery-masonry__img {
+      transform: scale(1.04);
     }
 
-    .gallery-item__placeholder span {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.5;
-    }
-
-    .gallery-item:hover .gallery-item__placeholder,
-    .gallery-item:hover .gallery-item__img {
-      transform: scale(1.05);
-    }
-
-    .gallery-item__overlay {
+    .gallery-masonry__overlay {
       position: absolute;
       inset: 0;
-      background: rgba(114,46,128,0);
+      background: rgba(114, 46, 128, 0);
+      transition: background var(--transition-slow);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background var(--transition-slow);
     }
 
-    .gallery-item:hover .gallery-item__overlay {
-      background: rgba(114,46,128,0.5);
+    .gallery-masonry__item:hover .gallery-masonry__overlay {
+      background: rgba(114, 46, 128, 0.4);
     }
 
-    .gallery-item__label {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      letter-spacing: 0.15em;
+    .gallery-masonry__zoom {
+      color: var(--white);
+      font-size: 1.8rem;
       opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: scale(0.8);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .gallery-item:hover .gallery-item__label {
+    .gallery-masonry__item:hover .gallery-masonry__zoom {
       opacity: 1;
-      transform: translateY(0);
+      transform: scale(1);
+    }
+
+    /* Loading / empty states */
+    .gallery-loading,
+    .gallery-empty {
+      text-align: center;
+      padding: 5rem 2rem;
+      opacity: 0.55;
+      color: var(--white);
+    }
+
+    .gallery-loading i,
+    .gallery-empty i {
+      font-size: 2.5rem;
+      color: var(--purple-mist);
+      margin-bottom: 1rem;
+      display: block;
     }
 
     /* Lightbox */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.95);
+      background: rgba(0, 0, 0, 0.95);
       z-index: 2000;
       display: flex;
       align-items: center;
@@ -154,26 +116,89 @@
 
     .lightbox__close {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
+      top: 1.5rem;
+      right: 1.5rem;
       background: none;
       border: none;
       color: var(--white);
-      font-size: 2rem;
+      font-size: 1.8rem;
       cursor: pointer;
-      opacity: 0.7;
+      opacity: 0.65;
       transition: opacity var(--transition);
+      line-height: 1;
+      padding: 0.3rem;
     }
 
     .lightbox__close:hover { opacity: 1; }
 
+    .lightbox__prev,
+    .lightbox__next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--white);
+      font-size: 2rem;
+      width: 3.2rem;
+      height: 3.2rem;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity var(--transition), background var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+    }
+
+    .lightbox__prev { left: 1.5rem; }
+    .lightbox__next { right: 1.5rem; }
+
+    .lightbox__prev:hover,
+    .lightbox__next:hover {
+      opacity: 1;
+      background: rgba(186, 141, 189, 0.2);
+    }
+
+    .lightbox__prev:disabled,
+    .lightbox__next:disabled {
+      opacity: 0.2;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .lightbox__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 5rem;
+      max-width: 100%;
+    }
+
     .lightbox__img {
       max-width: 90vw;
-      max-height: 85vh;
+      max-height: 82vh;
       object-fit: contain;
       display: block;
     }
 
+    .lightbox__caption {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-align: center;
+      max-width: 600px;
+      margin: 0;
+    }
+
+    @media (max-width: 560px) {
+      .lightbox__prev { left: 0.5rem; }
+      .lightbox__next { right: 0.5rem; }
+      .lightbox__inner { padding: 0 3.5rem; }
+    }
+
+    /* Instagram CTA */
     .instagram-cta {
       background: var(--purple-clarity);
       text-align: center;
@@ -185,21 +210,6 @@
       font-size: 3rem;
       color: var(--purple-mist);
       margin: 1rem 0;
-    }
-
-    @media (max-width: 768px) {
-      .gallery-grid__inner {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .gallery-item--wide { grid-column: span 2; }
-      .gallery-item--tall { grid-row: span 1; aspect-ratio: 1; }
-    }
-
-    @media (max-width: 480px) {
-      .gallery-grid__inner {
-        grid-template-columns: 1fr;
-      }
-      .gallery-item--wide { grid-column: span 1; aspect-ratio: 1; }
     }
   </style>
 </head>
@@ -232,109 +242,13 @@
     </div>
   </section>
 
-  <!-- FILTERS -->
-  <div class="gallery-filters">
-    <div class="gallery-filters__inner">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="weddings">Weddings</button>
-      <button class="filter-btn" data-filter="parties">Parties</button>
-      <button class="filter-btn" data-filter="setup">Setup & Booth</button>
-      <button class="filter-btn" data-filter="lighting">Lighting</button>
-    </div>
-  </div>
-
   <!-- GALLERY GRID -->
-  <div class="gallery-grid">
-    <div class="gallery-grid__inner" id="galleryGrid">
-
-      <!-- Row 1 -->
-      <div class="gallery-item gallery-item--wide reveal" data-category="weddings">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #3d1545, #722E80);">
-          <i class="fa-solid fa-ring"></i><span>Wedding — Prestwold Hall</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">Prestwold Hall</span>
-        </div>
+  <div class="gallery-section">
+    <div class="gallery-masonry" id="galleryGrid">
+      <div class="gallery-loading">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading gallery…</p>
       </div>
-      <div class="gallery-item reveal reveal-delay-1" data-category="setup">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #1a0a1f, #4a1e55);">
-          <i class="fa-solid fa-sliders"></i><span>DJ Booth Setup</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">The Booth</span>
-        </div>
-      </div>
-
-      <!-- Row 2 -->
-      <div class="gallery-item reveal" data-category="lighting">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #2d0d3a, #722E80);">
-          <i class="fa-solid fa-lightbulb"></i><span>Uplighting</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">Uplighting</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-1" data-category="parties">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #0a0010, #3d1545);">
-          <i class="fa-solid fa-champagne-glasses"></i><span>Birthday Party</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">Party Night</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-2" data-category="weddings">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #3d1545, #BA8DBD);">
-          <i class="fa-solid fa-church"></i><span>Wedding Evening</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">Wedding Evening</span>
-        </div>
-      </div>
-
-      <!-- Row 3 -->
-      <div class="gallery-item gallery-item--wide reveal" data-category="lighting">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #1a0a1f, #722E80);">
-          <i class="fa-solid fa-wand-magic-sparkles"></i><span>Dancefloor Lighting</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">Dancefloor Magic</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-1" data-category="setup">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #0a0010, #2d0d3a);">
-          <i class="fa-solid fa-music"></i><span>Equipment</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">Setup</span>
-        </div>
-      </div>
-
-      <!-- Row 4 -->
-      <div class="gallery-item reveal" data-category="weddings">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #2d0d3a, #BA8DBD);">
-          <i class="fa-solid fa-ring"></i><span>Quorn Grange</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">Quorn Grange Hotel</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-1" data-category="parties">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #3d1545, #722E80);">
-          <i class="fa-solid fa-cake-candles"></i><span>30th Birthday</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">Birthday Party</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-2" data-category="lighting">
-        <div class="gallery-item__placeholder" style="background: linear-gradient(135deg, #1a0a1f, #4a1e55);">
-          <i class="fa-solid fa-rainbow"></i><span>Colour Wash</span>
-        </div>
-        <div class="gallery-item__overlay">
-          <span class="gallery-item__label">Colour Wash Lighting</span>
-        </div>
-      </div>
-
     </div>
   </div>
 
@@ -364,7 +278,7 @@
     <div class="footer__grid">
       <div>
         <div class="footer__logo"><img src="images/TMW_Full_PurpleWhite.png" alt="TMW Productions" class="footer__logo-img"></div>
-        <p class="footer__tagline">Award-winning DJ & event host serving Leicestershire and the East Midlands.</p>
+        <p class="footer__tagline">Award-winning DJ &amp; event host serving Leicestershire and the East Midlands.</p>
         <div class="footer__social">
           <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook">f</a>
           <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram">ig</a>
@@ -374,7 +288,7 @@
         <div class="footer__heading">Services</div>
         <ul class="footer__links">
           <li><a href="weddings.html">Weddings</a></li>
-          <li><a href="events.html">Parties & Events</a></li>
+          <li><a href="events.html">Parties &amp; Events</a></li>
           <li><a href="events.html">Corporate Events</a></li>
           <li><a href="events.html">Kids' Discos</a></li>
         </ul>
@@ -388,7 +302,6 @@
           <li><a href="contact.html">Contact</a></li>
           <li><a href="certificates.html">Certificates</a></li>
           <li><a href="people-i-recommend.html">Recommended by Me</a></li>
-          
         </ul>
       </div>
       <div class="footer__contact">
@@ -404,10 +317,123 @@
   </footer>
 
   <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox__close" id="lightboxClose">✕</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close">✕</button>
+    <button class="lightbox__prev" id="lightboxPrev" aria-label="Previous image">&#8249;</button>
+    <div class="lightbox__inner">
+      <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+      <p class="lightbox__caption" id="lightboxCaption"></p>
+    </div>
+    <button class="lightbox__next" id="lightboxNext" aria-label="Next image">&#8250;</button>
   </div>
 
   <script src="js/main.js"></script>
+
+  <script>
+    // ── Gallery: load from data/gallery.json, render masonry, lightbox ──────
+
+    let galleryItems = [];
+    let currentIndex = 0;
+
+    // ── Fetch and render ──────────────────────────────────────────────────
+    (async function init() {
+      const grid = document.getElementById('galleryGrid');
+
+      try {
+        const res = await fetch('data/gallery.json');
+        if (!res.ok) throw new Error(res.status);
+        galleryItems = await res.json();
+
+        if (!galleryItems.length) {
+          grid.innerHTML = `
+            <div class="gallery-empty">
+              <i class="fa-solid fa-images"></i>
+              <p>No photos yet — check back soon.</p>
+            </div>`;
+          return;
+        }
+
+        grid.innerHTML = '';
+        galleryItems.forEach((item, i) => {
+          const wrap = document.createElement('div');
+          wrap.className = 'gallery-masonry__item';
+          wrap.setAttribute('tabindex', '0');
+          wrap.setAttribute('role', 'button');
+          wrap.setAttribute('aria-label', item.alt || `Gallery photo ${i + 1}`);
+
+          const img = document.createElement('img');
+          img.className = 'gallery-masonry__img';
+          img.src = item.src;
+          img.alt = item.alt || '';
+          img.loading = 'lazy';
+
+          const overlay = document.createElement('div');
+          overlay.className = 'gallery-masonry__overlay';
+          overlay.innerHTML = '<i class="fa-solid fa-magnifying-glass-plus gallery-masonry__zoom"></i>';
+
+          wrap.appendChild(img);
+          wrap.appendChild(overlay);
+          wrap.addEventListener('click', () => openLightbox(i));
+          wrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openLightbox(i); });
+
+          grid.appendChild(wrap);
+        });
+
+      } catch (err) {
+        grid.innerHTML = `
+          <div class="gallery-empty">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <p>Couldn't load the gallery right now — please try again shortly.</p>
+          </div>`;
+        console.error('Gallery load error:', err);
+      }
+    })();
+
+    // ── Lightbox ──────────────────────────────────────────────────────────
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      const item = galleryItems[currentIndex];
+      document.getElementById('lightboxImg').src = item.src;
+      document.getElementById('lightboxImg').alt = item.alt || '';
+      document.getElementById('lightboxCaption').textContent = item.alt || '';
+      document.getElementById('lightboxPrev').disabled = currentIndex === 0;
+      document.getElementById('lightboxNext').disabled = currentIndex === galleryItems.length - 1;
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+
+    document.getElementById('lightboxPrev').addEventListener('click', () => {
+      if (currentIndex > 0) { currentIndex--; updateLightbox(); }
+    });
+
+    document.getElementById('lightboxNext').addEventListener('click', () => {
+      if (currentIndex < galleryItems.length - 1) { currentIndex++; updateLightbox(); }
+    });
+
+    // Close on backdrop click (outside inner content)
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft' && currentIndex > 0) { currentIndex--; updateLightbox(); }
+      if (e.key === 'ArrowRight' && currentIndex < galleryItems.length - 1) { currentIndex++; updateLightbox(); }
+    });
+  </script>
+
 </body>
 </html>
