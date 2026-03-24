@@ -30,10 +30,87 @@
       text-align: center;
     }
 
-    .pb-logo {
-      max-width: 220px;
-      margin: 0 auto 1.5rem;
+    .pb-logo-box {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(114,46,128,0.35), rgba(186,141,189,0.12));
+      border: 1px solid rgba(186,141,189,0.45);
+      border-radius: 20px;
+      padding: 2.5rem 3rem 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      box-shadow: 0 0 60px rgba(114,46,128,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .pb-logo-box::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(186,141,189,0.4), rgba(114,46,128,0.2), rgba(186,141,189,0.1));
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .pb-logo-box__eyebrow {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--purple-mist);
+      text-transform: uppercase;
+      opacity: 0.8;
       display: block;
+      margin-bottom: 1.2rem;
+    }
+
+    .pb-logo-box__tagline {
+      font-size: 0.9rem;
+      opacity: 0.75;
+      margin-top: 1.2rem;
+      max-width: 380px;
+    }
+
+    .pb-logo {
+      max-width: 260px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .pb-client-access {
+      margin-top: 1.8rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid rgba(186,141,189,0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .pb-client-access__label {
+      font-size: 0.78rem;
+      opacity: 0.6;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--font-display);
+    }
+
+    .pb-client-access__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--purple-clarity);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      padding: 0.65rem 1.4rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .pb-client-access__link:hover {
+      background: #5a2265;
+      transform: translateY(-1px);
     }
 
     .pb-free-badge {
@@ -83,7 +160,7 @@
     }
 
     .pb-feature__mockup {
-      max-width: 260px;
+      max-width: 380px;
       width: 100%;
       border-radius: 20px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(186,141,189,0.2);
@@ -149,11 +226,52 @@
     }
 
     .pb-save__mockup {
-      max-width: 280px;
+      max-width: 360px;
       width: 100%;
       border-radius: 16px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.5);
       display: block;
+    }
+
+    .pb-access-banner {
+      background: linear-gradient(135deg, #3d1545, #2a0d33);
+      border-top: 1px solid rgba(186,141,189,0.3);
+      border-bottom: 1px solid rgba(186,141,189,0.3);
+      padding: 1.2rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pb-access-banner__text {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .pb-access-banner__text strong {
+      color: var(--purple-mist);
+    }
+
+    .pb-access-banner__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--purple-clarity);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      padding: 0.55rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.3s ease;
+    }
+
+    .pb-access-banner__btn:hover {
+      background: #5a2265;
     }
 
     /* Included strip */
@@ -223,7 +341,7 @@
       }
 
       .pb-feature__mockup {
-        max-width: 200px;
+        max-width: 280px;
       }
 
       .pb-save-inner {
@@ -309,9 +427,27 @@
     </div>
   </div>
 
+  <!-- CURRENT CLIENT ACCESS BANNER -->
+  <div class="pb-access-banner">
+    <span class="pb-access-banner__text"><strong>Already booked with TMW Productions?</strong> Your planning portal is ready and waiting.</span>
+    <a href="https://tmw.planningbeats.com" target="_blank" rel="noopener noreferrer" class="pb-access-banner__btn">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Planning Beats
+    </a>
+  </div>
+
   <!-- LOGO + INTRO -->
   <div class="pb-logo-section">
-    <img src="images/Planning Beats Logo (1).png" alt="Planning Beats" class="pb-logo reveal" />
+    <div class="pb-logo-box reveal">
+      <span class="pb-logo-box__eyebrow">Exclusive to TMW Productions clients</span>
+      <img src="images/Planning Beats Logo (1).png" alt="Planning Beats" class="pb-logo" />
+      <p class="pb-logo-box__tagline">A dedicated online planning portal — included free with every booking. No extra cost, no sign-up fees.</p>
+      <div class="pb-client-access">
+        <span class="pb-client-access__label">Already booked? Access your portal</span>
+        <a href="https://tmw.planningbeats.com" target="_blank" rel="noopener noreferrer" class="pb-client-access__link">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Planning Beats
+        </a>
+      </div>
+    </div>
     <span class="pb-free-badge reveal"><i class="fa-solid fa-gift"></i> Free with every booking</span>
     <p class="section__subtitle reveal" style="max-width: 620px; margin: 0 auto; opacity: 0.75;">
       Planning Beats is a dedicated planning portal used by professional DJs. When you book with me, you get full access — completely free. No logins to pay for, no extra steps. Just a clear, simple way to get your event exactly right.
