@@ -24,107 +24,135 @@
   <style>
     /* ---- Planning Portal page styles ---- */
 
-    .pb-logo-section {
+    /* Intro — logo centred with room to breathe */
+    .pb-intro {
       background: var(--black);
-      padding: 4rem 5% 2rem;
+      padding: 5rem 5% 4rem;
       text-align: center;
+      border-bottom: 1px solid rgba(186,141,189,0.15);
     }
 
-    .pb-logo-box {
-      display: inline-block;
-      background: linear-gradient(135deg, rgba(114,46,128,0.35), rgba(186,141,189,0.12));
-      border: 1px solid rgba(186,141,189,0.45);
-      border-radius: 20px;
-      padding: 2.5rem 3rem 2rem;
-      margin-bottom: 2rem;
-      position: relative;
-      box-shadow: 0 0 60px rgba(114,46,128,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
+    .pb-logo {
+      max-width: 280px;
+      margin: 0 auto 1.8rem;
+      display: block;
     }
 
-    .pb-logo-box::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(186,141,189,0.4), rgba(114,46,128,0.2), rgba(186,141,189,0.1));
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    .pb-logo-box__eyebrow {
+    .pb-intro__eyebrow {
       font-family: var(--font-display);
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       letter-spacing: 0.25em;
       color: var(--purple-mist);
       text-transform: uppercase;
       opacity: 0.8;
       display: block;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.8rem;
     }
 
-    .pb-logo-box__tagline {
-      font-size: 0.9rem;
+    .pb-intro__text {
+      font-size: 1rem;
       opacity: 0.75;
-      margin-top: 1.2rem;
-      max-width: 380px;
-    }
-
-    .pb-logo {
-      max-width: 260px;
+      max-width: 520px;
       margin: 0 auto;
-      display: block;
+      line-height: 1.8;
     }
 
-    .pb-client-access {
-      margin-top: 1.8rem;
-      padding-top: 1.8rem;
-      border-top: 1px solid rgba(186,141,189,0.2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
+    /* Two-option cards */
+    .pb-options {
+      background: var(--black);
+      padding: 0 5% 5rem;
     }
 
-    .pb-client-access__label {
-      font-size: 0.78rem;
-      opacity: 0.6;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .pb-options__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pb-option-card {
+      border: 1px solid rgba(186,141,189,0.25);
+      padding: 2.5rem;
+      position: relative;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .pb-option-card:hover {
+      border-color: var(--purple-mist);
+      transform: translateY(-4px);
+    }
+
+    .pb-option-card--featured {
+      border-color: var(--purple-mist);
+      background: rgba(186,141,189,0.08);
+    }
+
+    .pb-option-card--featured::before {
+      content: 'Current Clients';
+      position: absolute;
+      top: -1px;
+      right: 2rem;
+      background: var(--purple-mist);
+      color: var(--white);
       font-family: var(--font-display);
-    }
-
-    .pb-client-access__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--purple-clarity);
-      color: #fff;
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      padding: 0.65rem 1.4rem;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-
-    .pb-client-access__link:hover {
-      background: #5a2265;
-      transform: translateY(-1px);
-    }
-
-    .pb-free-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(186,141,189,0.15);
-      border: 1px solid var(--purple-mist);
-      color: var(--purple-mist);
-      font-family: var(--font-display);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       letter-spacing: 0.15em;
-      padding: 0.4rem 1rem;
+      padding: 0.3rem 0.8rem;
+    }
+
+    .pb-option-card__eyebrow {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--purple-mist);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.6rem;
+      opacity: 0.8;
+    }
+
+    .pb-option-card__title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .pb-option-card__desc {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .pb-option-card__divider {
+      border: none;
+      border-top: 1px solid rgba(186,141,189,0.2);
+      margin: 1.5rem 0;
+    }
+
+    .pb-option-card__list {
+      list-style: none;
       margin-bottom: 2rem;
+    }
+
+    .pb-option-card__list li {
+      font-size: 0.9rem;
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      opacity: 0.85;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .pb-option-card__list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--purple-mist);
+      font-weight: 600;
     }
 
     /* Feature alternating rows */
@@ -233,47 +261,6 @@
       display: block;
     }
 
-    .pb-access-banner {
-      background: linear-gradient(135deg, #3d1545, #2a0d33);
-      border-top: 1px solid rgba(186,141,189,0.3);
-      border-bottom: 1px solid rgba(186,141,189,0.3);
-      padding: 1.2rem 5%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .pb-access-banner__text {
-      font-size: 0.9rem;
-      opacity: 0.85;
-    }
-
-    .pb-access-banner__text strong {
-      color: var(--purple-mist);
-    }
-
-    .pb-access-banner__btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: var(--purple-clarity);
-      color: #fff;
-      font-family: var(--font-display);
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      padding: 0.55rem 1.2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: background 0.3s ease;
-    }
-
-    .pb-access-banner__btn:hover {
-      background: #5a2265;
-    }
-
     /* Included strip */
     .pb-included {
       background: linear-gradient(135deg, #3d1545, #1a0a1f);
@@ -325,6 +312,10 @@
     }
 
     @media (max-width: 768px) {
+      .pb-options__grid {
+        grid-template-columns: 1fr;
+      }
+
       .pb-feature {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -428,32 +419,56 @@
     </div>
   </div>
 
-  <!-- CURRENT CLIENT ACCESS BANNER -->
-  <div class="pb-access-banner">
-    <span class="pb-access-banner__text"><strong>Already booked with TMW Productions?</strong> Your planning portal is ready and waiting.</span>
-    <a href="https://tmw.planningbeats.com" target="_blank" rel="noopener noreferrer" class="pb-access-banner__btn">
-      <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Planning Beats
-    </a>
+  <!-- LOGO + INTRO -->
+  <div class="pb-intro">
+    <span class="pb-intro__eyebrow reveal">Exclusive to TMW Productions clients</span>
+    <img src="images/Planning Beats Logo (1).png" alt="Planning Beats" class="pb-logo reveal" />
+    <p class="pb-intro__text reveal">A dedicated online planning portal, included free with every booking. No extra cost, no sign-up fees, no app to download.</p>
   </div>
 
-  <!-- LOGO + INTRO -->
-  <div class="pb-logo-section">
-    <div class="pb-logo-box reveal">
-      <span class="pb-logo-box__eyebrow">Exclusive to TMW Productions clients</span>
-      <img src="images/Planning Beats Logo (1).png" alt="Planning Beats" class="pb-logo" />
-      <p class="pb-logo-box__tagline">A dedicated online planning portal — included free with every booking. No extra cost, no sign-up fees.</p>
-      <div class="pb-client-access">
-        <span class="pb-client-access__label">Already booked? Access your portal</span>
-        <a href="https://tmw.planningbeats.com" target="_blank" rel="noopener noreferrer" class="pb-client-access__link">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Planning Beats
+  <!-- TWO OPTIONS -->
+  <section class="pb-options">
+    <div class="pb-options__grid">
+
+      <div class="pb-option-card reveal">
+        <span class="pb-option-card__eyebrow">Thinking of booking?</span>
+        <div class="pb-option-card__title">What's Included</div>
+        <p class="pb-option-card__desc">When you book with me, you get full access to your own Planning Beats portal — completely free. Here's everything that's waiting for you.</p>
+        <hr class="pb-option-card__divider">
+        <ul class="pb-option-card__list">
+          <li>Song search from millions of tracks</li>
+          <li>Must-play &amp; must-not-play lists</li>
+          <li>First dance &amp; special moment music</li>
+          <li>Full event timeline planner</li>
+          <li>Event details questionnaire</li>
+          <li>Works on any device — no app needed</li>
+          <li>Save to your home screen as a web app</li>
+          <li>Access right up to your event day</li>
+          <li>100% free — always, no exceptions</li>
+        </ul>
+        <a href="contact.html" class="btn btn--outline" style="width: 100%; text-align: center;">Check Your Date</a>
+      </div>
+
+      <div class="pb-option-card pb-option-card--featured reveal reveal-delay-1">
+        <span class="pb-option-card__eyebrow">Already booked with Tom?</span>
+        <div class="pb-option-card__title">Your Portal Is Ready</div>
+        <p class="pb-option-card__desc">Your Planning Beats portal is set up and waiting for you. Log in to start building your playlist, set your timeline, and fill in your event details — whenever you're ready.</p>
+        <hr class="pb-option-card__divider">
+        <ul class="pb-option-card__list">
+          <li>Your portal is already active</li>
+          <li>Add songs and build your playlist</li>
+          <li>Set your event timeline and key moments</li>
+          <li>Answer the event details questions</li>
+          <li>Update and change things anytime</li>
+          <li>No deadline — work at your own pace</li>
+        </ul>
+        <a href="https://tmw.planningbeats.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary" style="width: 100%; text-align: center;">
+          <i class="fa-solid fa-arrow-up-right-from-square" style="margin-right: 0.4rem;"></i> Open Planning Beats
         </a>
       </div>
+
     </div>
-    <span class="pb-free-badge reveal"><i class="fa-solid fa-gift"></i> Free with every booking</span>
-    <p class="section__subtitle reveal" style="max-width: 620px; margin: 0 auto; opacity: 0.75;">
-      Planning Beats is a dedicated planning portal used by professional DJs. When you book with me, you get full access — completely free. No logins to pay for, no extra steps. Just a clear, simple way to get your event exactly right.
-    </p>
-  </div>
+  </section>
 
   <!-- FEATURES -->
   <section class="pb-features" id="features">
