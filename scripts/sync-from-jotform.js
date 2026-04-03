@@ -23,11 +23,13 @@ try { require('dotenv').config({ quiet: true }); } catch (_) { /* dotenv optiona
 
 const fs   = require('fs');
 const path = require('path');
+const https = require('https');
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
-const FORM_ID  = '260812287727059';
-const API_BASE = 'https://eu-api.jotform.com';
+const FORM_ID   = '260812287727059';
+const API_BASE  = 'https://eu-api.jotform.com';
+const LOGOS_DIR = path.join(__dirname, '..', 'public', 'data', 'logos');
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -191,6 +193,59 @@ async function fetchAllSubmissions(apiKey) {
   return submissions;
 }
 
+// ─── Logo download ────────────────────────────────────────────────────────────
+
+/**
+ * Download a logo from a URL and save it to LOGOS_DIR/{id}.{ext}.
+ * Returns the local web-relative path, or null if the download fails.
+ * Skips download if the file already exists.
+ */
+function downloadLogo(url, id) {
+  return new Promise((resolve) => {
+    // Derive extension from the URL filename, default to .jpg
+    const urlPath = url.split('?')[0];
+    const ext = path.extname(urlPath).toLowerCase() || '.jpg';
+    const filename = `${id}${ext}`;
+    const localPath = path.join(LOGOS_DIR, filename);
+    const webPath = `public/data/logos/${filename}`;
+
+    if (fs.existsSync(localPath)) {
+      return resolve(webPath); // Already downloaded
+    }
+
+    const encodedUrl = url.replace(/ /g, '%20');
+    const tmp = localPath + '.tmp';
+    const file = fs.createWriteStream(tmp);
+
+    const cleanup = () => { try { fs.unlinkSync(tmp); } catch (_) {} };
+
+    const request = https.get(encodedUrl, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        file.close();
+        cleanup();
+        return downloadLogo(res.headers.location, id).then(resolve);
+      }
+      if (res.statusCode !== 200) {
+        file.close();
+        cleanup();
+        console.warn(`  ⚠ Logo download failed (${res.statusCode}): ${url}`);
+        return resolve(null);
+      }
+      res.pipe(file);
+      file.on('finish', () => file.close(() => {
+        fs.rename(tmp, localPath, () => resolve(webPath));
+      }));
+    });
+
+    request.on('error', (err) => {
+      file.close();
+      cleanup();
+      console.warn(`  ⚠ Logo download error: ${err.message}`);
+      resolve(null);
+    });
+  });
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -208,6 +263,19 @@ async function main() {
   const suppliers = rawSubmissions
     .map(transformSubmission)
     .filter(Boolean);
+
+  // Download logos locally so they're served from our domain (Jotform blocks hotlinking)
+  fs.mkdirSync(LOGOS_DIR, { recursive: true });
+  console.log('Downloading supplier logos…');
+  for (const supplier of suppliers) {
+    if (supplier.logo_url && supplier.logo_url.startsWith('http')) {
+      const localPath = await downloadLogo(supplier.logo_url, supplier.id);
+      if (localPath) {
+        console.log(`  ✓ ${supplier.name}`);
+        supplier.logo_url = localPath;
+      }
+    }
+  }
 
   const sorted = sortSuppliers(suppliers);
 
