@@ -1,8 +1,3 @@
-// HOW TO UPDATE THE GALLERY:
-// • Upload photos to your Google Drive gallery folder from your phone
-// • The weekly sync will pick them up automatically every Monday morning
-// • To trigger an immediate update, go to GitHub → Actions → "Weekly Gallery Sync" → Run workflow
-// • To add a one-off photo without Drive, add it to the manual section at the top
 [
   {
     "src": "images/IMG_0354.JPG",

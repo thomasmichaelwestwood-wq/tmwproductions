@@ -109,10 +109,7 @@ async function main() {
   // 2. Load existing gallery.json so we can preserve any custom alt text
   let existing = [];
   try {
-    const raw = fs.readFileSync(GALLERY_JSON, 'utf8')
-      // Strip the leading comment block before parsing
-      .replace(/^\/\/[^\n]*\n/gm, '');
-    existing = JSON.parse(raw);
+    existing = JSON.parse(fs.readFileSync(GALLERY_JSON, 'utf8'));
   } catch {
     // No existing file or unreadable — start fresh
   }
@@ -158,16 +155,8 @@ async function main() {
 
   // 6. Write gallery.json — manual entries first, then Drive-synced entries
   const allItems = [...manualItems, ...driveItems];
-  const header = [
-    '// HOW TO UPDATE THE GALLERY:',
-    '// • Upload photos to your Google Drive gallery folder from your phone',
-    '// • The weekly sync will pick them up automatically every Monday morning',
-    '// • To trigger an immediate update, go to GitHub → Actions → "Weekly Gallery Sync" → Run workflow',
-    '// • To add a one-off photo without Drive, add it to the manual section at the top',
-    '',
-  ].join('\n');
-
-  fs.writeFileSync(GALLERY_JSON, header + JSON.stringify(allItems, null, 2) + '\n');
+  // Must be valid JSON — no comments. The browser fetches this directly.
+  fs.writeFileSync(GALLERY_JSON, JSON.stringify(allItems, null, 2) + '\n');
   console.log(`\ngallery.json updated — ${allItems.length} photo(s) total.`);
 }
 
