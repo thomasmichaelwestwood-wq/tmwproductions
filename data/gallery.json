@@ -1,7 +1,8 @@
-// HOW TO ADD A NEW PHOTO:
-// 1. Drop the image file into the images/ folder
-// 2. Add a new entry below with the src path and a short alt description
-// 3. Save — it will appear in the gallery immediately
+// HOW TO UPDATE THE GALLERY:
+// • Upload photos to your Google Drive gallery folder from your phone
+// • The weekly sync will pick them up automatically every Monday morning
+// • To trigger an immediate update, go to GitHub → Actions → "Weekly Gallery Sync" → Run workflow
+// • To add a one-off photo without Drive, add it to the manual section at the top
 [
   {
     "src": "images/IMG_0354.JPG",
