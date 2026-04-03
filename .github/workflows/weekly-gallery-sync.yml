@@ -1,0 +1,43 @@
+name: Weekly Gallery Sync
+
+# Runs every Monday at 7am UTC.
+# Can also be triggered manually from the Actions tab on GitHub —
+# useful if you've just uploaded photos and don't want to wait until Monday.
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit new images and gallery.json back to the repo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sync gallery from Google Drive
+        run: node scripts/sync-gallery.js
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GALLERY_FOLDER_ID: ${{ secrets.GALLERY_FOLDER_ID }}
+
+      - name: Commit updated gallery
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/gallery/ data/gallery.json
+          if git diff --staged --quiet; then
+            echo "No new photos — nothing to commit."
+          else
+            git commit -m "chore: sync gallery from Google Drive [skip ci]"
+            git push
+          fi

@@ -8,6 +8,7 @@
   },
   "scripts": {
     "sync-suppliers": "node scripts/sync-from-jotform.js",
+    "sync-gallery": "node scripts/sync-gallery.js",
     "update-availability": "node scripts/update-availability.js"
   },
   "dependencies": {
