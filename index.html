@@ -140,7 +140,12 @@
         </div>
       </div>
       <div class="award-strip__divider"></div>
-      <div class="award-strip__item">
+      <div class="award-strip__item" style="cursor:pointer;" id="idoStripBadge" title="IDO Wedding Awards 2026 Finalist">
+        <span class="award-strip__icon"><i class="fa-solid fa-star"></i></span>
+        <div class="award-strip__text">
+          <strong>IDO 2026 Finalist</strong>
+          <span>Midlands Wedding Awards</span>
+        </div>
       </div>
     </div>
   </div>
@@ -490,6 +495,41 @@
     </div>
   </footer>
 
+  <!-- IDO Award Popup -->
+  <div id="idoPopup" role="dialog" aria-modal="true" aria-label="IDO Wedding Awards 2026 Finalist" style="
+    display:none;
+    position:fixed;inset:0;
+    background:rgba(0,0,0,0.85);
+    z-index:3000;
+    align-items:center;
+    justify-content:center;
+    padding:1.5rem;
+  ">
+    <div style="position:relative;max-width:420px;width:100%;text-align:center;">
+      <button id="idoPopupClose" aria-label="Close" style="
+        position:absolute;top:-1rem;right:-1rem;
+        background:var(--purple-clarity);
+        border:none;color:#fff;
+        width:2.2rem;height:2.2rem;
+        border-radius:50%;
+        font-size:1.1rem;
+        cursor:pointer;
+        line-height:1;
+        z-index:1;
+      ">✕</button>
+      <a href="https://www.ido-weddingawards.co.uk/midlands-2026/" target="_blank" rel="noopener">
+        <img
+          src="images/ido-finalist-2026.jpg"
+          alt="IDO Wedding Awards 2026 Midlands Regional Finalist"
+          style="width:100%;max-width:380px;display:block;margin:0 auto;border-radius:4px;"
+        />
+      </a>
+      <p style="margin-top:1rem;font-size:0.85rem;opacity:0.6;color:#fff;">
+        Click the badge to visit the IDO Wedding Awards
+      </p>
+    </div>
+  </div>
+
   <script src="js/main.js"></script>
   <script>
     // Load availability data from availability.json and update the bars
@@ -515,6 +555,37 @@
         if (fillEl) fillEl.style.setProperty('--pct', pct + '%');
         if (noteEl) noteEl.textContent = label;
       });
+    })();
+  </script>
+
+  <script>
+    // IDO popup — shows once per session, can also be opened by clicking the award strip badge
+    (function () {
+      const popup     = document.getElementById('idoPopup');
+      const closeBtn  = document.getElementById('idoPopupClose');
+      const stripBadge = document.getElementById('idoStripBadge');
+      if (!popup) return;
+
+      function openPopup() {
+        popup.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closePopup() {
+        popup.style.display = 'none';
+        document.body.style.overflow = '';
+        sessionStorage.setItem('ido-popup-shown', '1');
+      }
+
+      closeBtn.addEventListener('click', closePopup);
+      popup.addEventListener('click', function (e) { if (e.target === popup) closePopup(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePopup(); });
+      if (stripBadge) stripBadge.addEventListener('click', openPopup);
+
+      // Auto-show once per session after a short delay
+      if (!sessionStorage.getItem('ido-popup-shown')) {
+        setTimeout(openPopup, 1800);
+      }
     })();
   </script>
 </body>
