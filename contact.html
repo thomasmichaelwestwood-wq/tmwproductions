@@ -962,28 +962,37 @@
 
       form.addEventListener('submit', function () {
         const consent = document.getElementById('whatsapp_consent');
-        if (!consent || !consent.checked) return; // no opt-in — do nothing
+        const consentGiven = consent && consent.checked;
 
         const mobile = (form.phone && form.phone.value) ? form.phone.value.trim() : '';
-        if (!mobile) return; // no phone number — nothing to send to
+
+        // Build event date string from the three dropdowns
+        const day   = form.day   ? form.day.value   : '';
+        const month = form.month ? form.month.value : '';
+        const year  = form.year  ? form.year.value  : '';
+        const months = ['','January','February','March','April','May','June',
+                        'July','August','September','October','November','December'];
+        const eventDate = (day && month && year && day !== '-43' && month !== '-43' && year !== '-43')
+          ? `${day} ${months[parseInt(month)] || month} ${year}`
+          : '';
 
         const payload = JSON.stringify({
-          name: ((form.firstName ? form.firstName.value : '') + ' ' +
-                 (form.lastName  ? form.lastName.value  : '')).trim(),
-          mobile: mobile,
-          whatsapp_consent: true,
-          message: form.message ? form.message.value : ''
+          name:           ((form.firstName ? form.firstName.value : '') + ' ' +
+                           (form.lastName  ? form.lastName.value  : '')).trim(),
+          email:          form.email     ? form.email.value.trim()     : '',
+          mobile:         mobile,
+          eventType:      form.eventType ? form.eventType.value        : '',
+          eventDate:      eventDate,
+          venue:          form.venue     ? form.venue.value.trim()     : '',
+          message:        form.message   ? form.message.value.trim()   : '',
+          whatsapp_consent: consentGiven
         });
 
-        // navigator.sendBeacon is fire-and-forget: it survives page navigation.
-        // Falls back silently if unavailable (no impact on form submission).
+        // sendBeacon is fire-and-forget — survives page navigation.
         const endpoint = '/api/enquiry-webhook';
         if (navigator.sendBeacon) {
           navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }));
         }
-        // Note: sendBeacon cannot send custom headers, so the WEBHOOK_SECRET
-        // is validated server-side via a query param when needed. For added
-        // protection, the function also rate-limits by IP in production.
       });
     })();
   </script>

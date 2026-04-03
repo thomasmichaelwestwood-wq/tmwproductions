@@ -23,9 +23,10 @@
 
 'use strict';
 
-const twilio = require('twilio');
-const fs     = require('fs');
-const path   = require('path');
+const twilio      = require('twilio');
+const nodemailer  = require('nodemailer');
+const fs          = require('fs');
+const path        = require('path');
 
 // ─── Consent log path ────────────────────────────────────────────────────────
 // NOTE: In a Netlify Function (serverless/Lambda), the filesystem is
@@ -83,6 +84,60 @@ function structuredLog(data) {
   console.log(JSON.stringify({ timestamp: new Date().toISOString(), ...data }));
 }
 
+// ─── Email notification ───────────────────────────────────────────────────────
+
+/**
+ * Send an enquiry notification email to the business owner via Gmail.
+ * Requires GMAIL_USER and GMAIL_APP_PASSWORD environment variables.
+ * Silently skips if either is missing so the function never fails on email.
+ */
+async function sendEnquiryEmail({ name, email, mobile, eventType, eventDate, venue, message }) {
+  const { GMAIL_USER, GMAIL_APP_PASSWORD } = process.env;
+  if (!GMAIL_USER || !GMAIL_APP_PASSWORD) return;
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD }
+  });
+
+  const rows = [
+    ['Name',       name       || '—'],
+    ['Email',      email      || '—'],
+    ['Phone',      mobile     || '—'],
+    ['Event Type', eventType  || '—'],
+    ['Event Date', eventDate  || '—'],
+    ['Venue',      venue      || '—'],
+    ['Message',    message    || '—'],
+  ];
+
+  const tableRows = rows
+    .map(([label, val]) =>
+      `<tr>
+        <td style="padding:6px 12px;font-weight:600;white-space:nowrap;color:#722E80;">${label}</td>
+        <td style="padding:6px 12px;">${val}</td>
+      </tr>`)
+    .join('');
+
+  await transporter.sendMail({
+    from: `TMW Productions <${GMAIL_USER}>`,
+    to:   process.env.NOTIFICATION_EMAIL || GMAIL_USER,
+    replyTo: email || undefined,
+    subject: `New Enquiry — ${name || 'Unknown'}${eventType ? ` — ${eventType}` : ''}${eventDate ? ` (${eventDate})` : ''}`,
+    html: `
+      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;">
+        <h2 style="background:#722E80;color:#fff;margin:0;padding:20px 24px;font-size:18px;">
+          New Enquiry — TMW Productions
+        </h2>
+        <table style="width:100%;border-collapse:collapse;font-size:15px;">
+          ${tableRows}
+        </table>
+        <p style="margin:24px;font-size:13px;color:#888;">
+          Sent from tmwproductions.co.uk contact form
+        </p>
+      </div>`
+  });
+}
+
 // ─── Handler ─────────────────────────────────────────────────────────────────
 
 exports.handler = async function (event) {
@@ -113,7 +168,10 @@ exports.handler = async function (event) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON body' }) };
   }
 
-  const { name = '', mobile = '', whatsapp_consent, message = '' } = body;
+  const {
+    name = '', mobile = '', whatsapp_consent, message = '',
+    email = '', eventType = '', eventDate = '', venue = ''
+  } = body;
   const consentGiven = whatsapp_consent === true || whatsapp_consent === 'true';
 
   structuredLog({
@@ -121,6 +179,14 @@ exports.handler = async function (event) {
     name:           name || '(unnamed)',
     consent_given:  consentGiven
   });
+
+  // ── Always email the business owner ──────────────────────────────────────
+  try {
+    await sendEnquiryEmail({ name, email, mobile, eventType, eventDate, venue, message });
+    structuredLog({ event: 'email_sent', name });
+  } catch (err) {
+    structuredLog({ event: 'email_error', name, error: err.message });
+  }
 
   // ── No consent or no mobile — log and exit cleanly ────────────────────────
   if (!consentGiven) {
