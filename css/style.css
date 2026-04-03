@@ -215,7 +215,7 @@ p {
 .btn {
   display: inline-block;
   padding: 0.9rem 2.4rem;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
