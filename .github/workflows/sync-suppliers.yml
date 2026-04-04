@@ -19,12 +19,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Run supplier sync
         run: npm run sync-suppliers
@@ -35,7 +35,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/data/suppliers.json public/data/sync-meta.json
+          git add public/data/suppliers.json public/data/sync-meta.json public/data/logos/
           # Only commit if something actually changed
           if git diff --staged --quiet; then
             echo "No changes to supplier data — nothing to commit."
