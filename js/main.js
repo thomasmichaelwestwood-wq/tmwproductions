@@ -30,11 +30,26 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    // Close menu on link click
+    // Mobile dropdown: tap the parent "About" link to expand sub-items
+    navLinks.querySelectorAll('.nav__has-dropdown > a').forEach(parentLink => {
+      parentLink.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          const li = parentLink.closest('.nav__has-dropdown');
+          li.classList.toggle('open');
+        }
+      });
+    });
+
+    // Close menu on link click (skip dropdown parent links — handled above)
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
+        // Don't close if this is a mobile dropdown parent toggle
+        if (window.innerWidth <= 768 && link.closest('.nav__has-dropdown') === link.parentElement) return;
         navLinks.classList.remove('open');
         document.body.style.overflow = '';
+        // Reset any open dropdowns
+        navLinks.querySelectorAll('.nav__has-dropdown').forEach(d => d.classList.remove('open'));
       });
     });
 
