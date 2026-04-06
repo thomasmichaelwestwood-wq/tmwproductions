@@ -188,6 +188,38 @@ exports.handler = async function (event) {
     structuredLog({ event: 'email_error', name, error: err.message });
   }
 
+  // ── Always WhatsApp the business owner ───────────────────────────────────
+  const ownerNumber = process.env.OWNER_WHATSAPP_NUMBER;
+  if (ownerNumber) {
+    const {
+      TWILIO_ACCOUNT_SID: OWNER_SID,
+      TWILIO_AUTH_TOKEN:  OWNER_TOKEN,
+      TWILIO_WHATSAPP_NUMBER: OWNER_FROM
+    } = process.env;
+    if (OWNER_SID && OWNER_TOKEN && OWNER_FROM) {
+      try {
+        const ownerE164 = normaliseUKMobile(ownerNumber);
+        if (ownerE164) {
+          const ownerClient = twilio(OWNER_SID, OWNER_TOKEN);
+          await ownerClient.messages.create({
+            from: OWNER_FROM.startsWith('whatsapp:') ? OWNER_FROM : `whatsapp:${OWNER_FROM}`,
+            to:   `whatsapp:${ownerE164}`,
+            body: `📬 New enquiry from ${name || 'Unknown'}\n` +
+                  `Event: ${eventType || '—'}\n` +
+                  `Date: ${eventDate || '—'}\n` +
+                  `Venue: ${venue || '—'}\n` +
+                  `Email: ${email || '—'}\n` +
+                  `Phone: ${mobile || '—'}\n` +
+                  `Message: ${message || '—'}`
+          });
+          structuredLog({ event: 'owner_whatsapp_sent', name });
+        }
+      } catch (err) {
+        structuredLog({ event: 'owner_whatsapp_error', error: err.message });
+      }
+    }
+  }
+
   // ── No consent or no mobile — log and exit cleanly ────────────────────────
   if (!consentGiven) {
     structuredLog({ event: 'no_whatsapp_sent', reason: 'consent_not_given', name });
