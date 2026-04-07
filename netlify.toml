@@ -15,6 +15,11 @@
   to     = "/.netlify/functions/jotform-webhook"
   status = 200
 
+[[redirects]]
+  from   = "/api/check-availability"
+  to     = "/.netlify/functions/check-availability"
+  status = 200
+
 [functions]
   # Bundle each function with its node_modules using esbuild.
   node_bundler = "esbuild"
