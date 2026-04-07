@@ -15,7 +15,7 @@ function structuredLog(data) {
   console.log(JSON.stringify({ timestamp: new Date().toISOString(), ...data }));
 }
 
-async function sendEnquiryEmail({ name, email, mobile, eventType, eventDate, venue, message }) {
+async function sendEnquiryEmail({ name, email, mobile, eventType, eventDate, startTime, endTime, venue, message }) {
   const { GMAIL_USER, GMAIL_APP_PASSWORD } = process.env;
   if (!GMAIL_USER || !GMAIL_APP_PASSWORD) return;
 
@@ -30,6 +30,8 @@ async function sendEnquiryEmail({ name, email, mobile, eventType, eventDate, ven
     ['Phone',      mobile     || '—'],
     ['Event Type', eventType  || '—'],
     ['Event Date', eventDate  || '—'],
+    ['Start Time', startTime  || '—'],
+    ['End Time',   endTime    || '—'],
     ['Venue',      venue      || '—'],
     ['Message',    message    || '—'],
   ];
@@ -85,13 +87,13 @@ exports.handler = async function (event) {
 
   const {
     name = '', mobile = '', message = '',
-    email = '', eventType = '', eventDate = '', venue = ''
+    email = '', eventType = '', eventDate = '', startTime = '', endTime = '', venue = ''
   } = body;
 
   structuredLog({ event: 'enquiry_received', name: name || '(unnamed)' });
 
   try {
-    await sendEnquiryEmail({ name, email, mobile, eventType, eventDate, venue, message });
+    await sendEnquiryEmail({ name, email, mobile, eventType, eventDate, startTime, endTime, venue, message });
     structuredLog({ event: 'email_sent', name });
   } catch (err) {
     structuredLog({ event: 'email_error', name, error: err.message });

@@ -658,6 +658,17 @@
             <input type="text" id="venue" name="venue" placeholder="e.g. Prestwold Hall, Loughborough" />
           </div>
 
+          <div class="form-row">
+            <div class="form-group">
+              <label for="startTime">Event Start Time</label>
+              <input type="time" id="startTime" name="startTime" />
+            </div>
+            <div class="form-group">
+              <label for="endTime">Event End Time</label>
+              <input type="time" id="endTime" name="endTime" />
+            </div>
+          </div>
+
           <!-- VIBE SECTION — revealed once date is confirmed available -->
           <div id="vibe-section">
             <span class="vibe__label">What's Your Sound? <span style="opacity:0.45; font-weight:300; text-transform:none; letter-spacing:0; font-style:italic;">optional</span></span>
@@ -898,8 +909,10 @@
           mobile:    form.phone     ? form.phone.value.trim()  : '',
           eventType: form.eventType ? form.eventType.value     : '',
           eventDate,
-          venue:     form.venue    ? form.venue.value.trim()   : '',
-          message:   form.message  ? form.message.value.trim() : ''
+          venue:     form.venue     ? form.venue.value.trim()     : '',
+          startTime: form.startTime ? form.startTime.value      : '',
+          endTime:   form.endTime   ? form.endTime.value         : '',
+          message:   form.message   ? form.message.value.trim()  : ''
         });
 
         if (navigator.sendBeacon) {
