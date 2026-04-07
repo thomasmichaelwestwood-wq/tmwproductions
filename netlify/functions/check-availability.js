@@ -123,19 +123,32 @@ exports.handler = async function (event) {
 
   const icalUrl = process.env.PLANNING_BEATS_ICAL_URL;
   const apiKey  = process.env.PLANNING_BEATS_API_KEY;
+
   if (!icalUrl) {
+    console.error(JSON.stringify({ event: 'availability_error', reason: 'PLANNING_BEATS_ICAL_URL not set' }));
     return respond(500, { error: 'Calendar not configured' });
   }
 
   try {
     const icalText = await fetchText(icalUrl, apiKey);
+
+    // Sanity check — a valid iCal response contains BEGIN:VCALENDAR
+    if (!icalText.includes('BEGIN:VCALENDAR')) {
+      console.error(JSON.stringify({
+        event:  'availability_error',
+        reason: 'Response does not look like iCal',
+        preview: icalText.slice(0, 200)
+      }));
+      return respond(502, { error: 'Unexpected response from calendar' });
+    }
+
     const [y, m, d] = dateStr.split('-').map(Number);
     const target    = new Date(y, m - 1, d);
     const booked    = isDateBooked(icalText, target);
 
     return respond(200, { available: !booked, date: dateStr });
   } catch (err) {
-    console.error(JSON.stringify({ event: 'availability_error', error: err.message }));
-    return respond(500, { error: 'Could not fetch calendar' });
+    console.error(JSON.stringify({ event: 'availability_error', error: err.message, url: icalUrl ? icalUrl.replace(/\/\d+$/, '/***') : 'not set' }));
+    return respond(500, { error: 'Could not fetch calendar', detail: err.message });
   }
 };
