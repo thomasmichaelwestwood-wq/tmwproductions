@@ -210,13 +210,13 @@ p {
 .nav__dropdown {
   display: none;
   position: absolute;
-  top: calc(100% + 0.75rem);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(15, 0, 21, 0.97);
   border: 1px solid rgba(186, 141, 189, 0.2);
   border-radius: 0.5rem;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0 0.5rem;
   min-width: 200px;
   list-style: none;
   z-index: 200;
