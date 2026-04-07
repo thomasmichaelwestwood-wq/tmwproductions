@@ -737,8 +737,14 @@
         <h3 style="font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Check Your Date</h3>
         <p style="font-size: 0.85rem; opacity: 0.65; margin-bottom: 2rem;">Tell me a bit about your event and I'll come back to you to confirm availability and pricing.</p>
 
-        <form id="contactForm" action="https://booking.tmwproductions.co.uk/check_availability.asp" method="POST">
-          <input type="hidden" name="djidnumber" value="26846">
+        <div id="formSuccess" style="display:none; padding: 2rem; text-align:center;">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">✓</div>
+          <h3 style="font-family: var(--font-display); letter-spacing: 0.1em; margin-bottom: 0.75rem;">Enquiry Sent!</h3>
+          <p style="opacity: 0.75; margin-bottom: 1.5rem;">Thanks — I've received your message and will be in touch within 24 hours to confirm your date and talk through the details.</p>
+          <p style="font-size: 0.85rem; opacity: 0.5;">Didn't hear back? Email me directly at <a href="mailto:info@tmwproductions.co.uk" style="color: var(--purple-mist);">info@tmwproductions.co.uk</a></p>
+        </div>
+
+        <form id="contactForm">
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">First Name *</label>
@@ -845,7 +851,7 @@
             <textarea id="message" name="message" placeholder="Tell me a bit more about what you're looking for — guest numbers, timings, anything..."></textarea>
           </div>
 
-          <button type="submit" class="btn btn--primary form-submit">Check Availability &amp; Send Enquiry</button>
+          <button type="submit" class="btn btn--primary form-submit" id="formSubmitBtn">Send Enquiry</button>
           <p class="form-note">I aim to respond within 24 hours. A £100 deposit secures your date once we've confirmed details.</p>
         </form>
       </div>
@@ -957,7 +963,7 @@
             <span class="faq-item__icon">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Once you're booked, I'll set you up with access to my planning portal at booking.tmwproductions.co.uk. From there you can build your playlist, add must-plays and must-not-plays, set your running order and timeline, and leave any notes for me. You can do it at your own pace, whenever suits you.</p>
+            <p>Once you're booked, I'll send you a link to your personal planning portal. From there you can build your playlist, add must-plays and must-not-plays, set your running order and timeline, and leave any notes for me. You can do it at your own pace, whenever suits you.</p>
           </div>
         </div>
 
@@ -1141,13 +1147,16 @@
   </script>
 
   <script>
-    // Enquiry webhook — fires via sendBeacon so it completes even as the
-    // form navigates away to the booking system.
+    // Enquiry form submission
     (function () {
-      const form = document.getElementById('contactForm');
+      const form      = document.getElementById('contactForm');
+      const successEl = document.getElementById('formSuccess');
+      const submitBtn = document.getElementById('formSubmitBtn');
       if (!form) return;
 
-      form.addEventListener('submit', function () {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
         const day   = form.day   ? form.day.value   : '';
         const month = form.month ? form.month.value : '';
         const year  = form.year  ? form.year.value  : '';
@@ -1159,20 +1168,32 @@
         const payload = JSON.stringify({
           name:      ((form.firstName ? form.firstName.value : '') + ' ' +
                       (form.lastName  ? form.lastName.value  : '')).trim(),
-          email:     form.email     ? form.email.value.trim()  : '',
-          mobile:    form.phone     ? form.phone.value.trim()  : '',
-          eventType: form.eventType ? form.eventType.value     : '',
+          email:     form.email     ? form.email.value.trim()    : '',
+          mobile:    form.phone     ? form.phone.value.trim()    : '',
+          eventType: form.eventType ? form.eventType.value       : '',
           eventDate,
-          venue:     form.venue     ? form.venue.value.trim()     : '',
-          startTime: form.startTime ? form.startTime.value      : '',
+          startTime: form.startTime ? form.startTime.value       : '',
           endTime:   form.endTime   ? form.endTime.value         : '',
+          venue:     form.venue     ? form.venue.value.trim()    : '',
           message:   form.message   ? form.message.value.trim()  : ''
         });
 
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon('/api/enquiry-webhook',
-            new Blob([payload], { type: 'application/json' }));
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        try {
+          await fetch('/api/enquiry-webhook', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: payload
+          });
+        } catch (_) {
+          // fail silently — email may still have sent
         }
+
+        form.style.display = 'none';
+        successEl.style.display = 'block';
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
     })();
   </script>
