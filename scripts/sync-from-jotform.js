@@ -223,7 +223,17 @@ function downloadLogo(url, id) {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         file.close();
         cleanup();
-        return downloadLogo(res.headers.location, id).then(resolve);
+        let location = res.headers.location;
+        // Detect login redirect — file is not publicly accessible
+        if (location.includes('/login/') || location.includes('/login?')) {
+          console.warn(`  ⚠ Logo requires login (skipping): ${url}`);
+          return resolve(null);
+        }
+        // Resolve relative redirects against the Jotform EU base
+        if (location.startsWith('/')) {
+          location = `https://eu.jotform.com${location}`;
+        }
+        return downloadLogo(location, id).then(resolve);
       }
       if (res.statusCode !== 200) {
         file.close();
