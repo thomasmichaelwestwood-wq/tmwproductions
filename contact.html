@@ -539,78 +539,123 @@
       box-shadow: 0 8px 24px rgba(186,141,189,0.12);
     }
 
-    /* WHATSAPP OPT-IN */
-    .whatsapp-optin {
-      background: rgba(37,211,102,0.07);
-      border: 1px solid rgba(37,211,102,0.25);
-      padding: 1rem 1.2rem;
+    /* DATE GATE */
+    .date-gate {
+      background: var(--purple-clarity);
+      padding: 4rem 5%;
+      text-align: center;
+      border-bottom: 1px solid rgba(186,141,189,0.15);
+    }
+
+    .date-gate__inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .date-gate__heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+
+    .date-gate__sub {
+      opacity: 0.65;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .date-gate__picker {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr auto;
+      gap: 0.75rem;
+      align-items: end;
+      margin-bottom: 1.5rem;
+    }
+
+    .date-gate__picker select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(186,141,189,0.3);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 1rem;
       border-radius: 0;
-    }
-
-    .whatsapp-optin__label {
-      display: flex !important;
-      align-items: flex-start;
-      gap: 0.85rem;
       cursor: pointer;
-      font-size: inherit !important;
-      font-weight: inherit !important;
-      letter-spacing: inherit !important;
-      text-transform: none !important;
-      opacity: 1 !important;
-      margin-bottom: 0 !important;
     }
 
-    .whatsapp-optin__label input[type="checkbox"] {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
+    .date-gate__picker select option {
+      background: #1a0030;
+      color: var(--white);
     }
 
-    .whatsapp-optin__box {
-      flex-shrink: 0;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(37,211,102,0.5);
-      background: rgba(37,211,102,0.05);
-      margin-top: 2px;
-      transition: background 0.2s, border-color 0.2s;
-      position: relative;
+    .date-gate__picker-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      margin-bottom: 0.35rem;
     }
 
-    .whatsapp-optin__label input:checked ~ .whatsapp-optin__box {
-      background: rgba(37,211,102,0.2);
-      border-color: #25d366;
+    #gateCheckBtn {
+      white-space: nowrap;
+      padding: 0.85rem 1.8rem;
+      align-self: end;
     }
 
-    .whatsapp-optin__label input:checked ~ .whatsapp-optin__box::after {
-      content: '';
-      position: absolute;
-      left: 4px;
-      top: 1px;
-      width: 6px;
-      height: 10px;
-      border: 2px solid #25d366;
-      border-top: none;
-      border-left: none;
-      transform: rotate(45deg);
+    .date-gate__result {
+      min-height: 2.5rem;
+      margin-bottom: 0.5rem;
     }
 
-    .whatsapp-optin__text {
-      font-size: 0.85rem;
-      line-height: 1.6;
-      opacity: 0.85;
+    .gate-avail {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 0;
+      font-size: 0.95rem;
+      text-align: left;
     }
 
-    .whatsapp-optin__text em {
-      opacity: 0.55;
-      font-style: italic;
+    .gate-avail--yes  { background: rgba(0,200,100,0.1);  border: 1px solid rgba(0,200,100,0.3);  }
+    .gate-avail--no   { background: rgba(220,50,50,0.1);   border: 1px solid rgba(220,50,50,0.3);   }
+    .gate-avail--busy { background: rgba(255,170,0,0.1);   border: 1px solid rgba(255,170,0,0.3);   }
+
+    .gate-avail__icon { font-size: 1.5rem; flex-shrink: 0; }
+    .gate-avail strong { display: block; margin-bottom: 0.2rem; }
+    .gate-avail p { opacity: 0.75; margin: 0; font-size: 0.85rem; }
+
+    .date-gate__skip {
+      font-size: 0.8rem;
+      opacity: 0.45;
+      margin-top: 1rem;
+    }
+
+    .date-gate__skip a {
+      color: var(--purple-mist);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .date-gate__picker {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+      }
+      .date-gate__picker > div:nth-child(2) { grid-column: span 2; }
+      #gateCheckBtn { grid-column: span 2; }
     }
 
     @media (max-width: 768px) {
       .contact-main__grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .form-row { grid-template-columns: 1fr; }
-      .contact-form { padding: 2rem; }
+      .contact-form { padding: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .contact-form { padding: 1.25rem; }
     }
     .page-hero--contact::before { background-image: url('images/234869517_376895937373871_5136047450381745909_n_edited_edited.jpg'); }
   </style>
@@ -645,8 +690,46 @@
     </div>
   </section>
 
+  <!-- DATE GATE -->
+  <section class="date-gate">
+    <div class="date-gate__inner">
+      <p class="section__label">Step 1</p>
+      <h2 class="date-gate__heading">Check Your Date First</h2>
+      <p class="date-gate__sub">See instantly whether your date is free before filling in the full form.</p>
+
+      <div class="date-gate__picker">
+        <div>
+          <div class="date-gate__picker-label">Day</div>
+          <select id="gateDay">
+            <option value="">—</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option>
+          </select>
+        </div>
+        <div>
+          <div class="date-gate__picker-label">Month</div>
+          <select id="gateMonth">
+            <option value="">—</option>
+            <option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option>
+          </select>
+        </div>
+        <div>
+          <div class="date-gate__picker-label">Year</div>
+          <select id="gateYear">
+            <option value="">—</option>
+            <option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option>
+          </select>
+        </div>
+        <button id="gateCheckBtn" class="btn btn--primary">Check My Date</button>
+      </div>
+
+      <div id="gateResult" class="date-gate__result"></div>
+
+      <p class="date-gate__skip">Already know your date? <a id="gateSkip">Skip to the form</a></p>
+    </div>
+  </section>
+
   <!-- CONTACT MAIN -->
-  <section class="contact-main">
+  <section class="contact-main" id="contactSection" style="display:none;">
     <div class="contact-main__grid">
 
       <!-- FORM -->
@@ -654,8 +737,14 @@
         <h3 style="font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Check Your Date</h3>
         <p style="font-size: 0.85rem; opacity: 0.65; margin-bottom: 2rem;">Tell me a bit about your event and I'll come back to you to confirm availability and pricing.</p>
 
-        <form id="contactForm" action="https://booking.tmwproductions.co.uk/check_availability.asp" method="POST">
-          <input type="hidden" name="djidnumber" value="26846">
+        <div id="formSuccess" style="display:none; padding: 2rem; text-align:center;">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">✓</div>
+          <h3 style="font-family: var(--font-display); letter-spacing: 0.1em; margin-bottom: 0.75rem;">Enquiry Sent!</h3>
+          <p style="opacity: 0.75; margin-bottom: 1.5rem;">Thanks — I've received your message and will be in touch within 24 hours to confirm your date and talk through the details.</p>
+          <p style="font-size: 0.85rem; opacity: 0.5;">Didn't hear back? Email me directly at <a href="mailto:info@tmwproductions.co.uk" style="color: var(--purple-mist);">info@tmwproductions.co.uk</a></p>
+        </div>
+
+        <form id="contactForm">
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">First Name *</label>
@@ -723,6 +812,17 @@
             <input type="text" id="venue" name="venue" placeholder="e.g. Prestwold Hall, Loughborough" />
           </div>
 
+          <div class="form-row">
+            <div class="form-group">
+              <label for="startTime">Event Start Time</label>
+              <input type="time" id="startTime" name="startTime" />
+            </div>
+            <div class="form-group">
+              <label for="endTime">Event End Time</label>
+              <input type="time" id="endTime" name="endTime" />
+            </div>
+          </div>
+
           <!-- VIBE SECTION — revealed once date is confirmed available -->
           <div id="vibe-section">
             <span class="vibe__label">What's Your Sound? <span style="opacity:0.45; font-weight:300; text-transform:none; letter-spacing:0; font-style:italic;">optional</span></span>
@@ -751,20 +851,7 @@
             <textarea id="message" name="message" placeholder="Tell me a bit more about what you're looking for — guest numbers, timings, anything..."></textarea>
           </div>
 
-          <!-- WhatsApp opt-in — UK GDPR / PECR compliant -->
-          <div class="form-group whatsapp-optin">
-            <label class="whatsapp-optin__label">
-              <input type="checkbox" id="whatsapp_consent" name="whatsapp_consent" value="1" />
-              <span class="whatsapp-optin__box" aria-hidden="true"></span>
-              <span class="whatsapp-optin__text">
-                Send me a WhatsApp message to confirm you've received my enquiry.
-                I understand this is a one-time confirmation, not a marketing list.
-                <em>(Optional)</em>
-              </span>
-            </label>
-          </div>
-
-          <button type="submit" class="btn btn--primary form-submit">Check Availability &amp; Send Enquiry</button>
+          <button type="submit" class="btn btn--primary form-submit" id="formSubmitBtn">Send Enquiry</button>
           <p class="form-note">I aim to respond within 24 hours. A £100 deposit secures your date once we've confirmed details.</p>
         </form>
       </div>
@@ -876,7 +963,7 @@
             <span class="faq-item__icon">+</span>
           </button>
           <div class="faq-item__answer">
-            <p>Once you're booked, I'll set you up with access to my planning portal at booking.tmwproductions.co.uk. From there you can build your playlist, add must-plays and must-not-plays, set your running order and timeline, and leave any notes for me. You can do it at your own pace, whenever suits you.</p>
+            <p>Once you're booked, I'll send you a link to your personal planning portal. From there you can build your playlist, add must-plays and must-not-plays, set your running order and timeline, and leave any notes for me. You can do it at your own pace, whenever suits you.</p>
           </div>
         </div>
 
@@ -939,7 +1026,7 @@
       <div class="footer__contact">
         <div class="footer__heading"><a href="contact.html" style="color: inherit;">Get In Touch</a></div>
         <p>Leicestershire &amp; East Midlands</p>
-        <br>
+        <p><a href="mailto:info@tmwproductions.co.uk" style="color: var(--purple-mist);">info@tmwproductions.co.uk</a></p>
         <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
       </div>
     </div>
@@ -954,45 +1041,159 @@
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
   <script>
-    // WhatsApp opt-in webhook — fires via sendBeacon so it completes even
-    // as the form navigates away to the booking system.
+    // ── Date gate ──────────────────────────────────────────────────────────────
     (function () {
-      const form = document.getElementById('contactForm');
+      const gateDay    = document.getElementById('gateDay');
+      const gateMonth  = document.getElementById('gateMonth');
+      const gateYear   = document.getElementById('gateYear');
+      const checkBtn   = document.getElementById('gateCheckBtn');
+      const resultEl   = document.getElementById('gateResult');
+      const skipLink   = document.getElementById('gateSkip');
+      const contactSec = document.getElementById('contactSection');
+
+      const APPS_SCRIPT_URL = typeof window.TMW_APPS_SCRIPT_URL !== 'undefined'
+        ? window.TMW_APPS_SCRIPT_URL : 'YOUR_APPS_SCRIPT_URL_HERE';
+
+      const months = ['','January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+
+      function revealForm() {
+        contactSec.style.display = '';
+        contactSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function prefillFormDate(d, m, y) {
+        const fd = document.querySelector('select[name="day"]');
+        const fm = document.querySelector('select[name="month"]');
+        const fy = document.querySelector('select[name="year"]');
+        if (fd) fd.value = d;
+        if (fm) fm.value = m;
+        if (fy) fy.value = y;
+        // Trigger change so existing availability.js picks it up
+        [fd, fm, fy].forEach(el => el && el.dispatchEvent(new Event('change')));
+      }
+
+      function showResult(type, html) {
+        resultEl.innerHTML = `<div class="gate-avail gate-avail--${type}">${html}</div>`;
+      }
+
+      checkBtn.addEventListener('click', function () {
+        const d = gateDay.value;
+        const m = gateMonth.value;
+        const y = gateYear.value;
+
+        if (!d || !m || !y) {
+          resultEl.innerHTML = `<p style="opacity:0.6;font-size:0.85rem;">Please select a day, month and year.</p>`;
+          return;
+        }
+
+        const dateStr = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const dateLabel = `${d} ${months[parseInt(m)]} ${y}`;
+
+        prefillFormDate(d, m, y);
+
+        if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+          // No calendar connected — just proceed to form
+          showResult('yes',
+            `<span class="gate-avail__icon">🗓️</span>` +
+            `<div><strong>${dateLabel} — go ahead and enquire!</strong>` +
+            `<p>Fill in your details below and Tom will confirm availability.</p></div>`);
+          setTimeout(revealForm, 600);
+          return;
+        }
+
+        checkBtn.disabled = true;
+        checkBtn.textContent = 'Checking…';
+        resultEl.innerHTML = '';
+
+        fetch(`${APPS_SCRIPT_URL}?date=${dateStr}`)
+          .then(r => r.json())
+          .then(data => {
+            if (data.available === true) {
+              showResult('yes',
+                `<span class="gate-avail__icon">✓</span>` +
+                `<div><strong>Tom is available on ${dateLabel}!</strong>` +
+                `<p>Fill in your details below and he'll confirm everything.</p></div>`);
+              setTimeout(revealForm, 700);
+            } else if (data.available === false) {
+              showResult('no',
+                `<span class="gate-avail__icon">✕</span>` +
+                `<div><strong>Sorry — Tom is already booked on ${dateLabel}.</strong>` +
+                `<p>Don't panic — Tom works with some incredible suppliers. <a href="people-i-recommend.html" style="color:var(--purple-mist);text-decoration:underline;">Browse his trusted DJ &amp; supplier network →</a></p></div>`);
+              revealForm();
+            } else {
+              showResult('busy',
+                `<span class="gate-avail__icon">⚠</span>` +
+                `<div><strong>Couldn't check that date automatically.</strong>` +
+                `<p>Fill in the form below and Tom will confirm availability directly.</p></div>`);
+              setTimeout(revealForm, 600);
+            }
+          })
+          .catch(() => {
+            showResult('busy',
+              `<span class="gate-avail__icon">⚠</span>` +
+              `<div><strong>Couldn't reach the calendar right now.</strong>` +
+              `<p>Carry on and fill in the form — Tom will confirm your date.</p></div>`);
+            setTimeout(revealForm, 600);
+          })
+          .finally(() => {
+            checkBtn.disabled = false;
+            checkBtn.textContent = 'Check My Date';
+          });
+      });
+
+      skipLink.addEventListener('click', revealForm);
+    })();
+  </script>
+
+  <script>
+    // Enquiry form submission
+    (function () {
+      const form      = document.getElementById('contactForm');
+      const successEl = document.getElementById('formSuccess');
+      const submitBtn = document.getElementById('formSubmitBtn');
       if (!form) return;
 
-      form.addEventListener('submit', function () {
-        const consent = document.getElementById('whatsapp_consent');
-        const consentGiven = consent && consent.checked;
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-        const mobile = (form.phone && form.phone.value) ? form.phone.value.trim() : '';
-
-        // Build event date string from the three dropdowns
         const day   = form.day   ? form.day.value   : '';
         const month = form.month ? form.month.value : '';
         const year  = form.year  ? form.year.value  : '';
         const months = ['','January','February','March','April','May','June',
                         'July','August','September','October','November','December'];
         const eventDate = (day && month && year && day !== '-43' && month !== '-43' && year !== '-43')
-          ? `${day} ${months[parseInt(month)] || month} ${year}`
-          : '';
+          ? `${day} ${months[parseInt(month)] || month} ${year}` : '';
 
         const payload = JSON.stringify({
-          name:           ((form.firstName ? form.firstName.value : '') + ' ' +
-                           (form.lastName  ? form.lastName.value  : '')).trim(),
-          email:          form.email     ? form.email.value.trim()     : '',
-          mobile:         mobile,
-          eventType:      form.eventType ? form.eventType.value        : '',
-          eventDate:      eventDate,
-          venue:          form.venue     ? form.venue.value.trim()     : '',
-          message:        form.message   ? form.message.value.trim()   : '',
-          whatsapp_consent: consentGiven
+          name:      ((form.firstName ? form.firstName.value : '') + ' ' +
+                      (form.lastName  ? form.lastName.value  : '')).trim(),
+          email:     form.email     ? form.email.value.trim()    : '',
+          mobile:    form.phone     ? form.phone.value.trim()    : '',
+          eventType: form.eventType ? form.eventType.value       : '',
+          eventDate,
+          startTime: form.startTime ? form.startTime.value       : '',
+          endTime:   form.endTime   ? form.endTime.value         : '',
+          venue:     form.venue     ? form.venue.value.trim()    : '',
+          message:   form.message   ? form.message.value.trim()  : ''
         });
 
-        // sendBeacon is fire-and-forget — survives page navigation.
-        const endpoint = '/api/enquiry-webhook';
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }));
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        try {
+          await fetch('/api/enquiry-webhook', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: payload
+          });
+        } catch (_) {
+          // fail silently — email may still have sent
         }
+
+        form.style.display = 'none';
+        successEl.style.display = 'block';
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
     })();
   </script>

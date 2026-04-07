@@ -200,7 +200,7 @@ async function fetchAllSubmissions(apiKey) {
  * Returns the local web-relative path, or null if the download fails.
  * Skips download if the file already exists.
  */
-function downloadLogo(url, id) {
+function downloadLogo(url, id, apiKey) {
   return new Promise((resolve) => {
     // Derive extension from the URL filename, default to .jpg
     const urlPath = url.split('?')[0];
@@ -213,13 +213,18 @@ function downloadLogo(url, id) {
       return resolve(webPath); // Already downloaded
     }
 
-    const encodedUrl = url.replace(/ /g, '%20');
+    // Encode spaces and append API key for Jotform-hosted uploads
+    let fetchUrl = url.replace(/ /g, '%20');
+    if (apiKey && fetchUrl.includes('jotform.com/uploads/')) {
+      fetchUrl += (fetchUrl.includes('?') ? '&' : '?') + `apiKey=${encodeURIComponent(apiKey)}`;
+    }
+
     const tmp = localPath + '.tmp';
     const file = fs.createWriteStream(tmp);
 
     const cleanup = () => { try { fs.unlinkSync(tmp); } catch (_) {} };
 
-    const request = https.get(encodedUrl, (res) => {
+    const request = https.get(fetchUrl, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         file.close();
         cleanup();
@@ -233,7 +238,7 @@ function downloadLogo(url, id) {
         if (location.startsWith('/')) {
           location = `https://eu.jotform.com${location}`;
         }
-        return downloadLogo(location, id).then(resolve);
+        return downloadLogo(location, id, apiKey).then(resolve);
       }
       if (res.statusCode !== 200) {
         file.close();
@@ -279,7 +284,7 @@ async function main() {
   console.log('Downloading supplier logos…');
   for (const supplier of suppliers) {
     if (supplier.logo_url && supplier.logo_url.startsWith('http')) {
-      const localPath = await downloadLogo(supplier.logo_url, supplier.id);
+      const localPath = await downloadLogo(supplier.logo_url, supplier.id, apiKey);
       if (localPath) {
         console.log(`  ✓ ${supplier.name}`);
         supplier.logo_url = localPath;
