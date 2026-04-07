@@ -47,10 +47,11 @@ function parseIcalDates(icalText) {
 
 // ── HTTP(S) fetch ─────────────────────────────────────────────────────────────
 
-function fetchUrl(url) {
+function fetchUrl(url, apiKey) {
   return new Promise(function(resolve, reject) {
-    const client = url.startsWith('https') ? https : http;
-    const req = client.get(url, function(res) {
+    const client  = url.startsWith('https') ? https : http;
+    const options = apiKey ? { headers: { 'Authorization': 'Bearer ' + apiKey } } : {};
+    const req = client.get(url, options, function(res) {
       // Follow a single redirect
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         return fetchUrl(res.headers.location).then(resolve).catch(reject);
@@ -73,6 +74,7 @@ function fetchUrl(url) {
 
 async function main() {
   const icalUrl = process.env.PLANNING_BEATS_ICAL_URL;
+  const apiKey  = process.env.PLANNING_BEATS_API_KEY;
 
   if (!icalUrl) {
     console.warn('[update-availability] PLANNING_BEATS_ICAL_URL is not set — skipping update.');
@@ -101,7 +103,7 @@ async function main() {
   let icalText;
   try {
     console.log('[update-availability] Fetching iCal feed…');
-    icalText = await fetchUrl(icalUrl);
+    icalText = await fetchUrl(icalUrl, apiKey);
     console.log('[update-availability] Feed fetched (' + icalText.length + ' bytes).');
   } catch (err) {
     console.error('[update-availability] Network error fetching iCal feed:', err.message);

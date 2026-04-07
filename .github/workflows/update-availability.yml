@@ -29,6 +29,7 @@ jobs:
         run: npm run update-availability
         env:
           PLANNING_BEATS_ICAL_URL: ${{ secrets.PLANNING_BEATS_ICAL_URL }}
+          PLANNING_BEATS_API_KEY:  ${{ secrets.PLANNING_BEATS_API_KEY }}
 
       - name: Commit updated availability data
         run: |

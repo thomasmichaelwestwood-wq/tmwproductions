@@ -3,7 +3,7 @@
 // Paste your Google Apps Script Web App URL below
 // ============================================================
 
-const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+const APPS_SCRIPT_URL = '/api/check-availability';
 
 // ============================================================
 // TRUSTED SUPPLIERS
@@ -169,12 +169,6 @@ const TMW_SUPPLIERS = [
 
     clearTimeout(debounce);
     showChecking();
-
-    // If the URL hasn't been set yet, silently skip
-    if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-      hideIndicator();
-      return;
-    }
 
     debounce = setTimeout(() => {
       fetch(`${APPS_SCRIPT_URL}?date=${date}`)

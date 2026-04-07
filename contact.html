@@ -1051,8 +1051,7 @@
       const skipLink   = document.getElementById('gateSkip');
       const contactSec = document.getElementById('contactSection');
 
-      const APPS_SCRIPT_URL = typeof window.TMW_APPS_SCRIPT_URL !== 'undefined'
-        ? window.TMW_APPS_SCRIPT_URL : 'YOUR_APPS_SCRIPT_URL_HERE';
+      const APPS_SCRIPT_URL = '/api/check-availability';
 
       const months = ['','January','February','March','April','May','June',
                       'July','August','September','October','November','December'];
@@ -1091,16 +1090,6 @@
         const dateLabel = `${d} ${months[parseInt(m)]} ${y}`;
 
         prefillFormDate(d, m, y);
-
-        if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-          // No calendar connected — just proceed to form
-          showResult('yes',
-            `<span class="gate-avail__icon">🗓️</span>` +
-            `<div><strong>${dateLabel} — go ahead and enquire!</strong>` +
-            `<p>Fill in your details below and Tom will confirm availability.</p></div>`);
-          setTimeout(revealForm, 600);
-          return;
-        }
 
         checkBtn.disabled = true;
         checkBtn.textContent = 'Checking…';
