@@ -143,6 +143,24 @@ exports.handler = async function (event) {
   const dateStr = params.date;
   const mode    = params.mode;
 
+  // ── Debug mode: return raw iCal sample ──────────────────────────────────
+  if (mode === 'debug') {
+    const icalUrl = process.env.PLANNING_BEATS_ICAL_URL;
+    const apiKey  = process.env.PLANNING_BEATS_API_KEY;
+    if (!icalUrl) return respond(500, { error: 'Calendar not configured' });
+    try {
+      const icalText = await fetchText(icalUrl, apiKey);
+      const events   = parseAllEvents(icalText);
+      return respond(200, {
+        total_events: events.length,
+        events_sample: events.slice(0, 10),
+        raw_sample: icalText.slice(0, 3000)
+      });
+    } catch (err) {
+      return respond(500, { error: err.message });
+    }
+  }
+
   // ── List mode: return all booked events ──────────────────────────────────
   if (mode === 'list') {
     const icalUrl = process.env.PLANNING_BEATS_ICAL_URL;
