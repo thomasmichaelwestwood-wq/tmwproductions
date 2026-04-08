@@ -1,4 +1,10 @@
 {
-  "2026": { "percent": 43, "label": "Limited dates remaining this year" },
-  "2027": { "percent": 45, "label": "Dates still available — enquire now" }
+  "2026": {
+    "percent": 31,
+    "label": "Dates still available — enquire now"
+  },
+  "2027": {
+    "percent": 17,
+    "label": "Dates still available — enquire now"
+  }
 }
