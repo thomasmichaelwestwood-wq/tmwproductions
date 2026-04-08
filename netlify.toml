@@ -20,6 +20,11 @@
   to     = "/.netlify/functions/check-availability"
   status = 200
 
+[[redirects]]
+  from   = "/date"
+  to     = "/date.html"
+  status = 200
+
 [functions]
   # Bundle each function with its node_modules using esbuild.
   node_bundler = "esbuild"

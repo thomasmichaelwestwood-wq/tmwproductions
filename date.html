@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TMW Date Checker</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Save to home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TMW Dates">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Crect width='180' height='180' rx='40' fill='%23722E80'/%3E%3Ctext x='90' y='110' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='bold' font-size='52' fill='white'%3ETMW%3C/text%3E%3C/svg%3E">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple-dark:    #0f0015;
+      --purple-clarity: #722E80;
+      --purple-mist:    #BA8DBD;
+      --white:          #ffffff;
+      --green:          #2ecc71;
+      --red:            #e74c3c;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--purple-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1rem 5rem;
+      color: var(--white);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      height: 48px;
+      width: auto;
+      display: block;
+      margin: 0 auto 1rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+
+    header h1 span { color: var(--purple-mist); }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(186,141,189,0.2);
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+      margin-bottom: 1rem;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      font-size: 1.1rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(186,141,189,0.35);
+      color: var(--white);
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+
+    input[type="date"]:focus { border-color: var(--purple-mist); }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) opacity(0.6);
+      cursor: pointer;
+    }
+
+    /* ── Result ── */
+    #result {
+      margin-top: 1.25rem;
+      padding: 1.2rem 1.4rem;
+      font-size: 1rem;
+      line-height: 1.55;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
+
+    #result.available {
+      display: block;
+      background: rgba(46,204,113,0.1);
+      border: 1px solid rgba(46,204,113,0.45);
+    }
+
+    #result.booked {
+      display: block;
+      background: rgba(231,76,60,0.1);
+      border: 1px solid rgba(231,76,60,0.45);
+    }
+
+    #result.checking {
+      display: block;
+      background: rgba(186,141,189,0.08);
+      border: 1px solid rgba(186,141,189,0.25);
+      opacity: 0.7;
+    }
+
+    .result-status {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .available .result-status { color: var(--green); }
+    .booked    .result-status { color: var(--red); }
+    .checking  .result-status { color: var(--purple-mist); }
+
+    .result-detail {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    /* ── Booked list ── */
+    .year-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .year-tab {
+      padding: 0.35rem 1.1rem;
+      border: 1px solid rgba(186,141,189,0.3);
+      background: transparent;
+      color: var(--purple-mist);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .year-tab.active {
+      background: var(--purple-clarity);
+      border-color: var(--purple-clarity);
+      color: var(--white);
+    }
+
+    .booked-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .booked-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.8rem;
+      background: rgba(255,255,255,0.03);
+      border-left: 2px solid var(--purple-clarity);
+      font-size: 0.85rem;
+      gap: 1rem;
+    }
+
+    .booked-item .bdate {
+      color: var(--purple-mist);
+      white-space: nowrap;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .booked-item .bname {
+      text-align: right;
+      opacity: 0.9;
+    }
+
+    .empty-state {
+      font-size: 0.85rem;
+      opacity: 0.45;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+
+    .loading-state {
+      font-size: 0.85rem;
+      opacity: 0.5;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+
+    /* ── Footer ── */
+    .sync-note {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(186,141,189,0.35);
+      text-align: center;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="images/TMW_Full_PurpleWhite.png" alt="TMW Productions" class="logo">
+    <h1>Date <span>Checker</span></h1>
+  </header>
+
+  <!-- Date checker -->
+  <div class="card">
+    <p class="card-title">Check a date</p>
+    <input type="date" id="datePicker">
+    <div id="result"></div>
+  </div>
+
+  <!-- Booked list -->
+  <div class="card">
+    <p class="card-title">All booked dates</p>
+    <div class="year-tabs" id="yearTabs"></div>
+    <div class="booked-list" id="bookedList">
+      <p class="loading-state">Loading…</p>
+    </div>
+    <p class="sync-note" id="syncNote">Live from Planning Beats</p>
+  </div>
+
+<script>
+  const picker   = document.getElementById('datePicker');
+  const result   = document.getElementById('result');
+  const listEl   = document.getElementById('bookedList');
+  const tabsEl   = document.getElementById('yearTabs');
+  const syncNote = document.getElementById('syncNote');
+
+  let allEvents  = [];
+  let activeYear = null;
+
+  // ── Format helpers ────────────────────────────────────────────────────────
+
+  function fmtFull(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function fmtShort(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  }
+
+  // ── Date checker ──────────────────────────────────────────────────────────
+
+  let debounce;
+
+  picker.addEventListener('change', () => {
+    const val = picker.value;
+    if (!val) { result.className = ''; result.style.display = 'none'; return; }
+
+    clearTimeout(debounce);
+    result.className = 'checking';
+    result.innerHTML = `<div class="result-status">Checking…</div>`;
+
+    debounce = setTimeout(() => {
+      fetch(`/api/check-availability?date=${val}`)
+        .then(r => r.json())
+        .then(data => {
+          const formatted = fmtFull(val);
+          if (data.available === true) {
+            result.className = 'available';
+            result.innerHTML = `<div class="result-status">✓ Available</div>
+              <div class="result-detail">${formatted}</div>`;
+          } else if (data.available === false) {
+            const match = allEvents.find(e => e.date === val);
+            result.className = 'booked';
+            result.innerHTML = `<div class="result-status">✕ Already Booked</div>
+              <div class="result-detail">${formatted}${match && match.summary ? `<br><strong>${match.summary}</strong>` : ''}</div>`;
+            // Switch to the right year tab
+            const year = new Date(val + 'T00:00:00').getFullYear();
+            if (year !== activeYear) showYear(year);
+          } else {
+            result.className = 'checking';
+            result.innerHTML = `<div class="result-status">⚠ Couldn't check</div>
+              <div class="result-detail">Try again in a moment.</div>`;
+          }
+        })
+        .catch(() => {
+          result.className = 'checking';
+          result.innerHTML = `<div class="result-status">⚠ Couldn't reach calendar</div>
+            <div class="result-detail">Check your connection and try again.</div>`;
+        });
+    }, 300);
+  });
+
+  // ── Booked list ───────────────────────────────────────────────────────────
+
+  function renderList(year) {
+    activeYear = year;
+    const items = allEvents.filter(e => e.date.startsWith(year + '-'));
+
+    if (items.length === 0) {
+      listEl.innerHTML = `<p class="empty-state">No bookings for ${year} yet.</p>`;
+      return;
+    }
+
+    listEl.innerHTML = items.map(e =>
+      `<div class="booked-item">
+        <span class="bdate">${fmtShort(e.date)}</span>
+        <span class="bname">${e.summary || '—'}</span>
+      </div>`
+    ).join('');
+  }
+
+  function showYear(year) {
+    activeYear = year;
+    tabsEl.querySelectorAll('.year-tab').forEach(t => {
+      t.classList.toggle('active', parseInt(t.dataset.year) === year);
+    });
+    renderList(year);
+  }
+
+  function buildTabs(years) {
+    tabsEl.innerHTML = years.map(y =>
+      `<button class="year-tab${y === activeYear ? ' active' : ''}" data-year="${y}" onclick="showYear(${y}, this)">${y}</button>`
+    ).join('');
+  }
+
+  // ── Load all events ───────────────────────────────────────────────────────
+
+  fetch('/api/check-availability?mode=list')
+    .then(r => r.json())
+    .then(data => {
+      if (!data.events) throw new Error('No events');
+      allEvents = data.events;
+
+      const years = [...new Set(allEvents.map(e => parseInt(e.date.substr(0, 4))))].sort();
+      const currentYear = new Date().getFullYear();
+      activeYear = years.includes(currentYear) ? currentYear : years[0];
+
+      buildTabs(years);
+      renderList(activeYear);
+
+      const now = new Date().toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+      syncNote.textContent = `Live from Planning Beats — loaded ${now}`;
+    })
+    .catch(() => {
+      listEl.innerHTML = `<p class="empty-state">Couldn't load bookings. Refresh to try again.</p>`;
+    });
+</script>
+</body>
+</html>

@@ -561,9 +561,10 @@
     }
 
     .date-gate__sub {
-      opacity: 0.65;
-      font-size: 0.95rem;
+      opacity: 0.85;
+      font-size: 1rem;
       margin-bottom: 2rem;
+      color: var(--white);
     }
 
     .date-gate__picker {
@@ -595,7 +596,8 @@
       font-size: 0.7rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      opacity: 0.45;
+      opacity: 0.75;
+      color: var(--white);
       margin-bottom: 0.35rem;
     }
 
@@ -620,18 +622,31 @@
       text-align: left;
     }
 
-    .gate-avail--yes  { background: rgba(0,200,100,0.1);  border: 1px solid rgba(0,200,100,0.3);  }
-    .gate-avail--no   { background: rgba(220,50,50,0.1);   border: 1px solid rgba(220,50,50,0.3);   }
-    .gate-avail--busy { background: rgba(255,170,0,0.1);   border: 1px solid rgba(255,170,0,0.3);   }
+    .gate-avail--yes  { background: rgba(0,200,100,0.12); border: 1px solid rgba(0,200,100,0.5);  }
+    .gate-avail--no   { background: rgba(220,50,50,0.12);  border: 1px solid rgba(220,50,50,0.5);   }
+    .gate-avail--busy { background: rgba(255,170,0,0.12);  border: 1px solid rgba(255,170,0,0.5);   }
 
     .gate-avail__icon { font-size: 1.5rem; flex-shrink: 0; }
-    .gate-avail strong { display: block; margin-bottom: 0.2rem; }
-    .gate-avail p { opacity: 0.75; margin: 0; font-size: 0.85rem; }
+    .gate-avail strong { display: block; margin-bottom: 0.3rem; color: var(--white); font-size: 1rem; }
+    .gate-avail p { opacity: 0.9; margin: 0; font-size: 0.9rem; color: var(--white); }
+
+    .gate-unavail {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      background: rgba(220,50,50,0.08);
+      border: 1px solid rgba(220,50,50,0.3);
+      margin-top: 1rem;
+    }
+
+    .gate-unavail__icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .gate-unavail h3 { font-family: var(--font-display); letter-spacing: 0.08em; font-size: 1.4rem; margin-bottom: 0.75rem; color: var(--white); }
+    .gate-unavail p { opacity: 0.85; margin-bottom: 1.5rem; color: var(--white); }
 
     .date-gate__skip {
-      font-size: 0.8rem;
-      opacity: 0.45;
+      font-size: 0.85rem;
+      opacity: 0.6;
       margin-top: 1rem;
+      color: var(--white);
     }
 
     .date-gate__skip a {
@@ -724,7 +739,7 @@
 
       <div id="gateResult" class="date-gate__result"></div>
 
-      <p class="date-gate__skip">Already know your date? <a id="gateSkip">Skip to the form</a></p>
+      <p class="date-gate__skip" id="gateSkipWrap">Already know your date? <a id="gateSkip">Skip to the form</a></p>
     </div>
   </section>
 
@@ -1049,6 +1064,7 @@
       const checkBtn   = document.getElementById('gateCheckBtn');
       const resultEl   = document.getElementById('gateResult');
       const skipLink   = document.getElementById('gateSkip');
+      const skipWrap   = document.getElementById('gateSkipWrap');
       const contactSec = document.getElementById('contactSection');
 
       const APPS_SCRIPT_URL = '/api/check-availability';
@@ -1105,11 +1121,14 @@
                 `<p>Fill in your details below and he'll confirm everything.</p></div>`);
               setTimeout(revealForm, 700);
             } else if (data.available === false) {
-              showResult('no',
-                `<span class="gate-avail__icon">✕</span>` +
-                `<div><strong>Sorry — Tom is already booked on ${dateLabel}.</strong>` +
-                `<p>Don't panic — Tom works with some incredible suppliers. <a href="people-i-recommend.html" style="color:var(--purple-mist);text-decoration:underline;">Browse his trusted DJ &amp; supplier network →</a></p></div>`);
-              revealForm();
+              skipWrap.style.display = 'none';
+              resultEl.innerHTML = `
+                <div class="gate-unavail">
+                  <div class="gate-unavail__icon">😔</div>
+                  <h3>Sorry — Tom is already booked on ${dateLabel}</h3>
+                  <p>Don't panic — Tom works alongside some incredible DJs and suppliers he personally recommends. You're in good hands.</p>
+                  <a href="people-i-recommend.html" class="btn btn--primary">Browse Recommended Suppliers</a>
+                </div>`;
             } else {
               showResult('busy',
                 `<span class="gate-avail__icon">⚠</span>` +
@@ -1123,6 +1142,7 @@
               `<span class="gate-avail__icon">⚠</span>` +
               `<div><strong>Couldn't reach the calendar right now.</strong>` +
               `<p>Carry on and fill in the form — Tom will confirm your date.</p></div>`);
+            skipLink.style.display = 'block';
             setTimeout(revealForm, 600);
           })
           .finally(() => {
