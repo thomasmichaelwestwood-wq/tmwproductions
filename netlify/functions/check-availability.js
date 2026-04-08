@@ -108,14 +108,59 @@ function isDateBooked(icalText, targetDate) {
   return false;
 }
 
-// ── Handler ───────────────────────────────────────────────────────────────────
+// ── Extract all events from iCal ──────────────────────────────────────────────
+
+function parseAllEvents(icalText) {
+  const events = [];
+  const blocks = icalText.split('BEGIN:VEVENT');
+  blocks.shift();
+
+  for (const block of blocks) {
+    const startMatch   = block.match(/^DTSTART[^\r\n]*/m);
+    const summaryMatch = block.match(/^SUMMARY[^\r\n]*/m);
+    if (!startMatch) continue;
+
+    const eventStart = parseIcalDate(startMatch[0]);
+    if (!eventStart) continue;
+
+    const dateStr  = `${eventStart.getFullYear()}-${String(eventStart.getMonth()+1).padStart(2,'0')}-${String(eventStart.getDate()).padStart(2,'0')}`;
+    const summary  = summaryMatch ? summaryMatch[0].replace(/^SUMMARY[^:]*:/i,'').trim() : '';
+
+    events.push({ date: dateStr, summary });
+  }
+
+  return events.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+
 
 exports.handler = async function (event) {
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 204, headers: HEADERS, body: '' };
   }
 
-  const dateStr = (event.queryStringParameters || {}).date;
+  const params  = event.queryStringParameters || {};
+  const dateStr = params.date;
+  const mode    = params.mode;
+
+  // ── List mode: return all booked events ──────────────────────────────────
+  if (mode === 'list') {
+    const icalUrl = process.env.PLANNING_BEATS_ICAL_URL;
+    const apiKey  = process.env.PLANNING_BEATS_API_KEY;
+    if (!icalUrl) return respond(500, { error: 'Calendar not configured' });
+
+    try {
+      const icalText = await fetchText(icalUrl, apiKey);
+      if (!icalText.includes('BEGIN:VCALENDAR')) {
+        return respond(502, { error: 'Unexpected response from calendar' });
+      }
+      const events = parseAllEvents(icalText);
+      return respond(200, { events });
+    } catch (err) {
+      console.error(JSON.stringify({ event: 'list_error', error: err.message }));
+      return respond(500, { error: 'Could not fetch calendar' });
+    }
+  }
 
   if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
     return respond(400, { error: 'Missing or invalid date. Use ?date=YYYY-MM-DD' });
