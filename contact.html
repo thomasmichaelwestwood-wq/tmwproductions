@@ -748,127 +748,9 @@
     <div class="contact-main__grid">
 
       <!-- FORM -->
-      <div class="contact-form reveal">
-        <h3 style="font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Check Your Date</h3>
-        <p style="font-size: 0.85rem; opacity: 0.65; margin-bottom: 2rem;">Tell me a bit about your event and I'll come back to you to confirm availability and pricing.</p>
-
-        <div id="formSuccess" style="display:none; padding: 2rem; text-align:center;">
-          <div style="font-size: 2.5rem; margin-bottom: 1rem;">✓</div>
-          <h3 style="font-family: var(--font-display); letter-spacing: 0.1em; margin-bottom: 0.75rem;">Enquiry Sent!</h3>
-          <p style="opacity: 0.75; margin-bottom: 1.5rem;">Thanks — I've received your message and will be in touch within 24 hours to confirm your date and talk through the details.</p>
-          <p style="font-size: 0.85rem; opacity: 0.5;">Didn't hear back? Email me directly at <a href="mailto:info@tmwproductions.co.uk" style="color: var(--purple-mist);">info@tmwproductions.co.uk</a></p>
-        </div>
-
-        <form id="contactForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="firstName">First Name *</label>
-              <input type="text" id="firstName" name="firstName" required placeholder="Tom" />
-            </div>
-            <div class="form-group">
-              <label for="lastName">Last Name *</label>
-              <input type="text" id="lastName" name="lastName" required placeholder="Westwood" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" name="email" required placeholder="hello@example.com" />
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="07700 000000" />
-          </div>
-
-          <div class="form-group">
-            <label for="eventType">Event Type *</label>
-            <select id="eventType" name="eventType" required>
-              <option value="" disabled selected>Select an event...</option>
-              <option value="wedding-full">Wedding — Full Day</option>
-              <option value="wedding-evening">Wedding — Evening Only</option>
-              <option value="birthday">Birthday Party</option>
-              <option value="corporate">Corporate Event</option>
-              <option value="charity">Charity Fundraiser</option>
-              <option value="kids">Kids' Party / School Disco</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Event Date *</label>
-            <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:0.75rem;">
-              <div>
-                <div style="font-size:0.7rem;opacity:0.45;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.35rem;">Day</div>
-                <select name="day" required style="width:100%;">
-                  <option value="-43">—</option>
-                  <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
-                </select>
-              </div>
-              <div>
-                <div style="font-size:0.7rem;opacity:0.45;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.35rem;">Month</div>
-                <select name="month" required style="width:100%;">
-                  <option value="-43">—</option>
-                  <option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option>
-                </select>
-              </div>
-              <div>
-                <div style="font-size:0.7rem;opacity:0.45;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.35rem;">Year</div>
-                <select name="year" required style="width:100%;">
-                  <option value="-43">—</option>
-                  <option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option><option value="2031">2031</option><option value="2032">2032</option><option value="2033">2033</option><option value="2034">2034</option><option value="2035">2035</option><option value="2036">2036</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="venue">Venue Name & Location</label>
-            <input type="text" id="venue" name="venue" placeholder="e.g. Prestwold Hall, Loughborough" />
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="startTime">Event Start Time</label>
-              <input type="time" id="startTime" name="startTime" />
-            </div>
-            <div class="form-group">
-              <label for="endTime">Event End Time</label>
-              <input type="time" id="endTime" name="endTime" />
-            </div>
-          </div>
-
-          <!-- VIBE SECTION — revealed once date is confirmed available -->
-          <div id="vibe-section">
-            <span class="vibe__label">What's Your Sound? <span style="opacity:0.45; font-weight:300; text-transform:none; letter-spacing:0; font-style:italic;">optional</span></span>
-            <p class="vibe__sublabel">Pick up to 3 genres — helps me get a feel for the vibe before we even speak.</p>
-            <div class="vibe__chips" id="vibeChips">
-              <span class="vibe__chip" data-genre="80s Classics">80s Classics</span>
-              <span class="vibe__chip" data-genre="90s Anthems">90s Anthems</span>
-              <span class="vibe__chip" data-genre="Chart Bangers">Chart Bangers</span>
-              <span class="vibe__chip" data-genre="Indie / Alt">Indie / Alt</span>
-              <span class="vibe__chip" data-genre="R&amp;B / Soul">R&amp;B / Soul</span>
-              <span class="vibe__chip" data-genre="Rock">Rock</span>
-              <span class="vibe__chip" data-genre="Dance / House">Dance / House</span>
-              <span class="vibe__chip" data-genre="Country / Folk">Country / Folk</span>
-              <span class="vibe__chip" data-genre="Disco">Disco</span>
-              <span class="vibe__chip" data-genre="Timeless Classics">Timeless Classics</span>
-            </div>
-            <input type="hidden" name="vibeGenres" id="vibeGenresInput" />
-            <div class="form-group" style="margin-bottom:0;">
-              <label for="vibeArtists">Name 3 artists that capture your sound <span style="opacity:0.45; font-weight:300; text-transform:none; letter-spacing:0; font-style:italic;">optional</span></label>
-              <input type="text" id="vibeArtists" name="vibeArtists" placeholder="e.g. Fleetwood Mac, Beyoncé, The Killers" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="message">Anything else I should know?</label>
-            <textarea id="message" name="message" placeholder="Tell me a bit more about what you're looking for — guest numbers, timings, anything..."></textarea>
-          </div>
-
-          <button type="submit" class="btn btn--primary form-submit" id="formSubmitBtn">Send Enquiry</button>
-          <p class="form-note">I aim to respond within 24 hours. A £100 deposit secures your date once we've confirmed details.</p>
-        </form>
+      <div class="contact-form reveal" style="background:none;border:none;padding:0;">
+        <iframe id="pb-form-ae562f2b-78dc-464f-ac0b-ee4f11928905" src="https://tmw.planningbeats.com/form/ae562f2b-78dc-464f-ac0b-ee4f11928905" title="Enquiry form" loading="lazy" width="100%" height="900" style="border:none;display:block;" scrolling="no"></iframe>
+        <script>(function(){var f=document.getElementById('pb-form-ae562f2b-78dc-464f-ac0b-ee4f11928905');if(!f)return;window.addEventListener('message',function(e){if(e.source!==f.contentWindow||e.origin!=='https://tmw.planningbeats.com')return;if(e.data&&e.data.type==='pb-form-resize'&&typeof e.data.height==='number'){f.style.height=Math.max(0,e.data.height)+'px';}});})();</script>
       </div>
 
       <!-- INFO -->
@@ -1051,8 +933,6 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="js/venues.js"></script>
-  <script src="js/availability.js"></script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
   <script>
@@ -1077,17 +957,6 @@
         contactSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
-      function prefillFormDate(d, m, y) {
-        const fd = document.querySelector('select[name="day"]');
-        const fm = document.querySelector('select[name="month"]');
-        const fy = document.querySelector('select[name="year"]');
-        if (fd) fd.value = d;
-        if (fm) fm.value = m;
-        if (fy) fy.value = y;
-        // Trigger change so existing availability.js picks it up
-        [fd, fm, fy].forEach(el => el && el.dispatchEvent(new Event('change')));
-      }
-
       function showResult(type, html) {
         resultEl.innerHTML = `<div class="gate-avail gate-avail--${type}">${html}</div>`;
       }
@@ -1104,8 +973,6 @@
 
         const dateStr = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
         const dateLabel = `${d} ${months[parseInt(m)]} ${y}`;
-
-        prefillFormDate(d, m, y);
 
         checkBtn.disabled = true;
         checkBtn.textContent = 'Checking…';
@@ -1155,56 +1022,6 @@
     })();
   </script>
 
-  <script>
-    // Enquiry form submission
-    (function () {
-      const form      = document.getElementById('contactForm');
-      const successEl = document.getElementById('formSuccess');
-      const submitBtn = document.getElementById('formSubmitBtn');
-      if (!form) return;
 
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        const day   = form.day   ? form.day.value   : '';
-        const month = form.month ? form.month.value : '';
-        const year  = form.year  ? form.year.value  : '';
-        const months = ['','January','February','March','April','May','June',
-                        'July','August','September','October','November','December'];
-        const eventDate = (day && month && year && day !== '-43' && month !== '-43' && year !== '-43')
-          ? `${day} ${months[parseInt(month)] || month} ${year}` : '';
-
-        const payload = JSON.stringify({
-          name:      ((form.firstName ? form.firstName.value : '') + ' ' +
-                      (form.lastName  ? form.lastName.value  : '')).trim(),
-          email:     form.email     ? form.email.value.trim()    : '',
-          mobile:    form.phone     ? form.phone.value.trim()    : '',
-          eventType: form.eventType ? form.eventType.value       : '',
-          eventDate,
-          startTime: form.startTime ? form.startTime.value       : '',
-          endTime:   form.endTime   ? form.endTime.value         : '',
-          venue:     form.venue     ? form.venue.value.trim()    : '',
-          message:   form.message   ? form.message.value.trim()  : ''
-        });
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
-
-        try {
-          await fetch('/api/enquiry-webhook', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: payload
-          });
-        } catch (_) {
-          // fail silently — email may still have sent
-        }
-
-        form.style.display = 'none';
-        successEl.style.display = 'block';
-        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
-    })();
-  </script>
 </body>
 </html>
