@@ -586,8 +586,24 @@
 
       <!-- FORM -->
       <div class="contact-form reveal" style="background:#0d0515;border:none;padding:0;">
-        <iframe id="pb-form-15b2798d-d751-48ee-9213-92e93c32da82" src="https://tmw.planningbeats.com/form/15b2798d-d751-48ee-9213-92e93c32da82" title="Enquiry form" loading="lazy" width="100%" height="900" style="border:none;display:block;" scrolling="no"></iframe>
-        <script>(function(){var f=document.getElementById('pb-form-15b2798d-d751-48ee-9213-92e93c32da82');if(!f)return;window.addEventListener('message',function(e){if(e.source!==f.contentWindow||e.origin!=='https://tmw.planningbeats.com')return;if(e.data&&e.data.type==='pb-form-resize'&&typeof e.data.height==='number'){f.style.height=Math.max(0,e.data.height)+'px';}});})();</script>
+        <iframe id="pb-form-15b2798d-d751-48ee-9213-92e93c32da82" src="https://tmw.planningbeats.com/form/15b2798d-d751-48ee-9213-92e93c32da82" title="Enquiry form" loading="lazy" width="100%" height="900" style="border:none;display:block;background:transparent;" scrolling="no" allowtransparency="true"></iframe>
+        <script>
+          (function () {
+            var f = document.getElementById('pb-form-15b2798d-d751-48ee-9213-92e93c32da82');
+            if (!f) return;
+            // Force transparency on the iframe element itself
+            f.allowTransparency = true;
+            f.style.background = 'transparent';
+            f.style.backgroundColor = 'transparent';
+            // Auto-resize when Planning Beats posts height updates
+            window.addEventListener('message', function (e) {
+              if (e.source !== f.contentWindow || e.origin !== 'https://tmw.planningbeats.com') return;
+              if (e.data && e.data.type === 'pb-form-resize' && typeof e.data.height === 'number') {
+                f.style.height = Math.max(0, e.data.height) + 'px';
+              }
+            });
+          })();
+        </script>
       </div>
 
       <!-- INFO -->
