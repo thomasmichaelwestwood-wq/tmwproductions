@@ -499,6 +499,12 @@ section {
   background: linear-gradient(to bottom, var(--white), transparent);
 }
 
+.hero__scroll-chevron {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-top: -0.1rem;
+}
+
 @keyframes bounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50% { transform: translateX(-50%) translateY(8px); }
@@ -639,6 +645,11 @@ section {
   font-size: 2.5rem;
   color: var(--purple-mist);
   line-height: 1;
+}
+
+.stat__number--award {
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
 }
 
 .stat__label {
