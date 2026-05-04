@@ -217,10 +217,10 @@
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2026</span>
-            <span class="avail__stat" id="avail-2026-stat"><strong>62%</strong> booked</span>
+            <span class="avail__stat" id="avail-2026-stat"><strong>63%</strong> booked</span>
           </div>
           <div class="avail__track">
-            <div class="avail__fill" id="avail-2026-fill" style="--pct: 62%"></div>
+            <div class="avail__fill" id="avail-2026-fill" style="--pct: 63%"></div>
           </div>
           <p class="avail__note" id="avail-2026-note">Most summer dates are now gone — a few still available</p>
         </div>
@@ -228,10 +228,10 @@
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2027</span>
-            <span class="avail__stat" id="avail-2027-stat"><strong>12%</strong> booked</span>
+            <span class="avail__stat" id="avail-2027-stat"><strong>15%</strong> booked</span>
           </div>
           <div class="avail__track">
-            <div class="avail__fill" id="avail-2027-fill" style="--pct: 12%"></div>
+            <div class="avail__fill" id="avail-2027-fill" style="--pct: 15%"></div>
           </div>
           <p class="avail__note" id="avail-2027-note">Now taking bookings for 2027 — plenty of dates open</p>
         </div>
@@ -552,8 +552,8 @@
     // Load availability data from availability.json and update the bars
     (async function loadAvailability() {
       const fallback = {
-        '2026': { percent: 62, label: 'Most summer dates are now gone — a few still available' },
-        '2027': { percent: 12, label: 'Now taking bookings for 2027 — plenty of dates open' }
+        '2026': { percent: 63, label: 'Most summer dates are now gone — a few still available' },
+        '2027': { percent: 15, label: 'Now taking bookings for 2027 — plenty of dates open' }
       };
       let data = fallback;
       try {
