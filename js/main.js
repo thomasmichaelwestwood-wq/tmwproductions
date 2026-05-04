@@ -7,12 +7,18 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ================================
-  // NAV — scroll effect
+  // NAV — scroll effect + topbar
   // ================================
   const nav = document.getElementById('nav');
+  const topbar = document.getElementById('topbar');
   if (nav) {
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
+      const scrolled = window.scrollY > 60;
+      nav.classList.toggle('scrolled', scrolled);
+      if (topbar) {
+        topbar.classList.toggle('hidden', scrolled);
+        nav.style.top = scrolled ? '0' : '';
+      }
     }, { passive: true });
   }
 
