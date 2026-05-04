@@ -217,23 +217,23 @@
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2026</span>
-            <span class="avail__stat" id="avail-2026-stat"><strong>63%</strong> booked</span>
+            <span class="avail__stat" id="avail-2026-stat"><strong>100%</strong> booked</span>
           </div>
           <div class="avail__track">
-            <div class="avail__fill" id="avail-2026-fill" style="--pct: 63%"></div>
+            <div class="avail__fill" id="avail-2026-fill" style="--pct: 100%"></div>
           </div>
-          <p class="avail__note" id="avail-2026-note">Most summer dates are now gone — a few still available</p>
+          <p class="avail__note" id="avail-2026-note">2026 is now fully booked</p>
         </div>
 
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2027</span>
-            <span class="avail__stat" id="avail-2027-stat"><strong>15%</strong> booked</span>
+            <span class="avail__stat" id="avail-2027-stat"><strong>53%</strong> booked</span>
           </div>
           <div class="avail__track">
-            <div class="avail__fill" id="avail-2027-fill" style="--pct: 15%"></div>
+            <div class="avail__fill" id="avail-2027-fill" style="--pct: 53%"></div>
           </div>
-          <p class="avail__note" id="avail-2027-note">Now taking bookings for 2027 — plenty of dates open</p>
+          <p class="avail__note" id="avail-2027-note">Over half of 2027 is gone — enquire now to secure your date</p>
         </div>
 
       </div>
@@ -552,8 +552,8 @@
     // Load availability data from availability.json and update the bars
     (async function loadAvailability() {
       const fallback = {
-        '2026': { percent: 63, label: 'Most summer dates are now gone — a few still available' },
-        '2027': { percent: 15, label: 'Now taking bookings for 2027 — plenty of dates open' }
+        '2026': { percent: 100, label: '2026 is now fully booked' },
+        '2027': { percent: 53, label: 'Over half of 2027 is gone — enquire now to secure your date' }
       };
       let data = fallback;
       try {
