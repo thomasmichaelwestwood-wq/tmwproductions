@@ -247,56 +247,13 @@
       opacity: 0.7;
     }
 
-    .add-ons {
-      background: var(--black);
-      padding: 5rem 5%;
-    }
-
-    .add-ons__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .add-on-card {
-      padding: 1.5rem;
-      border: 1px solid rgba(186,141,189,0.2);
-      text-align: center;
-      transition: all var(--transition);
-    }
-
-    .add-on-card:hover {
-      border-color: var(--purple-mist);
-      background: rgba(186,141,189,0.05);
-    }
-
-    .add-on-card__icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .add-on-card__title {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.5rem;
-    }
-
-    .add-on-card__desc {
-      font-size: 0.85rem;
-      opacity: 0.7;
-    }
-
     @media (max-width: 768px) {
       .packages__grid { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr 1fr; }
-      .add-ons__grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 480px) {
       .steps { grid-template-columns: 1fr; }
-      .add-ons__grid { grid-template-columns: 1fr; }
     }
     .page-hero--weddings::before { background-image: url('images/234869517_376895937373871_5136047450381745909_n_edited_edited.jpg'); }
   </style>
@@ -343,7 +300,7 @@
       </p>
       <div style="margin-top: 2rem; animation: fadeInUp 0.8s ease 0.6s both;">
         <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Check Your Date</a>
-        <a href="#packages" class="btn btn--outline">See How It Works</a>
+        <a href="#pricing" class="btn btn--outline">See How It Works</a>
       </div>
     </div>
   </section>
@@ -377,8 +334,8 @@
     </div>
   </div>
 
-  <!-- PACKAGES -->
-  <section class="packages" id="packages">
+  <!-- PRICING -->
+  <section class="packages" id="pricing">
     <div class="container">
       <span class="section__label reveal">Pricing</span>
       <h2 class="section__title reveal">Pricing & What's Included</h2>
@@ -425,23 +382,6 @@
           <a href="contact.html" class="btn btn--primary" style="width: 100%; text-align: center;">Enquire Now</a>
         </div>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ADD ONS -->
-  <section class="add-ons">
-    <div class="container text-center">
-      <span class="section__label reveal">Extras</span>
-      <h2 class="section__title reveal">Add-Ons & Upgrades</h2>
-      <p class="section__subtitle reveal">Take things to the next level with a few extra touches to make your night truly unforgettable.</p>
-
-      <div class="add-ons__grid" style="grid-template-columns: 1fr; max-width: 380px; margin: 3rem auto 0;">
-        <div class="add-on-card reveal">
-          <div class="add-on-card__icon"><i class="fa-solid fa-music"></i></div>
-          <div class="add-on-card__title">Ceremony Music</div>
-          <p class="add-on-card__desc">Using the latest wireless, battery-powered equipment — your ceremony can take place anywhere. Outdoors, in a chapel, under the stars. Your ceremony, your way.</p>
-        </div>
       </div>
     </div>
   </section>
