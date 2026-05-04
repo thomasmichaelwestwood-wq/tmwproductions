@@ -217,12 +217,12 @@
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2026</span>
-            <span class="avail__stat" id="avail-2026-stat"><strong>100%</strong> booked</span>
+            <span class="avail__stat" id="avail-2026-stat"><strong>90%</strong> booked</span>
           </div>
           <div class="avail__track">
-            <div class="avail__fill" id="avail-2026-fill" style="--pct: 100%"></div>
+            <div class="avail__fill" id="avail-2026-fill" style="--pct: 90%"></div>
           </div>
-          <p class="avail__note" id="avail-2026-note">2026 is now fully booked</p>
+          <p class="avail__note" id="avail-2026-note">No availability before October — a few autumn dates remain</p>
         </div>
 
         <div class="avail__row">
@@ -552,7 +552,7 @@
     // Load availability data from availability.json and update the bars
     (async function loadAvailability() {
       const fallback = {
-        '2026': { percent: 100, label: '2026 is now fully booked' },
+        '2026': { percent: 90, label: 'No availability before October — a few autumn dates remain' },
         '2027': { percent: 53, label: 'Over half of 2027 is gone — enquire now to secure your date' }
       };
       let data = fallback;
