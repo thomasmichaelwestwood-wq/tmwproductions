@@ -1,10 +1,4 @@
 {
-  "2026": {
-    "percent": 35,
-    "label": "Dates still available — enquire now"
-  },
-  "2027": {
-    "percent": 19,
-    "label": "Dates still available — enquire now"
-  }
+  "2026": { "percent": 62, "label": "Most summer dates are now gone — a few still available" },
+  "2027": { "percent": 12, "label": "Now taking bookings for 2027 — plenty of dates open" }
 }
