@@ -103,12 +103,89 @@ p {
 }
 
 /* =============================================
+   TOPBAR
+============================================= */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001;
+  height: 38px;
+  background: rgba(5, 0, 12, 0.97);
+  border-bottom: 1px solid rgba(186, 141, 189, 0.12);
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.topbar.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.topbar__contact {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--purple-mist);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: color var(--transition);
+}
+
+.topbar__contact:hover {
+  color: var(--white);
+}
+
+.topbar__contact i {
+  font-size: 0.65rem;
+  opacity: 0.8;
+}
+
+.topbar__social {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.topbar__social a {
+  color: var(--purple-mist);
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: color var(--transition);
+  line-height: 1;
+}
+
+.topbar__social a:hover {
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    display: none;
+  }
+}
+
+/* =============================================
    NAVIGATION
 ============================================= */
 
 .nav {
   position: fixed;
-  top: 0;
+  top: 38px;
   left: 0;
   width: 100%;
   z-index: 1000;
@@ -1580,6 +1657,8 @@ section {
 
 @media (max-width: 768px) {
   section { padding: 4rem 5%; }
+
+  .nav { top: 0; }
 
   .nav__links {
     display: none;
