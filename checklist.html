@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Just got engaged? Here's a straight-talking guide to the first steps — budget, dates, venues, and suppliers — written by an award-winning wedding DJ with 25 years of experience." />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TMW Productions">
+  <meta property="og:title" content="Just Got Engaged? Here's Where to Start | TMW Productions">
+  <meta property="og:description" content="No date, no venue, no idea where to start — that's exactly where everyone begins. A straight-talking guide from someone who's been at a lot of weddings.">
+  <meta property="og:url" content="https://www.tmwproductions.co.uk/checklist.html">
+  <meta property="og:image" content="https://www.tmwproductions.co.uk/images/IMG_0354.JPG">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Just Got Engaged? Here's Where to Start | TMW Productions">
+  <meta name="twitter:description" content="No date, no venue, no idea — that's completely normal. Here's a straight-talking guide from someone who's been at a lot of weddings.">
+  <meta name="twitter:image" content="https://www.tmwproductions.co.uk/images/IMG_0354.JPG">
+  <title>Just Got Engaged? Here's Where to Start | TMW Productions</title>
+  <link rel="icon" type="image/png" href="images/favcon.png" />
+  <link rel="canonical" href="https://www.tmwproductions.co.uk/checklist.html" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+
+    /* ── Steps section ── */
+    .steps-guide {
+      background: var(--black);
+      padding: 5rem 5%;
+    }
+
+    .steps-guide__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .step-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 2rem 3rem;
+      padding: 3.5rem 0;
+      border-bottom: 1px solid rgba(186,141,189,0.12);
+      align-items: start;
+    }
+
+    .step-row:last-child {
+      border-bottom: none;
+    }
+
+    .step-row__number {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--purple-mist);
+      opacity: 0.25;
+      letter-spacing: -0.02em;
+      padding-top: 0.2rem;
+      user-select: none;
+    }
+
+    .step-row__title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.8rem;
+    }
+
+    .step-row__body {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      opacity: 0.8;
+    }
+
+    .step-row__body p + p {
+      margin-top: 0.8rem;
+    }
+
+    .step-row__tip {
+      margin-top: 1.2rem;
+      padding: 1rem 1.2rem;
+      border-left: 2px solid var(--purple-mist);
+      background: rgba(186,141,189,0.06);
+      font-size: 0.88rem;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    /* ── Tips grid ── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .tip-card {
+      padding: 1.8rem;
+      border: 1px solid rgba(186,141,189,0.2);
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .tip-card:hover {
+      border-color: var(--purple-mist);
+      background: rgba(186,141,189,0.04);
+    }
+
+    .tip-card__icon {
+      font-size: 1.4rem;
+      color: var(--purple-mist);
+      margin-bottom: 0.9rem;
+    }
+
+    .tip-card__title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+
+    .tip-card__body {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      opacity: 0.75;
+    }
+
+    /* ── Supplier categories ── */
+    .cat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+
+    .cat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      border: 1px solid rgba(186,141,189,0.3);
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+
+    .cat-chip:hover {
+      background: rgba(186,141,189,0.1);
+      border-color: var(--purple-mist);
+      color: var(--white);
+    }
+
+    /* ── Venues grid ── */
+    .venues-guide__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .venue-item {
+      padding: 1.4rem 1.6rem;
+      border: 1px solid rgba(186,141,189,0.2);
+      transition: all var(--transition);
+    }
+
+    .venue-item:hover {
+      border-color: var(--purple-mist);
+      background: rgba(186,141,189,0.04);
+    }
+
+    .venue-item__name {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
+    }
+
+    .venue-item__area {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+      opacity: 0.7;
+    }
+
+    /* ── FAQ ── */
+    .faq-guide {
+      background: var(--purple-clarity);
+      padding: 5rem 5%;
+    }
+
+    /* ── Page hero ── */
+    .page-hero--checklist::before {
+      background-image: url('images/IMG_0354.JPG');
+    }
+
+    @media (max-width: 768px) {
+      .step-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .step-row__number {
+        font-size: 3rem;
+        opacity: 0.2;
+      }
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+      .venues-guide__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .venues-guide__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ======================== TOPBAR ======================== -->
+  <div class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <a href="mailto:info@tmwproductions.co.uk" class="topbar__contact">
+        <i class="fa-solid fa-envelope"></i>
+        info@tmwproductions.co.uk
+      </a>
+      <div class="topbar__social">
+        <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo"><img src="images/TMW_Full_PurpleWhite.webp" alt="TMW Productions" class="nav__logo-img"></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="weddings.html">Weddings</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li class="nav__has-dropdown"><a href="about.html">About <i class="fa-solid fa-chevron-down nav__chevron"></i></a>
+        <ul class="nav__dropdown">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="people-i-recommend.html">Recommended by Me</a></li>
+        </ul>
+      </li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <section class="page-hero page-hero--checklist">
+    <div class="page-hero__content text-center">
+      <span class="section__label" style="animation: fadeInUp 0.8s ease both;">Wedding Planning</span>
+      <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">Just Got Engaged?</h1>
+      <p style="max-width: 560px; opacity: 0.85; margin-top: 1rem; line-height: 1.8; animation: fadeInUp 0.8s ease 0.4s both;">
+        No date, no venue, no idea where to start — that's exactly where everyone begins. Here's a straight-talking guide from someone who's been at a lot of weddings.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================== THREE STEPS ======================== -->
+  <section class="steps-guide">
+    <div class="container">
+      <span class="section__label reveal">The First Three Steps</span>
+      <h2 class="section__title reveal">Where to Begin</h2>
+      <p class="section__subtitle reveal">In roughly this order. You don't have to do them all at once.</p>
+    </div>
+
+    <div class="container">
+      <div class="steps-guide__grid">
+
+        <div class="step-row reveal">
+          <div class="step-row__number">01</div>
+          <div>
+            <div class="step-row__title">Sort the Money First</div>
+            <div class="step-row__body">
+              <p>Decide what you're actually comfortable spending — not what a wedding blog says the average is. The UK average sits around £20,000–£25,000, but plenty of couples have a brilliant day for less. It depends entirely on your priorities, not a national statistic.</p>
+              <p>Pick three things that matter most to you and spend properly on those. Food, photography, entertainment — whatever they are. Everything else, be smart about. A spreadsheet or a free budgeting app will keep you honest from day one, because costs have a way of quietly multiplying.</p>
+              <div class="step-row__tip">
+                <strong>Worth knowing:</strong> booking suppliers early almost always means better prices and more choice. The best photographers, DJs, and florists get taken quickly — often a year or more ahead.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row reveal">
+          <div class="step-row__number">02</div>
+          <div>
+            <div class="step-row__title">Pick a Date — or at Least a Window</div>
+            <div class="step-row__body">
+              <p>You don't need a confirmed date immediately, but having a rough season in mind helps enormously. Spring and summer Saturdays go first. If you have flexibility, it's worth considering: Fridays, Sundays, and off-peak months (November through March) are genuinely worth a look. The day feels just as special. The bill often doesn't.</p>
+              <p>Check school holidays and any local events before you commit. Once you have something in mind, start approaching your key suppliers — venue first, then the people who only take one booking per day.</p>
+              <div class="step-row__tip">
+                <strong>On entertainment:</strong> a DJ who also handles lighting, sound, and presenting means one less person to coordinate and often a better value overall. Worth factoring in when you're thinking about the budget split.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row reveal">
+          <div class="step-row__number">03</div>
+          <div>
+            <div class="step-row__title">Find a Venue You Actually Like</div>
+            <div class="step-row__body">
+              <p>Visit a few before you decide. It makes a real difference when you can compare them side by side — photos only tell part of the story. Ask what's included in the price: catering, furniture, sound, lighting, overnight accommodation. The gap between venues often comes down to what's already in the package.</p>
+              <p>And trust your gut. If it doesn't feel right when you walk in, it probably isn't. Below is a handful of venues I've worked at across Leicestershire and the East Midlands — all of them are genuinely excellent.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== VENUES ======================== -->
+  <section style="background: rgba(114,46,128,0.08); padding: 5rem 5%; border-top: 1px solid rgba(186,141,189,0.12); border-bottom: 1px solid rgba(186,141,189,0.12);">
+    <div class="container">
+      <span class="section__label reveal">Venues</span>
+      <h2 class="section__title reveal">Venues I Know Well</h2>
+      <p class="section__subtitle reveal">I've worked at all of these. They each have something different to offer — here's a quick guide to help you narrow it down.</p>
+
+      <div class="venues-guide__grid">
+
+        <div class="venue-item reveal">
+          <div class="venue-item__name">Prestwold Hall</div>
+          <div class="venue-item__area">Loughborough, Leicestershire</div>
+          <p style="font-size:0.85rem; margin-top:0.7rem; opacity:0.7; line-height:1.7;">A grand Georgian country house with sweeping grounds. Beautiful for larger weddings with a classic feel. One of Leicestershire's most sought-after venues.</p>
+        </div>
+
+        <div class="venue-item reveal reveal-delay-1">
+          <div class="venue-item__name">Quorn Grange Hotel</div>
+          <div class="venue-item__area">Quorn, Leicestershire</div>
+          <p style="font-size:0.85rem; margin-top:0.7rem; opacity:0.7; line-height:1.7;">A charming country house hotel with a warm, intimate atmosphere. Great for couples who want something personal and relaxed without sacrificing elegance.</p>
+        </div>
+
+        <div class="venue-item reveal reveal-delay-2">
+          <div class="venue-item__name">The Manor House</div>
+          <div class="venue-item__area">Quorn, Leicestershire</div>
+          <p style="font-size:0.85rem; margin-top:0.7rem; opacity:0.7; line-height:1.7;">A boutique wedding venue with a lot of character. Exclusive use, beautiful interiors, and a team that really looks after you. Works well for couples who want the venue to themselves.</p>
+        </div>
+
+        <div class="venue-item reveal">
+          <div class="venue-item__name">Beaumanor Hall</div>
+          <div class="venue-item__area">Woodhouse Eaves, Leicestershire</div>
+          <p style="font-size:0.85rem; margin-top:0.7rem; opacity:0.7; line-height:1.7;">A stunning Victorian Gothic mansion set in 30 acres. Impressive spaces, incredible photography opportunities, and a proper sense of occasion from the moment you arrive.</p>
+        </div>
+
+        <div class="venue-item reveal reveal-delay-1">
+          <div class="venue-item__name">Winstanley House</div>
+          <div class="venue-item__area">Leicester</div>
+          <p style="font-size:0.85rem; margin-top:0.7rem; opacity:0.7; line-height:1.7;">A beautifully restored Regency house just outside Leicester. Elegant rooms, a walled garden, and a dedicated team. A great choice if you want a city-edge location with a countryside feel.</p>
+        </div>
+
+        <div class="venue-item reveal reveal-delay-2">
+          <div class="venue-item__name">Hothorpe Hall</div>
+          <div class="venue-item__area">Theddingworth, Leicestershire</div>
+          <p style="font-size:0.85rem; margin-top:0.7rem; opacity:0.7; line-height:1.7;">A flexible and well-run venue in the south of the county. Good for a wide range of wedding sizes, and their team are excellent at keeping everything running smoothly on the day.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== TIPS ======================== -->
+  <section style="background: var(--black); padding: 5rem 5%;">
+    <div class="container">
+      <span class="section__label reveal">Good to Know</span>
+      <h2 class="section__title reveal">Things People Wish They'd Known</h2>
+      <p class="section__subtitle reveal">Not rules — just things that tend to make the whole process smoother.</p>
+
+      <div class="tips-grid">
+
+        <div class="tip-card reveal">
+          <div class="tip-card__icon"><i class="fa-solid fa-people-arrows"></i></div>
+          <div class="tip-card__title">Book Suppliers Who Cover More Ground</div>
+          <p class="tip-card__body">A DJ who also handles lighting, PA, and presenting means one less person to brief, chase, and coordinate. It often works out better value too. Think about which suppliers naturally overlap.</p>
+        </div>
+
+        <div class="tip-card reveal reveal-delay-1">
+          <div class="tip-card__icon"><i class="fa-solid fa-file-contract"></i></div>
+          <div class="tip-card__title">Read the Full Contract</div>
+          <p class="tip-card__body">Especially the clause about price increases. Some venues reserve the right to increase costs between booking and the event. Know what you're agreeing to before you sign, not after.</p>
+        </div>
+
+        <div class="tip-card reveal reveal-delay-2">
+          <div class="tip-card__icon"><i class="fa-solid fa-scissors"></i></div>
+          <div class="tip-card__title">DIY What You Actually Enjoy</div>
+          <p class="tip-card__body">Homemade centrepieces, a DIY photo booth, a playlist for the drinks reception — all brilliant if you have the time and enjoy doing it. Be honest about your bandwidth in the months before the wedding.</p>
+        </div>
+
+        <div class="tip-card reveal">
+          <div class="tip-card__icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="tip-card__title">Send Save the Dates Early</div>
+          <p class="tip-card__body">Eight to twelve months ahead is the standard. A bit earlier if guests are travelling from far away, or if you're getting married on a bank holiday weekend. People need time to plan.</p>
+        </div>
+
+        <div class="tip-card reveal reveal-delay-1">
+          <div class="tip-card__icon"><i class="fa-solid fa-user-tie"></i></div>
+          <div class="tip-card__title">Consider a Wedding Planner</div>
+          <p class="tip-card__body">Not essential, but a good one earns their fee many times over — especially on the day itself when you want someone else handling the logistics. Even a day-of coordinator can take a huge amount off your plate.</p>
+        </div>
+
+        <div class="tip-card reveal reveal-delay-2">
+          <div class="tip-card__icon"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="tip-card__title">Trust Your Instincts on Suppliers</div>
+          <p class="tip-card__body">If someone is slow to respond, unclear about what's included, or makes you feel like you're being sold to rather than looked after — that's useful information. The best suppliers are easy to work with from the first message.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== SUPPLIER DIRECTORY ======================== -->
+  <section style="background: rgba(114,46,128,0.08); padding: 5rem 5%; border-top: 1px solid rgba(186,141,189,0.12); border-bottom: 1px solid rgba(186,141,189,0.12);">
+    <div class="container">
+      <span class="section__label reveal">Recommended Suppliers</span>
+      <h2 class="section__title reveal">People I'd Point You Towards</h2>
+      <p class="section__subtitle reveal">Over 25 years I've worked alongside some genuinely brilliant people. These are suppliers I've seen deliver for real couples on real wedding days — not names picked from a directory, but people I've actually worked with.</p>
+
+      <div class="cat-chips reveal">
+        <a href="people-i-recommend.html" class="cat-chip"><i class="fa-solid fa-camera"></i> Photography</a>
+        <a href="people-i-recommend.html" class="cat-chip"><i class="fa-solid fa-music"></i> Band &amp; Live Music</a>
+        <a href="people-i-recommend.html" class="cat-chip"><i class="fa-solid fa-seedling"></i> Florists</a>
+        <a href="people-i-recommend.html" class="cat-chip"><i class="fa-solid fa-utensils"></i> Catering</a>
+        <a href="people-i-recommend.html" class="cat-chip"><i class="fa-solid fa-star-half-stroke"></i> Hair &amp; Make-up</a>
+        <a href="people-i-recommend.html" class="cat-chip"><i class="fa-solid fa-wand-sparkles"></i> Venue Styling</a>
+        <a href="people-i-recommend.html" class="cat-chip"><i class="fa-solid fa-grid-2"></i> Browse All</a>
+      </div>
+
+      <div style="margin-top: 2.5rem;">
+        <a href="people-i-recommend.html" class="btn btn--outline">View the Full Directory</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FAQ ======================== -->
+  <section class="faq-guide">
+    <div class="container">
+      <span class="section__label reveal">Common Questions</span>
+      <h2 class="section__title reveal">Things Couples Ask Me</h2>
+      <p class="section__subtitle reveal">A few of the questions I get most often — with straight answers.</p>
+
+      <div class="faq-list" style="margin-top: 3rem; max-width: 760px; margin-left: auto; margin-right: auto;">
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question" aria-expanded="false">
+            When should I book my venue?
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer">
+            <p>Once you have a rough budget — 12 to 18 months ahead is a safe target for popular venues. Some of the best venues in Leicestershire are booked two years in advance for summer Saturdays. If you have your heart set on a specific place, don't wait.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question" aria-expanded="false">
+            How much does a wedding DJ cost?
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer">
+            <p>Somewhere between £400 and £1,500 or more, depending on experience, hours, equipment, and what's included. Price matters, but value matters more. A cheaper DJ who doesn't read the room, plays the wrong tracks at the wrong moment, or turns up with unreliable equipment will cost you more than the saving. Ask what's included — lighting, PA hire, ceremony music, planning tools — before comparing prices.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question" aria-expanded="false">
+            What's a realistic wedding budget?
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer">
+            <p>The UK average sits around £20,000–£25,000, but plenty of couples spend less and have a brilliant day. The number that matters is the one you're genuinely comfortable with. Decide your priorities early — venue, food, photography, entertainment — and spend properly on those. Everything else, be smart about.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question" aria-expanded="false">
+            Do I need a wedding planner?
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer">
+            <p>Not essential, but worth thinking about. A good planner can save you more than they cost — they know the venues, they know the suppliers, and they take a lot of the coordination off your plate. Even a day-of coordinator (someone who just manages the day itself) is worth considering if you don't want to be the one chasing the caterer while you're getting ready.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question" aria-expanded="false">
+            When do Save the Dates go out?
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer">
+            <p>Eight to twelve months before the wedding is standard. A bit earlier — up to 18 months — if guests are travelling from far away, or if you're getting married on a bank holiday weekend when people tend to have plans. Formal invitations usually follow three to four months before the day.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-item__question" aria-expanded="false">
+            How do I find good suppliers I can trust?
+            <i class="fa-solid fa-chevron-down faq-item__icon"></i>
+          </button>
+          <div class="faq-item__answer">
+            <p>Personal recommendations from couples who've already been married are worth more than any directory listing. Ask your venue who they work with regularly — venues see a lot of suppliers and know who turns up prepared and who doesn't. My recommended suppliers page lists people I've personally worked alongside and would send my own family to without hesitation.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CTA BANNER ======================== -->
+  <section class="cta-banner">
+    <div class="container text-center">
+      <span class="section__label reveal">Entertainment Sorted</span>
+      <h2 class="section__title reveal">Let's Talk About Your Day</h2>
+      <p class="section__subtitle reveal">Whether you're at the very start of planning or you've got everything booked and just need a DJ — I'm happy to have a conversation.</p>
+      <div class="reveal">
+        <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Check Your Date</a>
+        <a href="weddings.html" class="btn btn--outline">See What's Included</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><img src="images/TMW_Full_PurpleWhite.webp" alt="TMW Productions" class="footer__logo-img"></div>
+        <p class="footer__tagline">Award-winning DJ &amp; event host serving Leicestershire and the East Midlands.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties &amp; Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="planning-portal.html">Planning Portal</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="certificates.html">Certificates</a></li>
+          <li><a href="people-i-recommend.html">Recommended by Me</a></li>
+          <li><a href="checklist.html">Just Got Engaged?</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading"><a href="contact.html" style="color: inherit;">Get In Touch</a></div>
+        <p>Leicestershire &amp; East Midlands</p>
+        <p><a href="mailto:info@tmwproductions.co.uk" style="color: var(--purple-mist);">info@tmwproductions.co.uk</a></p>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024–2026 TMW Productions. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>
