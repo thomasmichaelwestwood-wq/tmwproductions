@@ -141,7 +141,7 @@ exports.handler = async function (event) {
 
   const params  = event.queryStringParameters || {};
   const dateStr = params.date;
-  const mode    = params.mode;
+  const mode    = params.mode || (event.path && event.path.includes('availability') ? 'percentages' : null);
 
   // ── Debug mode: return raw iCal sample ──────────────────────────────────
   if (mode === 'debug') {
