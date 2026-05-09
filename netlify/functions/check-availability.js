@@ -179,7 +179,52 @@ exports.handler = async function (event) {
       return respond(500, { error: 'Could not fetch calendar' });
     }
   }
+// ── Percentages mode: return availability.json-compatible data ────────────
+  if (mode === 'percentages') {
+    const icalUrl = process.env.PLANNING_BEATS_ICAL_URL;
+    const apiKey  = process.env.PLANNING_BEATS_API_KEY;
+    if (!icalUrl) return respond(500, { error: 'Calendar not configured' });
 
+    try {
+      const icalText = await fetchText(icalUrl, apiKey);
+      if (!icalText.includes('BEGIN:VCALENDAR')) {
+        return respond(502, { error: 'Unexpected response from calendar' });
+      }
+
+      const MAX_BOOKINGS = parseInt(process.env.AVAILABILITY_MAX_BOOKINGS, 10) || 40;
+      const YEARS = ['2026', '2027'];
+      const counts = {};
+      YEARS.forEach(yr => { counts[yr] = 0; });
+
+      const seen = new Set();
+      const re = /^DTSTART[^:]*:(\d{4})(\d{2})(\d{2})/gm;
+      let m;
+      while ((m = re.exec(icalText)) !== null) {
+        const key = `${m[1]}-${m[2]}-${m[3]}`;
+        if (YEARS.includes(m[1]) && !seen.has(key)) {
+          seen.add(key);
+          counts[m[1]]++;
+        }
+      }
+
+      function labelFor(pct) {
+        if (pct >= 90) return 'Almost fully booked — contact immediately';
+        if (pct >= 75) return 'Limited dates remaining';
+        if (pct >= 50) return 'Filling fast — check your date soon';
+        return 'Dates still available — enquire now';
+      }
+
+      const result = {};
+      YEARS.forEach(yr => {
+        const pct = Math.min(100, Math.round((counts[yr] / MAX_BOOKINGS) * 100));
+        result[yr] = { percent: pct, label: labelFor(pct) };
+      });
+
+      return respond(200, result);
+    } catch (err) {
+      return respond(500, { error: 'Could not fetch calendar', detail: err.message });
+    }
+  }
   if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
     return respond(400, { error: 'Missing or invalid date. Use ?date=YYYY-MM-DD' });
   }
