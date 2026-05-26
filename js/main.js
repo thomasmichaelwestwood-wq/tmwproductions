@@ -184,6 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const processLineFill = document.getElementById('processLineFill');
   const processSteps    = document.querySelectorAll('.process__step');
   const processNums     = document.querySelectorAll('.process__num');
+  const processSection  = document.querySelector('.process');
+  const processGlow     = document.querySelector('.process__glow');
+  const processDecos    = document.querySelectorAll('.process__deco');
+  const allowMotion     = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
 
   if (processTimeline && processLineFill && processSteps.length) {
 
@@ -193,8 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const winH       = window.innerHeight;
 
       // ── Line fill progress ──────────────────────────────
-      // 0 when top of timeline is at bottom of viewport
-      // 1 when bottom of timeline is at top of viewport
       const progress = Math.max(0, Math.min(1,
         (winH - tlRect.top) / (tlHeight + winH)
       ));
@@ -218,14 +220,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (closestStep) closestStep.classList.add('is-active');
 
-      // ── Parallax on step numbers ─────────────────────────
+      if (!allowMotion) return;
+
+      // ── Parallax on step numbers (deeper depth = more movement) ──
       processNums.forEach(num => {
         const step   = num.closest('.process__step');
         if (!step) return;
         const r      = step.getBoundingClientRect();
-        const offset = (viewCentre - (r.top + r.height / 2)) * 0.12;
+        const offset = (viewCentre - (r.top + r.height / 2)) * 0.22;
         num.style.transform = `translateY(${offset}px)`;
       });
+
+      // ── Section-level parallax (glow + decorative rings) ──
+      if (processSection) {
+        const sRect = processSection.getBoundingClientRect();
+        const sOff  = viewCentre - (sRect.top + sRect.height / 2);
+
+        if (processGlow) {
+          processGlow.style.transform = `translate(-50%, calc(-50% + ${sOff * 0.08}px))`;
+        }
+
+        // Three rings at distinct depths, rings also rotate subtly
+        if (processDecos[0]) processDecos[0].style.transform = `translateY(${sOff * 0.06}px) rotate(${sOff * 0.009}deg)`;
+        if (processDecos[1]) processDecos[1].style.transform = `translateY(${sOff * 0.16}px) rotate(${sOff * -0.013}deg)`;
+        if (processDecos[2]) processDecos[2].style.transform = `translateY(${sOff * 0.26}px)`;
+      }
     }
 
     window.addEventListener('scroll', updateProcess, { passive: true });

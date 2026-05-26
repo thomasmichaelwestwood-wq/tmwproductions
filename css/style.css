@@ -1526,6 +1526,36 @@ section {
   z-index: 1;
 }
 
+/* Decorative parallax rings */
+.process__deco {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  z-index: 0;
+}
+.process__deco--1 {
+  width: clamp(260px, 28vw, 420px);
+  height: clamp(260px, 28vw, 420px);
+  border: 1px solid rgba(186,141,189,0.09);
+  top: 4%;
+  right: -3%;
+}
+.process__deco--2 {
+  width: clamp(140px, 16vw, 220px);
+  height: clamp(140px, 16vw, 220px);
+  border: 1px solid rgba(114,46,128,0.11);
+  top: 50%;
+  left: -1%;
+}
+.process__deco--3 {
+  width: clamp(90px, 10vw, 150px);
+  height: clamp(90px, 10vw, 150px);
+  background: radial-gradient(circle, rgba(186,141,189,0.1) 0%, transparent 70%);
+  bottom: 14%;
+  right: 16%;
+}
+
 /* ── Mobile ───────────────────────────────── */
 
 @media (max-width: 768px) {
