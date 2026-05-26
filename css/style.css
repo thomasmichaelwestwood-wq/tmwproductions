@@ -601,8 +601,8 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
-  flex-wrap: wrap;
+  gap: 1.75rem;
+  flex-wrap: nowrap;
 }
 
 .award-strip__item {
