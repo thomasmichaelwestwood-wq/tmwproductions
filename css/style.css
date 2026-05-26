@@ -197,9 +197,12 @@ p {
 }
 
 .nav.scrolled {
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(8, 2, 14, 0.5);
   padding: 0.8rem 5%;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(22px) saturate(1.6);
+  -webkit-backdrop-filter: blur(22px) saturate(1.6);
+  border-bottom: 1px solid rgba(186,141,189,0.14);
+  box-shadow: 0 4px 28px rgba(0,0,0,0.4);
 }
 
 .nav__logo {
@@ -610,6 +613,18 @@ section {
   align-items: center;
   gap: 1rem;
   white-space: nowrap;
+  padding: 0.7rem 1.1rem;
+  background: rgba(186,141,189,0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(186,141,189,0.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.award-strip__item:hover {
+  background: rgba(186,141,189,0.09);
+  border-color: rgba(186,141,189,0.28);
 }
 
 .award-strip__icon {
@@ -713,8 +728,19 @@ section {
 }
 
 .stat {
-  border-left: 3px solid var(--purple-mist);
-  padding-left: 1rem;
+  padding: 1.2rem 1.4rem;
+  background: rgba(186,141,189,0.05);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  border: 1px solid rgba(186,141,189,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 4px 20px rgba(0,0,0,0.2);
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.stat:hover {
+  background: rgba(186,141,189,0.1);
+  border-color: rgba(186,141,189,0.35);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 30px rgba(0,0,0,0.25), 0 0 20px rgba(186,141,189,0.08);
 }
 
 .stat__number {
@@ -877,16 +903,21 @@ section {
 }
 
 .testimonial-card {
-  background: rgba(0,0,0,0.25);
-  border: 1px solid rgba(186,141,189,0.2);
+  background: rgba(186,141,189,0.05);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(186,141,189,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.3);
   padding: 2rem;
   position: relative;
-  transition: transform var(--transition), border-color var(--transition);
+  transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
 .testimonial-card:hover {
   transform: translateY(-6px);
-  border-color: var(--purple-mist);
+  background: rgba(186,141,189,0.09);
+  border-color: rgba(186,141,189,0.45);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 16px 48px rgba(0,0,0,0.35), 0 0 30px rgba(186,141,189,0.1);
 }
 
 .testimonial-card::before {
@@ -1389,15 +1420,19 @@ section {
 /* Content card */
 .process__content {
   padding: 2rem 2.2rem;
-  border: 1px solid rgba(186,141,189,0.4);
-  background: var(--purple-clarity);
+  border: 1px solid rgba(114,46,128,0.15);
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 4px 24px rgba(26,10,46,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
   position: relative;
-  transition: border-color 0.5s ease, background 0.5s ease;
+  transition: border-color 0.5s ease, background 0.5s ease, box-shadow 0.5s ease;
 }
 
 .process__step.is-active .process__content {
-  border-color: var(--purple-mist);
-  background: #5a2268;
+  border-color: rgba(114,46,128,0.45);
+  background: rgba(255,255,255,0.75);
+  box-shadow: 0 8px 40px rgba(26,10,46,0.18), 0 0 24px rgba(186,141,189,0.2), inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
 /* Grid column placement — left & right variants */
@@ -1770,4 +1805,132 @@ section {
     max-width: 280px;
     text-align: center;
   }
+}
+
+/* =============================================
+   LIQUID BLOBS & GLASS EFFECTS
+============================================= */
+
+/* Hero liquid layer */
+.hero__liquid {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.liquid-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, border-radius;
+}
+
+.liquid-blob--1 {
+  width: clamp(350px, 50vw, 680px);
+  height: clamp(350px, 50vw, 680px);
+  background: radial-gradient(circle at 40% 40%, rgba(186,141,189,0.38) 0%, transparent 65%);
+  filter: blur(72px);
+  top: -12%;
+  left: -8%;
+}
+
+.liquid-blob--2 {
+  width: clamp(260px, 38vw, 540px);
+  height: clamp(260px, 38vw, 540px);
+  background: radial-gradient(circle at 55% 45%, rgba(114,46,128,0.45) 0%, transparent 65%);
+  filter: blur(60px);
+  top: 28%;
+  right: -6%;
+}
+
+.liquid-blob--3 {
+  width: clamp(200px, 28vw, 420px);
+  height: clamp(200px, 28vw, 420px);
+  background: radial-gradient(circle at 50% 55%, rgba(186,141,189,0.22) 0%, transparent 65%);
+  filter: blur(50px);
+  bottom: 8%;
+  left: 28%;
+}
+
+/* Animations — only when the user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .liquid-blob--1 {
+    animation: liquidMorph1 20s ease-in-out infinite;
+  }
+  .liquid-blob--2 {
+    animation: liquidMorph2 16s ease-in-out infinite;
+    animation-delay: -7s;
+  }
+  .liquid-blob--3 {
+    animation: liquidMorph3 24s ease-in-out infinite;
+    animation-delay: -13s;
+  }
+}
+
+@keyframes liquidMorph1 {
+  0%, 100% {
+    border-radius: 62% 38% 68% 32% / 48% 62% 38% 52%;
+    transform: translate(0, 0) scale(1);
+  }
+  30% {
+    border-radius: 38% 62% 42% 58% / 62% 38% 62% 38%;
+    transform: translate(45px, 35px) scale(1.06);
+  }
+  65% {
+    border-radius: 70% 30% 54% 46% / 32% 68% 46% 54%;
+    transform: translate(-28px, 60px) scale(0.94);
+  }
+}
+
+@keyframes liquidMorph2 {
+  0%, 100% {
+    border-radius: 44% 56% 52% 48% / 56% 44% 56% 44%;
+    transform: translate(0, 0) scale(1);
+  }
+  35% {
+    border-radius: 60% 40% 44% 56% / 42% 58% 42% 58%;
+    transform: translate(-35px, -42px) scale(1.08);
+  }
+  70% {
+    border-radius: 48% 52% 62% 38% / 58% 42% 52% 48%;
+    transform: translate(22px, 38px) scale(0.96);
+  }
+}
+
+@keyframes liquidMorph3 {
+  0%, 100% {
+    border-radius: 58% 42% 46% 54% / 44% 58% 42% 56%;
+    transform: translate(0, 0);
+  }
+  40% {
+    border-radius: 42% 58% 62% 38% / 60% 40% 58% 42%;
+    transform: translate(52px, -28px);
+  }
+  72% {
+    border-radius: 64% 36% 42% 58% / 40% 62% 36% 60%;
+    transform: translate(-30px, 24px);
+  }
+}
+
+/* Liquid button sheen on primary CTA */
+.btn--primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 25%, rgba(255,255,255,0.22) 50%, transparent 75%);
+  transform: translateX(-120%);
+  transition: transform 0s;
+}
+
+.btn--primary:hover::after {
+  transform: translateX(120%);
+  transition: transform 0.55s ease;
 }
