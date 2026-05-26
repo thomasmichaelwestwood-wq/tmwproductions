@@ -1,4 +1,10 @@
 {
-  "2026": { "percent": 90, "label": "No availability before October — a few autumn dates remain" },
-  "2027": { "percent": 53, "label": "Over half of 2027 is gone — enquire now to secure your date" }
+  "2026": {
+    "percent": 44,
+    "label": "Dates still available — enquire now"
+  },
+  "2027": {
+    "percent": 22,
+    "label": "Dates still available — enquire now"
+  }
 }
