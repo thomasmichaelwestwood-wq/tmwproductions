@@ -1465,19 +1465,20 @@ section {
 .process__icon {
   width: 44px;
   height: 44px;
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid rgba(114,46,128,0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  color: var(--white);
+  color: var(--purple-clarity);
   margin-bottom: 1rem;
-  transition: border-color 0.4s, background 0.4s;
+  transition: border-color 0.4s, background 0.4s, color 0.4s;
 }
 
 .process__step.is-active .process__icon {
   border-color: var(--purple-mist);
-  background: rgba(186,141,189,0.1);
+  background: rgba(186,141,189,0.12);
+  color: var(--purple-clarity);
 }
 
 /* Step label */
@@ -1487,8 +1488,8 @@ section {
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--purple-mist);
-  opacity: 0.6;
+  color: var(--purple-clarity);
+  opacity: 0.75;
   margin-bottom: 0.35rem;
 }
 
@@ -1509,7 +1510,7 @@ section {
 
 .process__step.is-active .process__content h3,
 .process__step.is-active .process__content p {
-  color: var(--white);
+  color: #1a1a2e;
 }
 
 .process .section__label,
