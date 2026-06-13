@@ -56,6 +56,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Offset anchor jumps so headings clear the fixed topbar + nav */
+  scroll-padding-top: 120px;
 }
 
 body {
@@ -79,6 +81,44 @@ img {
 
 ul {
   list-style: none;
+}
+
+/* =============================================
+   ACCESSIBILITY
+============================================= */
+
+/* Skip-to-content link — first focusable element on every page */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -120px;
+  z-index: 2000;
+  background: var(--purple-clarity);
+  color: var(--white);
+  padding: 0.75rem 1.4rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--purple-mist);
+  transition: top 0.25s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Branded keyboard focus ring — only shows for keyboard users */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--purple-mist);
+  outline-offset: 3px;
 }
 
 /* =============================================
@@ -244,11 +284,13 @@ p {
   transition: width var(--transition);
 }
 
-.nav__links a:hover {
+.nav__links a:hover,
+.nav__links a:focus-visible {
   color: var(--purple-mist);
 }
 
-.nav__links a:hover::after {
+.nav__links a:hover::after,
+.nav__links a:focus-visible::after {
   width: 100%;
 }
 
@@ -1952,6 +1994,12 @@ section {
   overflow: hidden;
 }
 
+/* Primary CTA uses the diagonal sheen below — suppress the generic
+   shimmer so the two sweeps don't fire at once */
+.btn--primary::before {
+  display: none;
+}
+
 .btn--primary::after {
   content: '';
   position: absolute;
@@ -1964,4 +2012,37 @@ section {
 .btn--primary:hover::after {
   transform: translateX(120%);
   transition: transform 0.55s ease;
+}
+
+/* =============================================
+   REDUCED MOTION — honour the OS-level preference
+============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Keep scroll-reveal content visible without the entrance animation */
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .testimonial-card.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Stop ambient looping motion entirely */
+  .hero__scroll,
+  .hero__particles,
+  .liquid-blob {
+    animation: none !important;
+  }
 }
