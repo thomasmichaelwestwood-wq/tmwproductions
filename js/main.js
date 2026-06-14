@@ -178,6 +178,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ================================
+  // HERO — parallax on scroll
+  // ================================
+  const heroImage   = document.querySelector('.hero__image');
+  const allowMotion = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+
+  if (heroImage && allowMotion) {
+    let heroRaf;
+    function updateHeroParallax() {
+      heroImage.style.transform = `translateY(${window.scrollY * 0.28}px)`;
+      heroRaf = null;
+    }
+    window.addEventListener('scroll', () => {
+      if (!heroRaf) heroRaf = requestAnimationFrame(updateHeroParallax);
+    }, { passive: true });
+  }
+
+  // ================================
   // PROCESS SECTION — line fill, parallax, active step
   // ================================
   const processTimeline = document.querySelector('.process__timeline');
@@ -187,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const processSection  = document.querySelector('.process');
   const processGlow     = document.querySelector('.process__glow');
   const processDecos    = document.querySelectorAll('.process__deco');
-  const allowMotion     = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
 
   if (processTimeline && processLineFill && processSteps.length) {
 
