@@ -639,6 +639,59 @@
       color: var(--stone);
     }
 
+    /* ─── Gallery (Google Drive photos) ─────────────── */
+    .gallery {
+      padding: 2rem var(--px);
+    }
+
+    .gallery__grid {
+      margin-top: 1.25rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .gallery__item {
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: var(--warm);
+    }
+
+    .gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .gallery__item:hover img { transform: scale(1.04); }
+
+    .gallery__loading,
+    .gallery__empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      font-size: 0.9375rem;
+      color: var(--stone);
+    }
+
+    /* ─── Instagram feed section ─────────────────────── */
+    .insta-section {
+      padding: 2rem var(--px);
+    }
+
+    .insta-section__widget {
+      margin-top: 1.25rem;
+      min-height: 200px;
+    }
+
+    .insta-section__follow {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
     /* ─── Bottom Dock (mobile only) ─────────────────── */
     .dock {
       position: fixed;
@@ -718,8 +771,9 @@
 
       /* ── All sections: let page-wrap handle horizontal gutter ── */
       .hero, .intro, .stats,
-      .services, .about, .journey,
-      .reviews, .visit, .site-footer {
+      .services, .about, .gallery,
+      .journey, .reviews, .insta-section,
+      .visit, .site-footer {
         padding-left: 0;
         padding-right: 0;
       }
@@ -871,6 +925,26 @@
       .visit {
         padding-top: 3.5rem;
         padding-bottom: 2.5rem;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      /* ── Gallery ── */
+      .gallery {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+      }
+
+      .gallery__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      /* ── Instagram ── */
+      .insta-section {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
         max-width: 760px;
         margin: 0 auto;
       }
@@ -1133,6 +1207,15 @@
         </div>
       </section>
 
+      <!-- ─── Gallery (Google Drive photos) ────────── -->
+      <section class="gallery" id="gallery">
+        <span class="eyebrow">Recent work</span>
+        <h2 class="section-title">The work</h2>
+        <div class="gallery__grid" id="gallery-grid">
+          <p class="gallery__loading">Loading photos…</p>
+        </div>
+      </section>
+
       <!-- ─── Journey / Timeline ────────────────────── -->
       <section class="journey" id="journey">
         <span class="eyebrow">The journey</span>
@@ -1185,6 +1268,24 @@
           <p class="reviews__author">— Sarah M., Syston</p>
         </div>
       </section>
+
+      <!-- ─── Instagram feed ──────────────────────────── -->
+      <section class="insta-section" id="instagram">
+        <span class="eyebrow">Follow along</span>
+        <h2 class="section-title">On Instagram</h2>
+        <div class="insta-section__widget">
+          <behold-widget feed-id="YOUR_FEED_ID"></behold-widget>
+        </div>
+        <p class="insta-section__follow">
+          <a
+            href="https://www.instagram.com/hair_with_faithpeel/"
+            class="btn btn--outline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Follow @hair_with_faithpeel</a>
+        </p>
+      </section>
+      <script type="module" src="https://w.behold.so/widget.js"></script>
 
       <!-- ─── Visit ─────────────────────────────────── -->
       <section class="visit" id="visit">
@@ -1320,6 +1421,50 @@
       Visit
     </a>
   </nav>
+
+  <script>
+    /* ─── Google Drive photo gallery ──────────────────
+       Replace the two placeholders below once you have:
+       1. Shared the folder: Drive → right-click → Share
+          → "Anyone with the link" → Viewer
+       2. Created an API key in Google Cloud Console
+          (enable Drive API v3, restrict to your domain)
+    ──────────────────────────────────────────────────── */
+    (function () {
+      var FOLDER_ID = 'REPLACE_WITH_FOLDER_ID';
+      var API_KEY   = 'REPLACE_WITH_API_KEY';
+      var grid      = document.getElementById('gallery-grid');
+
+      if (!grid) return;
+
+      if (FOLDER_ID === 'REPLACE_WITH_FOLDER_ID' || API_KEY === 'REPLACE_WITH_API_KEY') {
+        grid.innerHTML = '<p class="gallery__empty">Gallery coming soon.</p>';
+        return;
+      }
+
+      var q   = encodeURIComponent("'" + FOLDER_ID + "' in parents and mimeType contains 'image/' and trashed = false");
+      var url = 'https://www.googleapis.com/drive/v3/files?q=' + q +
+                '&fields=files(id,name)&pageSize=18&orderBy=createdTime%20desc&key=' + API_KEY;
+
+      fetch(url)
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (!data.files || data.files.length === 0) {
+            grid.innerHTML = '<p class="gallery__empty">No photos yet — check back soon.</p>';
+            return;
+          }
+          grid.innerHTML = data.files.map(function (f) {
+            return '<a class="gallery__item" href="https://drive.google.com/file/d/' + f.id + '/view" ' +
+                   'target="_blank" rel="noopener noreferrer" aria-label="' + f.name + '">' +
+                   '<img src="https://drive.google.com/thumbnail?id=' + f.id + '&sz=w600" ' +
+                   'alt="' + f.name + '" loading="lazy"></a>';
+          }).join('');
+        })
+        .catch(function () {
+          grid.innerHTML = '<p class="gallery__empty">Gallery unavailable right now.</p>';
+        });
+    })();
+  </script>
 
 </body>
 </html>
