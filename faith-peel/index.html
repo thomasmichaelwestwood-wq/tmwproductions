@@ -117,7 +117,7 @@
       width: 100%;
     }
 
-    /* ─── Page wrap (desktop centering) ─────────────── */
+    /* ─── Page wrap ─────────────────────────────────── */
     .page-wrap {
       width: 100%;
     }
@@ -146,7 +146,6 @@
       mix-blend-mode: multiply;
     }
 
-    /* desktop nav: hidden on mobile */
     .header-nav {
       display: none;
       gap: 2.25rem;
@@ -317,7 +316,7 @@
 
     .stats__label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
       color: var(--muted);
       line-height: 1.35;
       margin-top: 0.375rem;
@@ -332,6 +331,10 @@
       margin-top: 1.25rem;
     }
 
+    /*
+      Service rows are booking links — the chevron is intentional.
+      Reset <a> appearance; layout is identical to a div row.
+    */
     .service-row {
       display: flex;
       align-items: center;
@@ -339,6 +342,7 @@
       gap: 1rem;
       padding: 1.125rem 0;
       border-bottom: 1px solid var(--parchment);
+      transition: background 0.12s ease;
     }
 
     .service-row:first-child {
@@ -352,6 +356,7 @@
       font-size: 1.25rem;
       font-weight: 500;
       color: var(--espresso);
+      transition: color 0.12s ease;
     }
 
     .service-row__desc {
@@ -364,6 +369,7 @@
     .service-row__chevron {
       flex-shrink: 0;
       color: var(--stone);
+      transition: color 0.12s ease, transform 0.12s ease;
     }
 
     .services__extensions {
@@ -375,11 +381,12 @@
       background: var(--espresso);
       border-radius: 16px;
       padding: 1.25rem 1.125rem;
+      transition: opacity 0.15s ease;
     }
 
     .services__extensions .service-row__name { color: var(--cream); }
     .services__extensions .service-row__desc { color: rgba(250, 246, 241, 0.6); }
-    .services__extensions .service-row__chevron { color: rgba(250, 246, 241, 0.35); }
+    .services__extensions .service-row__chevron { color: rgba(250, 246, 241, 0.5); }
 
     .tag {
       display: inline-block;
@@ -400,19 +407,32 @@
       padding: 2rem var(--px);
     }
 
-    /* grid: stacks on mobile, 2-col on desktop */
+    /*
+      Mobile: flex column — text-col first (eyebrow + h2 + body),
+      photo-wrap second. This keeps the heading above the photo.
+      Desktop: CSS grid — photo left, text right.
+    */
     .about__grid {
       display: flex;
       flex-direction: column;
       margin-top: 1.5rem;
+      gap: 1.5rem;
     }
 
     .about__photo-wrap {
+      order: 2;
       border-radius: 20px;
       overflow: hidden;
       aspect-ratio: 4 / 5;
       background: var(--warm);
-      margin-bottom: 1.75rem;
+    }
+
+    .about__text-col {
+      order: 1;
+    }
+
+    .about__text-col .section-title {
+      margin-top: 0.5rem;
     }
 
     .about__photo {
@@ -420,6 +440,10 @@
       height: 100%;
       object-fit: cover;
       object-position: center top;
+    }
+
+    .about__body {
+      margin-top: 1.25rem;
     }
 
     .about__body p {
@@ -665,8 +689,6 @@
 
     /* ════════════════════════════════════════════════
        Desktop — 768px and up
-       Dock disappears; nav appears in header; page
-       content is max-width constrained and centred.
     ════════════════════════════════════════════════ */
     @media (min-width: 768px) {
 
@@ -674,14 +696,12 @@
         padding-bottom: 0;
       }
 
-      /* centred content column */
       .page-wrap {
         max-width: 1100px;
         margin: 0 auto;
         padding: 0 2.5rem;
       }
 
-      /* header inner mirrors page-wrap width */
       .header-inner {
         max-width: 1100px;
         margin: 0 auto;
@@ -693,17 +713,31 @@
         display: flex;
       }
 
-      /* hover states — pointer devices only */
-      .header-nav a:hover {
-        color: var(--espresso);
+      /* ── All sections: let page-wrap handle horizontal gutter ── */
+      .hero, .intro, .stats,
+      .services, .about, .journey,
+      .reviews, .visit, .site-footer {
+        padding-left: 0;
+        padding-right: 0;
       }
 
-      .btn--primary:hover { opacity: 0.85; }
-      .btn--outline:hover { background: var(--warm); }
+      /* ── Hover states (pointer devices only) ── */
+      .header-nav a:hover          { color: var(--espresso); }
+      .btn--primary:hover          { opacity: 0.85; }
+      .btn--outline:hover          { background: var(--warm); }
+      .site-header__book:hover     { opacity: 0.85; }
+
+      /* Service rows are links — show intent on hover */
+      .service-row:hover .service-row__name    { color: var(--brown); }
+      .service-row:hover .service-row__chevron { color: var(--caramel); transform: translateX(2px); }
+      .services__extensions:hover              { opacity: 0.88; }
+
+      /* Visit links */
+      .visit__value a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
       /* ── Hero ── */
       .hero {
-        padding: 1.5rem 0 0;
+        padding-top: 1.5rem;
       }
 
       .hero__card {
@@ -711,19 +745,25 @@
         border-radius: 24px;
       }
 
+      /* Badges stay grouped bottom-left — just more breathing room */
       .hero__content {
         padding: 2.5rem;
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: space-between;
       }
 
-      .hero__badge { font-size: 1rem; padding: 0.625rem 1.25rem; }
-      .hero__pill  { font-size: 0.9375rem; padding: 0.5rem 1.125rem; }
+      .hero__badge {
+        font-size: 1rem;
+        padding: 0.625rem 1.25rem;
+      }
+
+      .hero__pill {
+        font-size: 0.9375rem;
+        padding: 0.5rem 1.125rem;
+      }
 
       /* ── Intro ── */
       .intro {
-        padding: 4rem 0;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
         text-align: center;
         max-width: 720px;
         margin: 0 auto;
@@ -735,7 +775,7 @@
 
       .intro__lead {
         font-size: 1.0625rem;
-        max-width: 560px;
+        max-width: 520px;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 2rem;
@@ -754,85 +794,91 @@
       .stats {
         max-width: 680px;
         margin: 0 auto 3.5rem;
-        padding: 0;
+        padding-bottom: 0;
         gap: 1rem;
       }
 
-      .stats__cell    { padding: 1.75rem 1rem; }
-      .stats__value   { font-size: 2.5rem; }
-      .stats__label   { font-size: 0.875rem; margin-top: 0.5rem; }
+      .stats__cell  { padding: 1.75rem 1rem; }
+      .stats__value { font-size: 2.5rem; }
+      .stats__label { font-size: 0.875rem; margin-top: 0.5rem; }
 
       /* ── Services ── */
       .services {
-        padding: 3.5rem 0;
-        max-width: 680px;
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+        max-width: 760px;
         margin: 0 auto;
       }
 
       .section-title { font-size: 2.5rem; }
 
       .service-row { padding: 1.375rem 0; }
-
       .service-row__name { font-size: 1.375rem; }
 
-      /* ── About — 2-column ── */
+      /* ── About — photo left, text (eyebrow + h2 + body) right ── */
       .about {
-        padding: 3.5rem 0;
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
       }
 
       .about__grid {
         display: grid;
         grid-template-columns: 5fr 6fr;
-        gap: 4rem;
+        gap: 4.5rem;
         align-items: start;
-        margin-top: 2.5rem;
+        margin-top: 0;
       }
 
       .about__photo-wrap {
-        margin-bottom: 0;
+        order: 1;
         aspect-ratio: 3 / 4;
       }
 
-      .about__body {
-        padding-top: 0.75rem;
+      .about__text-col {
+        order: 2;
+        padding-top: 0.5rem;
       }
 
+      .about__body { margin-top: 1.5rem; }
       .about__body p { font-size: 1.0625rem; line-height: 1.8; }
 
       /* ── Journey ── */
       .journey {
-        padding: 3.5rem 0;
-        max-width: 680px;
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+        max-width: 760px;
         margin: 0 auto;
       }
 
-      .timeline__entry { padding-bottom: 2.75rem; }
-      .timeline__title { font-size: 1.5rem; }
-      .timeline__desc  { font-size: 1rem; }
+      .timeline__entry  { padding-bottom: 2.75rem; }
+      .timeline__title  { font-size: 1.5rem; }
+      .timeline__desc   { font-size: 1rem; }
 
       /* ── Reviews ── */
       .reviews {
-        padding: 0 0 3.5rem;
-        max-width: 680px;
+        padding-bottom: 3.5rem;
+        max-width: 760px;
         margin: 0 auto;
       }
 
-      .reviews__card { padding: 2.5rem 2.5rem; }
+      .reviews__card  { padding: 2.75rem; }
       .reviews__quote { font-size: 1.625rem; }
 
       /* ── Visit ── */
       .visit {
-        padding: 3.5rem 0 2.5rem;
-        max-width: 680px;
+        padding-top: 3.5rem;
+        padding-bottom: 2.5rem;
+        max-width: 760px;
         margin: 0 auto;
       }
 
       /* ── Footer ── */
       .site-footer {
-        padding: 2.5rem 0 2rem;
+        padding-top: 2.5rem;
+        padding-bottom: 2rem;
       }
 
-      /* hide mobile dock */
+      /* ── Hide mobile dock ── */
       .dock {
         display: none;
       }
@@ -848,8 +894,7 @@
       }
 
       .intro__heading { font-size: 5rem; }
-
-      .about__grid { gap: 6rem; }
+      .about__grid    { gap: 6rem; }
     }
   </style>
 </head>
@@ -939,7 +984,7 @@
         </div>
         <div class="stats__cell" role="listitem">
           <span class="stats__value">Ext</span>
-          <span class="stats__label">Trinity certified</span>
+          <span class="stats__label">Trinity qualified</span>
         </div>
       </div>
 
@@ -948,9 +993,19 @@
         <span class="eyebrow">What I offer</span>
         <h2 class="section-title">Services</h2>
 
+        <!--
+          Each row links to the booking page so the chevron
+          indicates a real action, not a dead affordance.
+        -->
         <div class="services__list" role="list">
 
-          <div class="service-row" role="listitem">
+          <a
+            href="https://book.getslick.com/"
+            class="service-row"
+            role="listitem"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div class="service-row__text">
               <div class="service-row__name">Cut &amp; Style</div>
               <div class="service-row__desc">Tailored to your face shape and lifestyle</div>
@@ -958,9 +1013,15 @@
             <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </div>
+          </a>
 
-          <div class="service-row" role="listitem">
+          <a
+            href="https://book.getslick.com/"
+            class="service-row"
+            role="listitem"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div class="service-row__text">
               <div class="service-row__name">Colouring</div>
               <div class="service-row__desc">Full head, roots and toning options</div>
@@ -968,9 +1029,15 @@
             <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </div>
+          </a>
 
-          <div class="service-row" role="listitem">
+          <a
+            href="https://book.getslick.com/"
+            class="service-row"
+            role="listitem"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div class="service-row__text">
               <div class="service-row__name">Balayage &amp; Highlights</div>
               <div class="service-row__desc">Hand-painted for a natural, sun-kissed result</div>
@@ -978,9 +1045,15 @@
             <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </div>
+          </a>
 
-          <div class="service-row" role="listitem">
+          <a
+            href="https://book.getslick.com/"
+            class="service-row"
+            role="listitem"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div class="service-row__text">
               <div class="service-row__name">Treatments</div>
               <div class="service-row__desc">Nourishing care to restore shine and condition</div>
@@ -988,7 +1061,7 @@
             <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </div>
+          </a>
 
         </div>
 
@@ -1011,15 +1084,16 @@
       </section>
 
       <!-- ─── About ─────────────────────────────────── -->
+      <!--
+        about__grid:
+          Mobile  — flex column: text-col (order 1) then photo-wrap (order 2).
+                    Renders: eyebrow → h2 → body → photo.
+          Desktop — CSS grid: photo left col, text-col right col.
+                    Heading is anchored inside the right column, not floating above.
+      -->
       <section class="about">
-        <span class="eyebrow">About Faith</span>
-        <h2 class="section-title">The person<br>behind the chair</h2>
-
-        <!--
-          about__grid: flex column on mobile (photo → body text),
-          CSS grid 2-col on desktop (photo left, text right).
-        -->
         <div class="about__grid">
+
           <div class="about__photo-wrap">
             <img
               src="https://res.cloudinary.com/dfaebplzd/image/upload/q_auto/f_auto/v1780593549/IMG_0019_hz2aki.jpg"
@@ -1030,10 +1104,16 @@
               loading="lazy"
             >
           </div>
-          <div class="about__body">
-            <p>Faith Peel is a Level 2 qualified hairdresser based at Journey 81 in Syston, Leicestershire. She specialises in precision cuts, creative colour, balayage and Trinity-certified hair extensions.</p>
-            <p>Her journey in hairdressing began at fifteen, training under experienced stylists in Leicester. Now fully qualified and building her clientele, Faith's approach is simple: listen first, then create something you'll love wearing every day.</p>
+
+          <div class="about__text-col">
+            <span class="eyebrow">About Faith</span>
+            <h2 class="section-title">The person<br>behind the chair</h2>
+            <div class="about__body">
+              <p>Faith Peel is a Level 2 qualified hairdresser based at Journey 81 in Syston, Leicestershire. She specialises in precision cuts, creative colour, balayage and Trinity-certified hair extensions.</p>
+              <p>Her journey in hairdressing began at fifteen, training under experienced stylists in Leicester. Now fully qualified and building her clientele, Faith's approach is simple: listen first, then create something you'll love wearing every day.</p>
+            </div>
           </div>
+
         </div>
       </section>
 
