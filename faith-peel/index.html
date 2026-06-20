@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hair with Faith Peel — Syston, Leicestershire</title>
-  <meta name="description" content="Faith Peel — Level 2 qualified hairdresser at Journey 81, 81 High Street, Syston, LE7 1GQ. Cuts, colour, balayage, treatments and Trinity-certified hair extensions.">
+  <meta name="description" content="Faith Peel — Level 2 qualified hairdresser at Journey 81, 81 College Road, Syston, LE7 1GQ. Cuts, colour, balayage, treatments and Trinity-certified hair extensions.">
   <meta property="og:title" content="Hair with Faith Peel">
   <meta property="og:description" content="Level 2 qualified hairdresser at Journey 81, Syston. Cuts, colour, balayage and hair extensions.">
   <meta property="og:image" content="https://res.cloudinary.com/dfaebplzd/image/upload/q_auto/f_auto/v1780593549/IMG_0018_tpcfzz.jpg">
@@ -25,11 +25,6 @@
     }
 
     /* ─── Base ──────────────────────────────────────── */
-    /*
-      font-size is set explicitly in px to prevent browsers or
-      OS accessibility settings from collapsing it below readable
-      size via percentage-of-default tricks.
-    */
     html {
       font-size: 16px;
       -webkit-text-size-adjust: 100%;
@@ -42,7 +37,6 @@
       background-color: #faf6f1;
       color: #2a1a0e;
       line-height: 1.65;
-      /* clear the fixed bottom dock + iPhone home indicator */
       padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
       overflow-x: hidden;
     }
@@ -67,7 +61,7 @@
       --caramel:   #9c6840;
       --muted:     #7a6254;
       --stone:     #c4b4a4;
-      --px: 1.25rem; /* horizontal page gutter */
+      --px: 1.25rem;
     }
 
     /* ─── Shared atoms ──────────────────────────────── */
@@ -103,7 +97,7 @@
       min-height: 52px;
       cursor: pointer;
       text-align: center;
-      transition: opacity 0.15s ease;
+      transition: opacity 0.15s ease, background 0.15s ease;
     }
 
     .btn:active { opacity: 0.75; }
@@ -123,6 +117,11 @@
       width: 100%;
     }
 
+    /* ─── Page wrap (desktop centering) ─────────────── */
+    .page-wrap {
+      width: 100%;
+    }
+
     /* ─── Header ────────────────────────────────────── */
     .site-header {
       position: sticky;
@@ -130,6 +129,9 @@
       z-index: 200;
       background: var(--cream);
       border-bottom: 1px solid var(--parchment);
+    }
+
+    .header-inner {
       height: 64px;
       display: flex;
       align-items: center;
@@ -141,11 +143,21 @@
       height: 44px;
       width: auto;
       object-fit: contain;
-      /*
-        The logo JPG has a white background. multiply blends it
-        invisibly into the cream header without needing a transparent PNG.
-      */
       mix-blend-mode: multiply;
+    }
+
+    /* desktop nav: hidden on mobile */
+    .header-nav {
+      display: none;
+      gap: 2.25rem;
+    }
+
+    .header-nav a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9375rem;
+      color: var(--muted);
+      font-weight: 400;
+      transition: color 0.15s;
     }
 
     .site-header__book {
@@ -354,7 +366,6 @@
       color: var(--stone);
     }
 
-    /* Hair extensions — dark featured row */
     .services__extensions {
       display: flex;
       align-items: center;
@@ -366,17 +377,9 @@
       padding: 1.25rem 1.125rem;
     }
 
-    .services__extensions .service-row__name {
-      color: var(--cream);
-    }
-
-    .services__extensions .service-row__desc {
-      color: rgba(250, 246, 241, 0.6);
-    }
-
-    .services__extensions .service-row__chevron {
-      color: rgba(250, 246, 241, 0.35);
-    }
+    .services__extensions .service-row__name { color: var(--cream); }
+    .services__extensions .service-row__desc { color: rgba(250, 246, 241, 0.6); }
+    .services__extensions .service-row__chevron { color: rgba(250, 246, 241, 0.35); }
 
     .tag {
       display: inline-block;
@@ -397,8 +400,14 @@
       padding: 2rem var(--px);
     }
 
-    .about__photo-wrap {
+    /* grid: stacks on mobile, 2-col on desktop */
+    .about__grid {
+      display: flex;
+      flex-direction: column;
       margin-top: 1.5rem;
+    }
+
+    .about__photo-wrap {
       border-radius: 20px;
       overflow: hidden;
       aspect-ratio: 4 / 5;
@@ -434,7 +443,6 @@
       padding-left: 2.25rem;
     }
 
-    /* vertical spine */
     .timeline::before {
       content: '';
       position: absolute;
@@ -462,7 +470,6 @@
       height: 12px;
       border-radius: 50%;
       background: var(--caramel);
-      /* white ring to visually lift it off the spine */
       box-shadow: 0 0 0 2.5px var(--cream), 0 0 0 4px var(--caramel);
     }
 
@@ -605,7 +612,7 @@
       color: var(--stone);
     }
 
-    /* ─── Bottom Dock ───────────────────────────────── */
+    /* ─── Bottom Dock (mobile only) ─────────────────── */
     .dock {
       position: fixed;
       bottom: 0;
@@ -618,7 +625,6 @@
       align-items: center;
       gap: 0.25rem;
       padding: 0.625rem var(--px);
-      /* respect iPhone home indicator */
       padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem));
     }
 
@@ -656,331 +662,533 @@
       height: 22px;
       flex-shrink: 0;
     }
+
+    /* ════════════════════════════════════════════════
+       Desktop — 768px and up
+       Dock disappears; nav appears in header; page
+       content is max-width constrained and centred.
+    ════════════════════════════════════════════════ */
+    @media (min-width: 768px) {
+
+      body {
+        padding-bottom: 0;
+      }
+
+      /* centred content column */
+      .page-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+      }
+
+      /* header inner mirrors page-wrap width */
+      .header-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+        height: 72px;
+      }
+
+      .header-nav {
+        display: flex;
+      }
+
+      /* hover states — pointer devices only */
+      .header-nav a:hover {
+        color: var(--espresso);
+      }
+
+      .btn--primary:hover { opacity: 0.85; }
+      .btn--outline:hover { background: var(--warm); }
+
+      /* ── Hero ── */
+      .hero {
+        padding: 1.5rem 0 0;
+      }
+
+      .hero__card {
+        aspect-ratio: 16 / 7;
+        border-radius: 24px;
+      }
+
+      .hero__content {
+        padding: 2.5rem;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+
+      .hero__badge { font-size: 1rem; padding: 0.625rem 1.25rem; }
+      .hero__pill  { font-size: 0.9375rem; padding: 0.5rem 1.125rem; }
+
+      /* ── Intro ── */
+      .intro {
+        padding: 4rem 0;
+        text-align: center;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .intro__heading {
+        font-size: 4.25rem;
+      }
+
+      .intro__lead {
+        font-size: 1.0625rem;
+        max-width: 560px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2rem;
+      }
+
+      .intro__ctas {
+        justify-content: center;
+      }
+
+      .intro__ctas .btn {
+        flex: 0 1 auto;
+        min-width: 160px;
+      }
+
+      /* ── Stats ── */
+      .stats {
+        max-width: 680px;
+        margin: 0 auto 3.5rem;
+        padding: 0;
+        gap: 1rem;
+      }
+
+      .stats__cell    { padding: 1.75rem 1rem; }
+      .stats__value   { font-size: 2.5rem; }
+      .stats__label   { font-size: 0.875rem; margin-top: 0.5rem; }
+
+      /* ── Services ── */
+      .services {
+        padding: 3.5rem 0;
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .section-title { font-size: 2.5rem; }
+
+      .service-row { padding: 1.375rem 0; }
+
+      .service-row__name { font-size: 1.375rem; }
+
+      /* ── About — 2-column ── */
+      .about {
+        padding: 3.5rem 0;
+      }
+
+      .about__grid {
+        display: grid;
+        grid-template-columns: 5fr 6fr;
+        gap: 4rem;
+        align-items: start;
+        margin-top: 2.5rem;
+      }
+
+      .about__photo-wrap {
+        margin-bottom: 0;
+        aspect-ratio: 3 / 4;
+      }
+
+      .about__body {
+        padding-top: 0.75rem;
+      }
+
+      .about__body p { font-size: 1.0625rem; line-height: 1.8; }
+
+      /* ── Journey ── */
+      .journey {
+        padding: 3.5rem 0;
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .timeline__entry { padding-bottom: 2.75rem; }
+      .timeline__title { font-size: 1.5rem; }
+      .timeline__desc  { font-size: 1rem; }
+
+      /* ── Reviews ── */
+      .reviews {
+        padding: 0 0 3.5rem;
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .reviews__card { padding: 2.5rem 2.5rem; }
+      .reviews__quote { font-size: 1.625rem; }
+
+      /* ── Visit ── */
+      .visit {
+        padding: 3.5rem 0 2.5rem;
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      /* ── Footer ── */
+      .site-footer {
+        padding: 2.5rem 0 2rem;
+      }
+
+      /* hide mobile dock */
+      .dock {
+        display: none;
+      }
+    }
+
+    /* ─── Very wide screens ─────────────────────────── */
+    @media (min-width: 1280px) {
+      .page-wrap,
+      .header-inner {
+        max-width: 1200px;
+        padding-left: 3.5rem;
+        padding-right: 3.5rem;
+      }
+
+      .intro__heading { font-size: 5rem; }
+
+      .about__grid { gap: 6rem; }
+    }
   </style>
 </head>
 <body>
 
   <!-- ─── Header ──────────────────────────────────── -->
   <header class="site-header">
-    <img
-      src="https://res.cloudinary.com/dfaebplzd/image/upload/q_auto/f_auto/v1780593549/IMG_0017_dfaebz.jpg"
-      alt="Hair with Faith Peel"
-      class="site-header__logo"
-      width="140"
-      height="44"
-    >
-    <a
-      href="https://book.getslick.com/"
-      class="site-header__book"
-      target="_blank"
-      rel="noopener noreferrer"
-    >Book</a>
-  </header>
-
-  <main>
-
-    <!-- ─── Hero ────────────────────────────────────── -->
-    <section class="hero" aria-label="Hero image">
-      <div class="hero__card">
-        <img
-          src="https://res.cloudinary.com/dfaebplzd/image/upload/q_auto/f_auto/v1780593549/IMG_0018_tpcfzz.jpg"
-          alt="Faith Peel — hairdresser at Journey 81, Syston"
-          class="hero__img"
-          width="800"
-          height="1000"
-          loading="eager"
-          fetchpriority="high"
-        >
-        <div class="hero__overlay" aria-hidden="true"></div>
-        <div class="hero__content">
-          <div class="hero__badge">
-            Journey 81 · Syston
-            <span class="hero__badge-sep" aria-hidden="true"></span>
-            Level 2 Qualified
-          </div>
-          <span class="hero__pill">Leicestershire</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── Intro ────────────────────────────────────── -->
-    <section class="intro">
-      <span class="eyebrow">Hairdresser &amp; Colourist</span>
-      <h1 class="intro__heading">
-        Hair that feels<br><em>like you.</em>
-      </h1>
-      <p class="intro__lead">
-        Precision cuts, creative colour and care that starts with a conversation.
-        Based at Journey 81 in Syston — accepting new clients now.
-      </p>
-      <div class="intro__ctas">
-        <a
-          href="https://book.getslick.com/"
-          class="btn btn--primary"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Book Now</a>
-        <a href="#services" class="btn btn--outline">Services</a>
-      </div>
-    </section>
-
-    <!-- ─── Stats ─────────────────────────────────────── -->
-    <div class="stats" role="list" aria-label="Qualifications and experience">
-      <div class="stats__cell" role="listitem">
-        <span class="stats__value">L2</span>
-        <span class="stats__label">Qualified</span>
-      </div>
-      <div class="stats__cell" role="listitem">
-        <span class="stats__value">3+</span>
-        <span class="stats__label">Years in salon</span>
-      </div>
-      <div class="stats__cell" role="listitem">
-        <span class="stats__value">Ext</span>
-        <span class="stats__label">Trinity certified</span>
-      </div>
-    </div>
-
-    <!-- ─── Services ─────────────────────────────────── -->
-    <section class="services" id="services">
-      <span class="eyebrow">What I offer</span>
-      <h2 class="section-title">Services</h2>
-
-      <div class="services__list" role="list">
-
-        <div class="service-row" role="listitem">
-          <div class="service-row__text">
-            <div class="service-row__name">Cut &amp; Style</div>
-            <div class="service-row__desc">Tailored to your face shape and lifestyle</div>
-          </div>
-          <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-
-        <div class="service-row" role="listitem">
-          <div class="service-row__text">
-            <div class="service-row__name">Colouring</div>
-            <div class="service-row__desc">Full head, roots and toning options</div>
-          </div>
-          <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-
-        <div class="service-row" role="listitem">
-          <div class="service-row__text">
-            <div class="service-row__name">Balayage &amp; Highlights</div>
-            <div class="service-row__desc">Hand-painted for a natural, sun-kissed result</div>
-          </div>
-          <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-
-        <div class="service-row" role="listitem">
-          <div class="service-row__text">
-            <div class="service-row__name">Treatments</div>
-            <div class="service-row__desc">Nourishing care to restore shine and condition</div>
-          </div>
-          <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-
-      </div>
-
-      <!-- Extensions — featured dark card -->
+    <div class="header-inner">
+      <img
+        src="https://res.cloudinary.com/dfaebplzd/image/upload/q_auto/f_auto/v1780593549/IMG_0017_dfaebz.jpg"
+        alt="Hair with Faith Peel"
+        class="site-header__logo"
+        width="140"
+        height="44"
+      >
+      <nav class="header-nav" aria-label="Site navigation">
+        <a href="#services">Services</a>
+        <a href="#journey">Journey</a>
+        <a href="#visit">Visit</a>
+      </nav>
       <a
         href="https://book.getslick.com/"
-        class="services__extensions"
+        class="site-header__book"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Hair Extensions — Trinity Qualified. Book now."
-      >
-        <div class="service-row__text">
-          <div class="service-row__name">Hair Extensions</div>
-          <div class="service-row__desc">Professional application &amp; aftercare</div>
-          <span class="tag">Trinity Qualified</span>
+      >Book</a>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <main>
+
+      <!-- ─── Hero ──────────────────────────────────── -->
+      <section class="hero" aria-label="Hero image">
+        <div class="hero__card">
+          <img
+            src="https://res.cloudinary.com/dfaebplzd/image/upload/q_auto/f_auto/v1780593549/IMG_0018_tpcfzz.jpg"
+            alt="Faith Peel — hairdresser at Journey 81, Syston"
+            class="hero__img"
+            width="800"
+            height="1000"
+            loading="eager"
+            fetchpriority="high"
+          >
+          <div class="hero__overlay" aria-hidden="true"></div>
+          <div class="hero__content">
+            <div class="hero__badge">
+              Journey 81 · Syston
+              <span class="hero__badge-sep" aria-hidden="true"></span>
+              Level 2 Qualified
+            </div>
+            <span class="hero__pill">Leicestershire</span>
+          </div>
         </div>
-        <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </section>
+      </section>
 
-    <!-- ─── About ─────────────────────────────────────── -->
-    <section class="about">
-      <span class="eyebrow">About Faith</span>
-      <h2 class="section-title">The person<br>behind the chair</h2>
+      <!-- ─── Intro ─────────────────────────────────── -->
+      <section class="intro">
+        <span class="eyebrow">Hairdresser &amp; Colourist</span>
+        <h1 class="intro__heading">
+          Hair that feels<br><em>like you.</em>
+        </h1>
+        <p class="intro__lead">
+          Precision cuts, creative colour and care that starts with a conversation.
+          Based at Journey 81 in Syston — accepting new clients now.
+        </p>
+        <div class="intro__ctas">
+          <a
+            href="https://book.getslick.com/"
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Book Now</a>
+          <a href="#services" class="btn btn--outline">Services</a>
+        </div>
+      </section>
 
-      <div class="about__photo-wrap">
-        <img
-          src="https://res.cloudinary.com/dfaebplzd/image/upload/q_auto/f_auto/v1780593549/IMG_0019_hz2aki.jpg"
-          alt="Faith Peel reflected in the salon mirror"
-          class="about__photo"
-          width="800"
-          height="1000"
-          loading="lazy"
-        >
+      <!-- ─── Stats ────────────────────────────────── -->
+      <div class="stats" role="list" aria-label="Qualifications and experience">
+        <div class="stats__cell" role="listitem">
+          <span class="stats__value">L2</span>
+          <span class="stats__label">Qualified</span>
+        </div>
+        <div class="stats__cell" role="listitem">
+          <span class="stats__value">3+</span>
+          <span class="stats__label">Years in salon</span>
+        </div>
+        <div class="stats__cell" role="listitem">
+          <span class="stats__value">Ext</span>
+          <span class="stats__label">Trinity certified</span>
+        </div>
       </div>
 
-      <div class="about__body">
-        <p>Faith Peel is a Level 2 qualified hairdresser based at Journey 81 in Syston, Leicestershire. She specialises in precision cuts, creative colour, balayage and Trinity-certified hair extensions.</p>
-        <p>Her journey in hairdressing began at fifteen, training under experienced stylists in Leicester. Now fully qualified and building her clientele, Faith's approach is simple: listen first, then create something you'll love wearing every day.</p>
-      </div>
-    </section>
+      <!-- ─── Services ──────────────────────────────── -->
+      <section class="services" id="services">
+        <span class="eyebrow">What I offer</span>
+        <h2 class="section-title">Services</h2>
 
-    <!-- ─── Journey / Timeline ──────────────────────── -->
-    <section class="journey" id="journey">
-      <span class="eyebrow">The journey</span>
-      <h2 class="section-title">How it started</h2>
+        <div class="services__list" role="list">
 
-      <div class="timeline">
-
-        <div class="timeline__entry">
-          <div class="timeline__dot" aria-hidden="true"></div>
-          <div class="timeline__when">Age 15</div>
-          <div class="timeline__title">George's, Leicester</div>
-          <p class="timeline__desc">Started her hairdressing journey at one of Leicester's established salons, learning the fundamentals under experienced stylists.</p>
-        </div>
-
-        <div class="timeline__entry">
-          <div class="timeline__dot" aria-hidden="true"></div>
-          <div class="timeline__when">Salon move</div>
-          <div class="timeline__title">Journey 81, Syston</div>
-          <p class="timeline__desc">Joined Journey 81 on the High Street — a warm, creative environment where she continues to grow her own loyal clientele.</p>
-        </div>
-
-        <div class="timeline__entry">
-          <div class="timeline__dot" aria-hidden="true"></div>
-          <div class="timeline__when">Qualification</div>
-          <div class="timeline__title">NVQ Level 2 Hairdressing</div>
-          <p class="timeline__desc">Achieved her Level 2 qualification, covering cutting, colouring, chemical services and client care.</p>
-        </div>
-
-        <div class="timeline__entry">
-          <div class="timeline__dot" aria-hidden="true"></div>
-          <div class="timeline__when">Extensions</div>
-          <div class="timeline__title">Trinity Certified</div>
-          <p class="timeline__desc">Completed specialist Trinity hair extensions training — now certified to fit and maintain professional extension systems.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ─── Reviews ──────────────────────────────────── -->
-    <section class="reviews" aria-label="Client review">
-      <div class="reviews__card">
-        <div class="reviews__stars" aria-label="Five stars">
-          <span class="reviews__star" aria-hidden="true">★</span>
-          <span class="reviews__star" aria-hidden="true">★</span>
-          <span class="reviews__star" aria-hidden="true">★</span>
-          <span class="reviews__star" aria-hidden="true">★</span>
-          <span class="reviews__star" aria-hidden="true">★</span>
-        </div>
-        <p class="reviews__quote">"Faith took the time to really understand what I wanted. The result was exactly right — and my hair has never felt healthier."</p>
-        <p class="reviews__author">— Sarah M., Syston</p>
-      </div>
-    </section>
-
-    <!-- ─── Visit ─────────────────────────────────────── -->
-    <section class="visit" id="visit">
-      <span class="eyebrow">Find Faith</span>
-      <h2 class="section-title">Come and visit</h2>
-
-      <div class="visit__rows">
-
-        <div class="visit__row">
-          <div class="visit__icon-wrap" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M10 2C7.24 2 5 4.24 5 7c0 4.25 5 11 5 11s5-6.75 5-11c0-2.76-2.24-5-5-5z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
-              <circle cx="10" cy="7" r="1.5" fill="currentColor"/>
+          <div class="service-row" role="listitem">
+            <div class="service-row__text">
+              <div class="service-row__name">Cut &amp; Style</div>
+              <div class="service-row__desc">Tailored to your face shape and lifestyle</div>
+            </div>
+            <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div>
-            <div class="visit__label">Salon</div>
-            <div class="visit__value">
-              Journey 81<br>
-              81 High Street, Syston<br>
-              LE7 1GQ
-            </div>
-          </div>
-        </div>
 
-        <div class="visit__row">
-          <div class="visit__icon-wrap" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M3 8h14" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M7 2v3M13 2v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <div class="service-row" role="listitem">
+            <div class="service-row__text">
+              <div class="service-row__name">Colouring</div>
+              <div class="service-row__desc">Full head, roots and toning options</div>
+            </div>
+            <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div>
-            <div class="visit__label">Booking</div>
-            <div class="visit__value">
-              <a
-                href="https://book.getslick.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >Book online via Slick</a>
-            </div>
-          </div>
-        </div>
 
-        <div class="visit__row">
-          <div class="visit__icon-wrap" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <rect x="2" y="2" width="16" height="16" rx="4.5" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="14.5" cy="5.5" r="1" fill="currentColor"/>
+          <div class="service-row" role="listitem">
+            <div class="service-row__text">
+              <div class="service-row__name">Balayage &amp; Highlights</div>
+              <div class="service-row__desc">Hand-painted for a natural, sun-kissed result</div>
+            </div>
+            <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div>
-            <div class="visit__label">Instagram</div>
-            <div class="visit__value">
-              <a
-                href="https://www.instagram.com/hair_with_faithpeel/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >@hair_with_faithpeel</a>
+
+          <div class="service-row" role="listitem">
+            <div class="service-row__text">
+              <div class="service-row__name">Treatments</div>
+              <div class="service-row__desc">Nourishing care to restore shine and condition</div>
             </div>
+            <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
+
         </div>
 
-      </div>
-
-      <div class="visit__book">
         <a
           href="https://book.getslick.com/"
-          class="btn btn--primary btn--full"
+          class="services__extensions"
           target="_blank"
           rel="noopener noreferrer"
-        >Book an Appointment</a>
-      </div>
-    </section>
+          aria-label="Hair Extensions — Trinity Qualified. Book now."
+        >
+          <div class="service-row__text">
+            <div class="service-row__name">Hair Extensions</div>
+            <div class="service-row__desc">Professional application &amp; aftercare</div>
+            <span class="tag">Trinity Qualified</span>
+          </div>
+          <svg class="service-row__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M8 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </section>
 
-    <!-- ─── Footer ────────────────────────────────────── -->
-    <footer class="site-footer">
-      <a
-        href="https://www.instagram.com/hair_with_faithpeel/"
-        class="site-footer__ig"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Instagram: @hair_with_faithpeel"
-      >
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <rect x="2" y="2" width="16" height="16" rx="4.5" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="14.5" cy="5.5" r="1" fill="currentColor"/>
-        </svg>
-        @hair_with_faithpeel
-      </a>
-      <p class="site-footer__copy">&copy; 2025 Hair with Faith Peel. All rights reserved.</p>
-    </footer>
+      <!-- ─── About ─────────────────────────────────── -->
+      <section class="about">
+        <span class="eyebrow">About Faith</span>
+        <h2 class="section-title">The person<br>behind the chair</h2>
 
-  </main>
+        <!--
+          about__grid: flex column on mobile (photo → body text),
+          CSS grid 2-col on desktop (photo left, text right).
+        -->
+        <div class="about__grid">
+          <div class="about__photo-wrap">
+            <img
+              src="https://res.cloudinary.com/dfaebplzd/image/upload/q_auto/f_auto/v1780593549/IMG_0019_hz2aki.jpg"
+              alt="Faith Peel reflected in the salon mirror"
+              class="about__photo"
+              width="800"
+              height="1000"
+              loading="lazy"
+            >
+          </div>
+          <div class="about__body">
+            <p>Faith Peel is a Level 2 qualified hairdresser based at Journey 81 in Syston, Leicestershire. She specialises in precision cuts, creative colour, balayage and Trinity-certified hair extensions.</p>
+            <p>Her journey in hairdressing began at fifteen, training under experienced stylists in Leicester. Now fully qualified and building her clientele, Faith's approach is simple: listen first, then create something you'll love wearing every day.</p>
+          </div>
+        </div>
+      </section>
 
-  <!-- ─── Bottom Dock ───────────────────────────────── -->
+      <!-- ─── Journey / Timeline ────────────────────── -->
+      <section class="journey" id="journey">
+        <span class="eyebrow">The journey</span>
+        <h2 class="section-title">How it started</h2>
+
+        <div class="timeline">
+
+          <div class="timeline__entry">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__when">Age 15</div>
+            <div class="timeline__title">George's, Leicester</div>
+            <p class="timeline__desc">Started her hairdressing journey at one of Leicester's established salons, learning the fundamentals under experienced stylists.</p>
+          </div>
+
+          <div class="timeline__entry">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__when">Salon move</div>
+            <div class="timeline__title">Journey 81, Syston</div>
+            <p class="timeline__desc">Joined Journey 81 on College Road — a warm, creative environment where she continues to grow her own loyal clientele.</p>
+          </div>
+
+          <div class="timeline__entry">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__when">Qualification</div>
+            <div class="timeline__title">NVQ Level 2 Hairdressing</div>
+            <p class="timeline__desc">Achieved her Level 2 qualification, covering cutting, colouring, chemical services and client care.</p>
+          </div>
+
+          <div class="timeline__entry">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__when">Extensions</div>
+            <div class="timeline__title">Trinity Certified</div>
+            <p class="timeline__desc">Completed specialist Trinity hair extensions training — now certified to fit and maintain professional extension systems.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ─── Reviews ───────────────────────────────── -->
+      <section class="reviews" aria-label="Client review">
+        <div class="reviews__card">
+          <div class="reviews__stars" aria-label="Five stars">
+            <span class="reviews__star" aria-hidden="true">★</span>
+            <span class="reviews__star" aria-hidden="true">★</span>
+            <span class="reviews__star" aria-hidden="true">★</span>
+            <span class="reviews__star" aria-hidden="true">★</span>
+            <span class="reviews__star" aria-hidden="true">★</span>
+          </div>
+          <p class="reviews__quote">"Faith took the time to really understand what I wanted. The result was exactly right — and my hair has never felt healthier."</p>
+          <p class="reviews__author">— Sarah M., Syston</p>
+        </div>
+      </section>
+
+      <!-- ─── Visit ─────────────────────────────────── -->
+      <section class="visit" id="visit">
+        <span class="eyebrow">Find Faith</span>
+        <h2 class="section-title">Come and visit</h2>
+
+        <div class="visit__rows">
+
+          <div class="visit__row">
+            <div class="visit__icon-wrap" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 2C7.24 2 5 4.24 5 7c0 4.25 5 11 5 11s5-6.75 5-11c0-2.76-2.24-5-5-5z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                <circle cx="10" cy="7" r="1.5" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <div class="visit__label">Salon</div>
+              <div class="visit__value">
+                Journey 81<br>
+                81 College Road, Syston<br>
+                LE7 1GQ
+              </div>
+            </div>
+          </div>
+
+          <div class="visit__row">
+            <div class="visit__icon-wrap" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M3 8h14" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M7 2v3M13 2v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="visit__label">Booking</div>
+              <div class="visit__value">
+                <a
+                  href="https://book.getslick.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Book online via Slick</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="visit__row">
+            <div class="visit__icon-wrap" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="2" y="2" width="16" height="16" rx="4.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="14.5" cy="5.5" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <div class="visit__label">Instagram</div>
+              <div class="visit__value">
+                <a
+                  href="https://www.instagram.com/hair_with_faithpeel/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >@hair_with_faithpeel</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="visit__book">
+          <a
+            href="https://book.getslick.com/"
+            class="btn btn--primary btn--full"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Book an Appointment</a>
+        </div>
+      </section>
+
+      <!-- ─── Footer ────────────────────────────────── -->
+      <footer class="site-footer">
+        <a
+          href="https://www.instagram.com/hair_with_faithpeel/"
+          class="site-footer__ig"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram: @hair_with_faithpeel"
+        >
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect x="2" y="2" width="16" height="16" rx="4.5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="14.5" cy="5.5" r="1" fill="currentColor"/>
+          </svg>
+          @hair_with_faithpeel
+        </a>
+        <p class="site-footer__copy">&copy; 2025 Hair with Faith Peel. All rights reserved.</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ─── Bottom Dock (mobile only) ────────────────── -->
   <nav class="dock" aria-label="Quick navigation">
     <a href="#services" class="dock__item">
       <svg class="dock__icon" viewBox="0 0 22 22" fill="none" aria-hidden="true">
