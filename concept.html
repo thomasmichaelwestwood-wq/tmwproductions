@@ -230,14 +230,83 @@
       .c-tom { grid-template-columns: 1fr; }
       .c-tom__img { min-height: 360px; }
     }
+    /* ============ POLISH PASS — filmic depth & motion ============ */
+
+    /* Film grain — subtle, fixed, premium texture over everything */
+    .c-grain {
+      position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+      opacity: 0.05; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Consistent purple colour-grade — unifies the mixed photography */
+    .c-hero__img, .c-card__bg, .c-quote__bg, .c-final__bg, .c-tom__img {
+      filter: saturate(0.9) contrast(1.05);
+    }
+    .c-hero__grade, .c-quote__grade, .c-final__grade,
+    .c-card__grade, .c-tom__grade {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(150deg, rgba(114,46,128,0.32) 0%, transparent 45%, rgba(186,141,189,0.14) 100%);
+      mix-blend-mode: soft-light;
+    }
+    .c-hero__grade { z-index: 1; }
+    .c-card__grade { z-index: 1; }
+    .c-quote__grade { z-index: 1; }
+    .c-tom__grade  { position: absolute; inset: 0; z-index: 1; }
+    .c-final__grade { z-index: 1; }
+    .c-tom__img { position: relative; }
+
+    /* Ken Burns — slow, near-imperceptible life in the hero */
+    @media (prefers-reduced-motion: no-preference) {
+      .c-hero__img { animation: cKen 24s ease-in-out infinite alternate; }
+    }
+    @keyframes cKen {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+
+    /* Headline glow — draws the eye, pure accent */
+    .c-hero__glow {
+      position: absolute; z-index: 1; left: 50%; top: 44%;
+      width: min(680px, 80vw); height: min(680px, 80vw);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(186,141,189,0.22) 0%, transparent 62%);
+      pointer-events: none; filter: blur(20px);
+    }
+
+    /* Scroll-reveal choreography */
+    .c-reveal { opacity: 0; transform: translateY(34px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .c-reveal.is-in { opacity: 1; transform: none; }
+    .c-reveal[data-d="1"] { transition-delay: 0.08s; }
+    .c-reveal[data-d="2"] { transition-delay: 0.16s; }
+    .c-reveal[data-d="3"] { transition-delay: 0.24s; }
+
+    /* CTA glow pulse */
+    @media (prefers-reduced-motion: no-preference) {
+      .c-btn--primary { animation: cPulse 3.4s ease-in-out infinite; }
+    }
+    @keyframes cPulse {
+      0%, 100% { box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 0 rgba(186,141,189,0); }
+      50%      { box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 34px rgba(186,141,189,0.35); }
+    }
+
+    /* Ghost-link arrow slide */
+    .c-btn--ghost { transition: color var(--transition), border-color var(--transition), letter-spacing var(--transition); }
+    .c-btn--ghost:hover { letter-spacing: 0.18em; }
+
+    /* Accent rule under the value lead */
+    .c-rule { width: 60px; height: 2px; margin: 0 auto clamp(3rem,6vw,5rem); background: linear-gradient(90deg, transparent, var(--purple-mist), transparent); }
+
     @media (prefers-reduced-motion: reduce) {
       .c-eyebrow, .c-hero__title, .c-hero__sub, .c-hero__cta { animation: none !important; opacity: 1 !important; transform: none !important; }
-      .c-scroll { animation: none !important; }
+      .c-scroll, .c-hero__img, .c-btn--primary { animation: none !important; }
+      .c-reveal { opacity: 1 !important; transform: none !important; }
     }
   </style>
 </head>
 <body class="c-body">
   <a class="skip-link" href="#c-main">Skip to content</a>
+  <div class="c-grain" aria-hidden="true"></div>
 
   <!-- TOPBAR -->
   <div class="topbar" id="topbar">
@@ -269,7 +338,9 @@
   <!-- HERO -->
   <section class="c-hero" id="c-main">
     <div class="c-hero__img" id="cHeroImg"></div>
+    <div class="c-hero__grade"></div>
     <div class="c-hero__veil"></div>
+    <div class="c-hero__glow"></div>
     <div class="c-hero__content">
       <div class="c-eyebrow"><i class="fa-solid fa-trophy"></i> Multi Award-Winning · Leicestershire</div>
       <h1 class="c-hero__title">A dance floor<br>that <span>never empties</span></h1>
@@ -303,22 +374,26 @@
 
   <!-- VALUE TRIO -->
   <section class="c-value">
-    <h2 class="c-value__lead">No packages to decode. No agency. Just <em>the right music, at the right moment</em>, all night long.</h2>
+    <h2 class="c-value__lead c-reveal">No packages to decode. No agency. Just <em>the right music, at the right moment</em>, all night long.</h2>
+    <div class="c-rule c-reveal"></div>
     <div class="c-value__grid">
-      <div class="c-card">
+      <div class="c-card c-reveal" data-d="1">
         <div class="c-card__bg" style="background-image:url('images/QuornShootEdited-173.jpg')"></div>
+        <div class="c-card__grade"></div>
         <div class="c-card__num">01</div>
         <div class="c-card__title">The Music</div>
         <div class="c-card__text">Your must-plays, your no-gos, and a room read live on the night.</div>
       </div>
-      <div class="c-card">
+      <div class="c-card c-reveal" data-d="2">
         <div class="c-card__bg" style="background-image:url('images/IMG_0628.jpg')"></div>
+        <div class="c-card__grade"></div>
         <div class="c-card__num">02</div>
         <div class="c-card__title">The Moment</div>
         <div class="c-card__text">Your night, built around you — whether it's a first dance or a full-on party.</div>
       </div>
-      <div class="c-card">
+      <div class="c-card c-reveal" data-d="3">
         <div class="c-card__bg" style="background-image:url('images/tom-westwood.jpg')"></div>
+        <div class="c-card__grade"></div>
         <div class="c-card__num">03</div>
         <div class="c-card__title">The Ease</div>
         <div class="c-card__text">One planning portal, one person, zero chasing. Simple from day one.</div>
@@ -329,8 +404,9 @@
   <!-- BIG QUOTE -->
   <section class="c-quote">
     <div class="c-quote__bg"></div>
+    <div class="c-quote__grade"></div>
     <div class="c-quote__veil"></div>
-    <div class="c-quote__inner">
+    <div class="c-quote__inner c-reveal">
       <div class="c-quote__stars">★ ★ ★ ★ ★</div>
       <p class="c-quote__text">"The dance floor was packed from the very first song to the last. Genuinely the best decision we made for the whole wedding."</p>
       <div class="c-quote__by">Emily &amp; James · Prestwold Hall</div>
@@ -339,8 +415,8 @@
 
   <!-- MEET TOM -->
   <section class="c-tom">
-    <div class="c-tom__img"></div>
-    <div class="c-tom__body">
+    <div class="c-tom__img"><div class="c-tom__grade"></div></div>
+    <div class="c-tom__body c-reveal">
       <div class="c-tom__eyebrow">The DJ Behind It</div>
       <h2 class="c-tom__title">Hi, I'm Tom</h2>
       <p class="c-tom__text">25 years reading dance floors — weddings, parties, corporate nights, the lot. When you book TMW, you're booking a personal, quality-controlled service — never an agency, never a stranger.</p>
@@ -351,8 +427,9 @@
   <!-- FINAL CTA -->
   <section class="c-final">
     <div class="c-final__bg"></div>
+    <div class="c-final__grade"></div>
     <div class="c-final__veil"></div>
-    <div class="c-final__inner">
+    <div class="c-final__inner c-reveal">
       <h2 class="c-final__title">Let's check your date</h2>
       <p class="c-final__sub">Tell me when and where — I'll come back within 24 hours.</p>
       <a href="contact.html" class="c-btn c-btn--primary">Check Your Date</a>
@@ -387,16 +464,21 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Gentle hero parallax (respects reduced motion)
+    // Scroll-reveal choreography
     (function(){
-      var img = document.getElementById('cHeroImg');
-      if (!img || !window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
-      var raf;
-      window.addEventListener('scroll', function(){
-        if (raf) return;
-        raf = requestAnimationFrame(function(){ img.style.transform = 'translateY(' + (window.scrollY * 0.3) + 'px)'; raf = null; });
-      }, { passive: true });
+      var els = document.querySelectorAll('.c-reveal');
+      if (!('IntersectionObserver' in window) || !window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+        els.forEach(function(el){ el.classList.add('is-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+      els.forEach(function(el){ io.observe(el); });
     })();
+
+    // Note: hero Ken Burns is CSS-driven; parallax is intentionally
+    // dropped here so it doesn't fight the zoom animation.
   </script>
 </body>
 </html>
