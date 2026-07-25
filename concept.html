@@ -111,6 +111,31 @@
     }
     .c-scroll span { width: 1px; height: 34px; background: linear-gradient(var(--white), transparent); }
 
+    /* ---------- OCCASIONS RIBBON ---------- */
+    .c-occasions {
+      background: #12041a;
+      padding: 1.5rem 6%;
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 1rem 2rem;
+      text-align: center;
+    }
+    .c-occasions__label {
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--purple-mist);
+    }
+    .c-occasions__list {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.4rem;
+      list-style: none; margin: 0; padding: 0;
+    }
+    .c-occasions__list li {
+      position: relative;
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 300;
+      letter-spacing: 0.04em; color: rgba(245,240,247,0.9);
+    }
+    .c-occasions__list li:not(:last-child)::after {
+      content: '·'; position: absolute; right: -0.85rem; color: rgba(186,141,189,0.5);
+    }
+
     /* ---------- TRUST STRIP ---------- */
     .c-trust {
       background: var(--black);
@@ -248,7 +273,7 @@
     <div class="c-hero__content">
       <div class="c-eyebrow"><i class="fa-solid fa-trophy"></i> Multi Award-Winning · Leicestershire</div>
       <h1 class="c-hero__title">A dance floor<br>that <span>never empties</span></h1>
-      <p class="c-hero__sub">Weddings and events across the East Midlands, run by <b>one DJ who reads the room</b> and keeps it moving.</p>
+      <p class="c-hero__sub">Weddings, parties and events across the East Midlands, run by <b>one DJ who reads the room</b> and keeps it moving.</p>
       <div class="c-hero__cta">
         <a href="contact.html" class="c-btn c-btn--primary">Check Your Date</a>
         <a href="weddings.html" class="c-btn c-btn--ghost">See how it works →</a>
@@ -256,6 +281,18 @@
     </div>
     <div class="c-scroll"><span></span>Scroll</div>
   </section>
+
+  <!-- OCCASIONS RIBBON -->
+  <div class="c-occasions">
+    <span class="c-occasions__label">For every occasion</span>
+    <ul class="c-occasions__list">
+      <li>Weddings</li>
+      <li>Birthday Parties</li>
+      <li>Corporate Events</li>
+      <li>Anniversaries</li>
+      <li>Kids' Discos</li>
+    </ul>
+  </div>
 
   <!-- TRUST STRIP -->
   <div class="c-trust">
@@ -278,7 +315,7 @@
         <div class="c-card__bg" style="background-image:url('images/IMG_0628.jpg')"></div>
         <div class="c-card__num">02</div>
         <div class="c-card__title">The Moment</div>
-        <div class="c-card__text">First dance to last song — built around your day, not a template.</div>
+        <div class="c-card__text">Your night, built around you — whether it's a first dance or a full-on party.</div>
       </div>
       <div class="c-card">
         <div class="c-card__bg" style="background-image:url('images/tom-westwood.jpg')"></div>
@@ -306,7 +343,7 @@
     <div class="c-tom__body">
       <div class="c-tom__eyebrow">The DJ Behind It</div>
       <h2 class="c-tom__title">Hi, I'm Tom</h2>
-      <p class="c-tom__text">25 years reading dance floors, from castles to marquees. When you book TMW, you're booking a personal, quality-controlled service — never an agency, never a stranger.</p>
+      <p class="c-tom__text">25 years reading dance floors — weddings, parties, corporate nights, the lot. When you book TMW, you're booking a personal, quality-controlled service — never an agency, never a stranger.</p>
       <a href="about.html" class="c-btn c-btn--ghost" style="align-self:flex-start;">More about me →</a>
     </div>
   </section>
