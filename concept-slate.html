@@ -13,7 +13,8 @@
        Scoped to .c- classes so it can't touch the live site
     ===================================================== */
 
-    .c-body { --black: #0a0a0c; background: var(--black); }
+    /* Page canvas = dark grey; true black kept for contrast sections */
+    .c-body { --black: #1d1d21; --ink: #0b0b0d; background: var(--black); }
 
     /* ---------- HERO ---------- */
     .c-hero {
@@ -155,7 +156,7 @@
 
     /* ---------- VALUE TRIO ---------- */
     .c-value {
-      background: linear-gradient(180deg, var(--black) 0%, #1f1f24 100%);
+      background: var(--ink);
       padding: clamp(5rem, 10vw, 8rem) 6%;
       text-align: center;
     }
