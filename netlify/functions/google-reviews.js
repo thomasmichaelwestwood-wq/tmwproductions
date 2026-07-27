@@ -10,8 +10,13 @@
  * on every page view.
  *
  * Requires env vars (set in Netlify → Site settings → Environment variables):
- *   GOOGLE_PLACES_API_KEY   your Google Cloud "Places API" key
- *   GOOGLE_PLACE_ID         your business's Place ID
+ *   GOOGLE_PLACES_API_KEY   your Google Cloud "Places API" key   (required)
+ *   GOOGLE_PLACE_ID         your business's Place ID             (optional)
+ *   GOOGLE_PLACE_QUERY      business name to look up             (optional)
+ *
+ * You only need the API key. If GOOGLE_PLACE_ID isn't set, the function looks
+ * up the Place ID automatically from GOOGLE_PLACE_QUERY (default:
+ * "TMW Productions Leicester") via the Find Place endpoint.
  *
  * Notes / limitations:
  *   - The Google Places Details endpoint returns a maximum of 5 reviews.
@@ -48,25 +53,54 @@ function fetchJson(url) {
   });
 }
 
+// Resolve a Place ID from a text query (business name) so the user doesn't
+// have to hunt one down manually.
+async function resolvePlaceId(query, apiKey) {
+  const url =
+    'https://maps.googleapis.com/maps/api/place/findplacefromtext/json' +
+    `?input=${encodeURIComponent(query)}` +
+    '&inputtype=textquery&fields=place_id' +
+    `&key=${encodeURIComponent(apiKey)}`;
+  const json = await fetchJson(url);
+  if (json.status === 'OK' && json.candidates && json.candidates.length) {
+    return json.candidates[0].place_id;
+  }
+  return null;
+}
+
 exports.handler = async function (event) {
   const params    = event.queryStringParameters || {};
   const apiKey    = process.env.GOOGLE_PLACES_API_KEY;
-  const placeId   = process.env.GOOGLE_PLACE_ID;
+  const query     = process.env.GOOGLE_PLACE_QUERY || 'TMW Productions Leicester';
+  let   placeId   = process.env.GOOGLE_PLACE_ID;
   const minRating = parseInt(params.min_rating, 10) || 4;
   // 'most_relevant' (default) usually surfaces the strongest reviews;
   // pass ?sort=newest to get the most recent instead.
   const sort      = params.sort === 'newest' ? 'newest' : 'most_relevant';
 
-  // Graceful, non-breaking response until the env vars are configured.
-  if (!apiKey || !placeId) {
+  // Only the API key is strictly required now.
+  if (!apiKey) {
     return respond(200, {
       configured: false,
       reviews: [],
-      message: 'Set GOOGLE_PLACES_API_KEY and GOOGLE_PLACE_ID in Netlify to enable live Google reviews.'
+      message: 'Set GOOGLE_PLACES_API_KEY in Netlify to enable live Google reviews.'
     });
   }
 
   try {
+    // Auto-resolve the Place ID from the business name if not provided.
+    if (!placeId) {
+      placeId = await resolvePlaceId(query, apiKey);
+      if (!placeId) {
+        return respond(200, {
+          configured: true,
+          reviews: [],
+          resolvedFrom: query,
+          message: 'Could not resolve a Place ID from GOOGLE_PLACE_QUERY. Set GOOGLE_PLACE_ID explicitly.'
+        });
+      }
+    }
+
     const url =
       'https://maps.googleapis.com/maps/api/place/details/json' +
       `?place_id=${encodeURIComponent(placeId)}` +
@@ -103,6 +137,7 @@ exports.handler = async function (event) {
 
     return respond(200, {
       configured: true,
+      placeId: placeId,
       name: result.name || 'TMW Productions',
       rating: result.rating || null,
       total: result.user_ratings_total || null,
