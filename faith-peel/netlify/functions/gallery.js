@@ -1,14 +1,9 @@
-/* Netlify Function — returns gallery submissions as JSON.
-   Env vars required (Netlify → Site settings → Environment variables):
-     NETLIFY_API_TOKEN  — a Personal Access Token (netlify.com → User settings → Applications)
-     GALLERY_FORM_ID    — the ID from Netlify → Forms → gallery-upload (shown in the URL)
-*/
 exports.handler = async function () {
   var token  = process.env.NETLIFY_API_TOKEN;
   var formId = process.env.GALLERY_FORM_ID;
 
   if (!token || !formId) {
-    return respond([]);
+    return respond({ debug: 'missing env vars', hasToken: !!token, hasFormId: !!formId });
   }
 
   try {
@@ -18,7 +13,9 @@ exports.handler = async function () {
     );
     var subs = await res.json();
 
-    if (!Array.isArray(subs)) return respond([]);
+    if (!Array.isArray(subs)) {
+      return respond({ debug: 'api error', response: subs });
+    }
 
     var photos = subs
       .filter(function (s) { return s.data && s.data.image_url; })
@@ -31,18 +28,15 @@ exports.handler = async function () {
       });
 
     return respond(photos);
-  } catch (_) {
-    return respond([]);
+  } catch (e) {
+    return respond({ debug: 'exception', error: e.message });
   }
 };
 
 function respond(body) {
   return {
     statusCode: 200,
-    headers: {
-      'Content-Type':  'application/json',
-      'Cache-Control': 'public, s-maxage=120, max-age=60',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   };
 }
