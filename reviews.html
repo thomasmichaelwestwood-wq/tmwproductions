@@ -339,9 +339,9 @@
   <section class="reviews-score">
     <div class="reviews-score__inner">
       <div class="score-card reveal">
-        <div class="score-card__number">5.0</div>
+        <div class="score-card__number" id="scoreNumber">5.0</div>
         <div class="score-card__stars">★★★★★</div>
-        <div class="score-card__label">70+ reviews — average rating across all platforms</div>
+        <div class="score-card__label" id="scoreLabel">70+ reviews — average rating across all platforms</div>
       </div>
       <div class="score-platforms reveal-right">
         <div class="platform-row">
@@ -374,7 +374,7 @@
       <span class="section__label reveal">What People Say</span>
       <h2 class="section__title reveal">Straight From the People Who Matter</h2>
 
-      <div class="reviews-grid__inner">
+      <div class="reviews-grid__inner" id="reviewsGrid">
 
         <div class="review-card reveal">
           <div class="review-card__quote">"</div>
@@ -467,7 +467,7 @@
         </div>
 
       </div>
-      <p style="text-align:center; margin-top:2rem; opacity:0.45; font-size:0.8rem;">Names withheld at clients' request. All reviews verified via Google &amp; Bridebook.</p>
+      <p style="text-align:center; margin-top:2rem; opacity:0.45; font-size:0.8rem;" id="reviewsNote">Names withheld at clients' request. All reviews verified via Google &amp; Bridebook.</p>
     </div>
   </section>
 
@@ -552,5 +552,65 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Live Google reviews — replaces the static cards with real ones when the
+    // Netlify function is configured. Falls back silently to the static cards.
+    (function () {
+      var grid  = document.getElementById('reviewsGrid');
+      var note  = document.getElementById('reviewsNote');
+      var num   = document.getElementById('scoreNumber');
+      var label = document.getElementById('scoreLabel');
+      var REVIEW_LINK = 'https://g.page/r/CT1dGXUnHrJmEAI/review';
+      if (!grid) return;
+
+      function stars(n) { n = Math.round(n || 5); return Array(n + 1).join('★') + Array(6 - n).join('☆'); }
+
+      function card(rev) {
+        var el = document.createElement('div');
+        el.className = 'review-card';
+
+        var q = document.createElement('div');
+        q.className = 'review-card__quote'; q.textContent = '"';
+
+        var s = document.createElement('div');
+        s.className = 'review-card__stars'; s.textContent = stars(rev.rating);
+
+        var t = document.createElement('p');
+        t.className = 'review-card__text'; t.textContent = '"' + rev.text + '"';
+
+        var d = document.createElement('div'); d.className = 'review-card__divider';
+
+        var name = document.createElement('div');
+        name.className = 'review-card__author-name'; name.textContent = rev.author || 'Google reviewer';
+
+        var when = document.createElement('div');
+        when.className = 'review-card__author-event'; when.textContent = rev.when || 'Verified Google review';
+
+        var src = document.createElement('a');
+        src.className = 'review-card__source';
+        src.href = rev.url || REVIEW_LINK;
+        src.target = '_blank'; src.rel = 'noopener'; src.textContent = 'Google ★';
+
+        [q, s, t, d, name, when, src].forEach(function (n) { el.appendChild(n); });
+        return el;
+      }
+
+      fetch('/api/google-reviews')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data || !data.configured || !data.reviews || !data.reviews.length) return;
+
+          grid.innerHTML = '';
+          data.reviews.forEach(function (rev) { grid.appendChild(card(rev)); });
+
+          if (num && data.rating) num.textContent = Number(data.rating).toFixed(1);
+          if (label && data.total) label.textContent = data.total + '+ Google reviews — ' + Number(data.rating).toFixed(1) + ' average';
+          if (note) {
+            note.innerHTML = 'Live from Google. <a href="' + REVIEW_LINK + '" target="_blank" rel="noopener" style="color:var(--purple-mist);">See all reviews on Google →</a>';
+          }
+        })
+        .catch(function () { /* keep the static cards */ });
+    })();
+  </script>
 </body>
 </html>
