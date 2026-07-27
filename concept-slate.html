@@ -407,10 +407,10 @@
     <div class="c-quote__bg"></div>
     <div class="c-quote__grade"></div>
     <div class="c-quote__veil"></div>
-    <div class="c-quote__inner c-reveal">
-      <div class="c-quote__stars">★ ★ ★ ★ ★</div>
-      <p class="c-quote__text">"He read the room to perfection — despite it being the hottest Saturday of the year, the dance floor was never empty. A truly personalised service, with no glitches."</p>
-      <div class="c-quote__by">Wedding Client · Leicestershire</div>
+    <div class="c-quote__inner c-reveal" id="cReview" data-source="fallback">
+      <div class="c-quote__stars" id="cReviewStars">★ ★ ★ ★ ★</div>
+      <p class="c-quote__text" id="cReviewText">"He read the room to perfection — despite it being the hottest Saturday of the year, the dance floor was never empty. A truly personalised service, with no glitches."</p>
+      <div class="c-quote__by" id="cReviewBy">Wedding Client · Leicestershire</div>
     </div>
   </section>
 
@@ -480,6 +480,47 @@
 
     // Note: hero Ken Burns is CSS-driven; parallax is intentionally
     // dropped here so it doesn't fight the zoom animation.
+
+    // Live Google reviews — pulls real reviews via the Netlify function.
+    // Falls back silently to the static quote if unconfigured/unreachable.
+    (function(){
+      var stars = document.getElementById('cReviewStars');
+      var text  = document.getElementById('cReviewText');
+      var by    = document.getElementById('cReviewBy');
+      var root  = document.getElementById('cReview');
+      if (!text || !by) return;
+
+      function star(n){ return Array(Math.round(n || 5) + 1).join('★ ').trim(); }
+
+      fetch('/api/google-reviews')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(data){
+          if (!data || !data.configured || !data.reviews || !data.reviews.length) return;
+
+          var reviews = data.reviews;
+          var i = 0;
+
+          function render(rev){
+            if (stars) stars.textContent = star(rev.rating);
+            text.textContent = '"' + rev.text + '"';
+            by.textContent = rev.author + (rev.when ? ' · ' + rev.when : '') + ' · Google';
+          }
+
+          root.setAttribute('data-source', 'google');
+          render(reviews[0]);
+
+          // Gently rotate if there's more than one.
+          if (reviews.length > 1) {
+            setInterval(function(){
+              i = (i + 1) % reviews.length;
+              root.style.transition = 'opacity 0.4s ease';
+              root.style.opacity = '0';
+              setTimeout(function(){ render(reviews[i]); root.style.opacity = '1'; }, 400);
+            }, 7000);
+          }
+        })
+        .catch(function(){ /* keep the static fallback */ });
+    })();
   </script>
 </body>
 </html>
