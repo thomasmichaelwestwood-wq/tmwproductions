@@ -417,7 +417,10 @@
       })
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        if (!data.secure_url) throw new Error('Cloudinary upload failed');
+        if (!data.secure_url) {
+          var reason = (data.error && data.error.message) ? data.error.message : 'Unknown error';
+          throw new Error('Cloudinary: ' + reason);
+        }
         progressBar.style.width = '70%';
 
         /* Step 2: record in Netlify Forms (image URL + description) */
@@ -438,7 +441,7 @@
         }, 400);
       })
       .catch(function (err) {
-        showError('Something went wrong — check your connection and try again.');
+        showError(err.message || 'Something went wrong — check your connection and try again.');
         console.error(err);
       });
     });
