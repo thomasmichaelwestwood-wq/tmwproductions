@@ -21,6 +21,11 @@
   status = 200
 
 [[redirects]]
+  from   = "/api/google-reviews"
+  to     = "/.netlify/functions/google-reviews"
+  status = 200
+
+[[redirects]]
   from   = "/date"
   to     = "/date.html"
   status = 200
