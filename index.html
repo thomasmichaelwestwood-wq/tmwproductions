@@ -60,6 +60,64 @@
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
+  <!-- ======================== 2028 ANNOUNCEMENT LIGHTBOX ======================== -->
+  <style>
+    .promo-overlay {
+      position: fixed; inset: 0; z-index: 3000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      background: rgba(8,2,14,0.72);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .promo-overlay.is-open { opacity: 1; visibility: visible; }
+    .promo-modal {
+      position: relative; width: 100%; max-width: 460px; text-align: center;
+      background: linear-gradient(160deg, #2a0d38 0%, var(--black) 100%);
+      border: 1px solid rgba(186,141,189,0.35);
+      border-radius: 18px;
+      padding: 3rem 2.2rem 2.4rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 50px rgba(186,141,189,0.12);
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .promo-overlay.is-open .promo-modal { transform: none; }
+    .promo-modal__close {
+      position: absolute; top: 0.9rem; right: 1rem;
+      background: none; border: none; color: var(--white); opacity: 0.6;
+      font-size: 1.4rem; line-height: 1; cursor: pointer; transition: opacity 0.2s ease;
+    }
+    .promo-modal__close:hover { opacity: 1; }
+    .promo-modal__badge {
+      display: inline-block; font-family: var(--font-body); font-size: 0.68rem;
+      font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--purple-mist); margin-bottom: 1rem;
+    }
+    .promo-modal__title { font-family: var(--font-display); font-size: clamp(2.2rem, 7vw, 3rem); line-height: 1.05; margin-bottom: 0.9rem; }
+    .promo-modal__title span { color: var(--purple-mist); }
+    .promo-modal__text { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.7; opacity: 0.88; margin-bottom: 1.8rem; }
+    .promo-modal__dismiss {
+      display: block; margin: 1rem auto 0; background: none; border: none;
+      color: var(--white); opacity: 0.5; font-family: var(--font-body);
+      font-size: 0.78rem; letter-spacing: 0.06em; cursor: pointer; transition: opacity 0.2s ease;
+    }
+    .promo-modal__dismiss:hover { opacity: 0.85; text-decoration: underline; }
+    @media (prefers-reduced-motion: reduce) {
+      .promo-overlay, .promo-modal { transition: none !important; }
+    }
+  </style>
+
+  <div class="promo-overlay" id="promoOverlay" role="dialog" aria-modal="true" aria-labelledby="promoTitle" aria-hidden="true">
+    <div class="promo-modal">
+      <button class="promo-modal__close" id="promoClose" aria-label="Close announcement">&times;</button>
+      <span class="promo-modal__badge">✦ Big News ✦</span>
+      <h2 class="promo-modal__title" id="promoTitle">2028 Bookings<br>Are <span>Now Open</span></h2>
+      <p class="promo-modal__text">I'm changing the way I work — and opening my 2028 diary. Fewer dates, more of my time on yours. Secure your date early.</p>
+      <a href="2028.html" class="btn btn--primary" id="promoCta" style="width:100%;">See 2028 Bookings</a>
+      <button class="promo-modal__dismiss" id="promoDismiss">No thanks, maybe later</button>
+    </div>
+  </div>
+
     <!-- ======================== TOPBAR ======================== -->
   <div class="topbar" id="topbar">
     <div class="topbar__inner">
@@ -514,6 +572,54 @@
       <p>© 2024–2026 TMW Productions. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    // ── 2028 announcement lightbox ──────────────────────────────────────────
+    // Shows once per visitor (remembered), until we bump the KEY below.
+    (function () {
+      var KEY = 'tmw_promo_2028_v1';       // change this string to re-show to everyone
+      var DELAY = 1200;                     // ms before it appears
+      var overlay = document.getElementById('promoOverlay');
+      if (!overlay) return;
+
+      var modal    = overlay.querySelector('.promo-modal');
+      var closeBtn = document.getElementById('promoClose');
+      var dismiss  = document.getElementById('promoDismiss');
+      var cta      = document.getElementById('promoCta');
+      var lastFocus;
+
+      var seen;
+      try { seen = localStorage.getItem(KEY); } catch (e) { seen = null; }
+      if (seen) return;
+
+      function open() {
+        lastFocus = document.activeElement;
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        if (closeBtn) closeBtn.focus();
+        document.addEventListener('keydown', onKey);
+      }
+      function close() {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('keydown', onKey);
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      function onKey(e) {
+        if (e.key === 'Escape') close();
+      }
+
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      if (dismiss)  dismiss.addEventListener('click', close);
+      // Remember the choice when they click through, too.
+      if (cta) cta.addEventListener('click', function () { try { localStorage.setItem(KEY, '1'); } catch (e) {} });
+      // Click outside the modal closes it.
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+
+      setTimeout(open, DELAY);
+    })();
+  </script>
 
   <script src="js/main.js"></script>
   <script>
