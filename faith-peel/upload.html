@@ -245,6 +245,100 @@
       color: inherit;
       cursor: pointer;
     }
+
+    /* ─── Manage section ─── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--parchment);
+      margin: 2rem 0;
+    }
+
+    .manage-section h2 {
+      font-size: 1.125rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .manage-sub {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .btn-load {
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--espresso);
+      background: var(--warm);
+      border: 1.5px solid var(--parchment);
+      border-radius: 10px;
+      padding: 0.625rem 1.25rem;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-load:disabled { opacity: 0.5; cursor: default; }
+
+    .manage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.625rem;
+      margin-top: 1rem;
+    }
+
+    .manage-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--warm);
+    }
+
+    .manage-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s;
+    }
+
+    .manage-item__desc {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.25rem 0.5rem 0.4rem;
+      background: linear-gradient(transparent, rgba(42,26,14,0.72));
+      color: #faf6f1;
+      font-size: 0.6875rem;
+      line-height: 1.3;
+    }
+
+    .manage-item__delete {
+      position: absolute;
+      top: 0.375rem;
+      right: 0.375rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(160, 40, 20, 0.82);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1.125rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .manage-empty {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
   </style>
 </head>
 <body>
@@ -320,6 +414,15 @@
     <div class="status status--err" id="msg-err"></div>
   </div>
 
+  <!-- ─── Manage gallery ─── -->
+  <hr class="divider">
+  <section class="manage-section" id="manage-section" style="display:none">
+    <h2>Manage gallery</h2>
+    <p class="manage-sub">Tap × to remove a photo from the site</p>
+    <button class="btn-load" id="load-btn" onclick="loadGallery()">Load photos</button>
+    <div class="manage-grid" id="manage-grid"></div>
+  </section>
+
   <!-- Hidden form — Netlify detects this at deploy time and creates the form -->
   <form name="gallery-upload" data-netlify="true" style="display:none">
     <input type="hidden" name="image_url">
@@ -358,6 +461,7 @@
     function showUpload() {
       document.getElementById('pin-screen').style.display  = 'none';
       document.getElementById('upload-screen').classList.add('visible');
+      document.getElementById('manage-section').style.display = 'block';
     }
 
     /* ─── File selection → preview ──────────────────────────────── */
@@ -457,6 +561,61 @@
     }
 
     function hide(id) { document.getElementById(id).style.display = 'none'; }
+
+    /* ─── Manage gallery ──────────────────────────────── */
+    function loadGallery() {
+      var grid = document.getElementById('manage-grid');
+      var btn  = document.getElementById('load-btn');
+      btn.disabled = true;
+      btn.textContent = 'Loading…';
+
+      fetch('/.netlify/functions/gallery')
+        .then(function (r) { return r.json(); })
+        .then(function (photos) {
+          btn.style.display = 'none';
+          if (!Array.isArray(photos) || !photos.length) {
+            grid.innerHTML = '<p class="manage-empty">No photos yet.</p>';
+            return;
+          }
+          grid.innerHTML = photos.map(function (p) {
+            var thumb = p.url.replace('/upload/', '/upload/c_fill,w_300,h_300,q_auto,f_auto/');
+            var safeDesc = (p.description || '').replace(/'/g, '&#39;');
+            return '<div class="manage-item" id="item-' + p.id + '">' +
+              '<img src="' + thumb + '" alt="' + safeDesc + '">' +
+              (p.description ? '<div class="manage-item__desc">' + safeDesc + '</div>' : '') +
+              '<button class="manage-item__delete" onclick="deletePhoto(\'' + p.id + '\')" aria-label="Delete photo">&times;</button>' +
+              '</div>';
+          }).join('');
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = 'Load photos';
+        });
+    }
+
+    function deletePhoto(id) {
+      if (!confirm('Remove this photo from the gallery?')) return;
+      var item = document.getElementById('item-' + id);
+      if (item) item.style.opacity = '0.35';
+
+      fetch('/.netlify/functions/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id }),
+      })
+      .then(function (r) {
+        if (r.ok) {
+          if (item) item.remove();
+        } else {
+          if (item) item.style.opacity = '1';
+          alert('Could not delete — try again.');
+        }
+      })
+      .catch(function () {
+        if (item) item.style.opacity = '1';
+        alert('Could not delete — check your connection.');
+      });
+    }
 
     function resetForm() {
       selectedFile = null;
