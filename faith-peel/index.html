@@ -659,6 +659,8 @@
       overflow: hidden;
       aspect-ratio: 1 / 1;
       background: var(--warm);
+      position: relative;
+      text-decoration: none;
     }
 
     .gallery__item img {
@@ -669,6 +671,19 @@
     }
 
     .gallery__item:hover img { transform: scale(1.04); }
+
+    .gallery__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem 0.625rem 0.5rem;
+      background: linear-gradient(transparent, rgba(42,26,14,0.70));
+      color: #faf6f1;
+      font-size: 0.75rem;
+      line-height: 1.35;
+      font-family: 'DM Sans', sans-serif;
+    }
 
     .gallery__loading,
     .gallery__empty {
@@ -1425,45 +1440,30 @@
   </nav>
 
   <script>
-    /* ─── Google Drive photo gallery ──────────────────
-       Replace the two placeholders below once you have:
-       1. Shared the folder: Drive → right-click → Share
-          → "Anyone with the link" → Viewer
-       2. Created an API key in Google Cloud Console
-          (enable Drive API v3, restrict to your domain)
-    ──────────────────────────────────────────────────── */
+    /* ─── Gallery — loads photos uploaded via /upload.html ── */
     (function () {
-      var FOLDER_ID = 'REPLACE_WITH_FOLDER_ID';
-      var API_KEY   = 'REPLACE_WITH_API_KEY';
-      var grid      = document.getElementById('gallery-grid');
-
+      var grid = document.getElementById('gallery-grid');
       if (!grid) return;
 
-      if (FOLDER_ID === 'REPLACE_WITH_FOLDER_ID' || API_KEY === 'REPLACE_WITH_API_KEY') {
-        grid.innerHTML = '<p class="gallery__empty">Gallery coming soon.</p>';
-        return;
-      }
-
-      var q   = encodeURIComponent("'" + FOLDER_ID + "' in parents and mimeType contains 'image/' and trashed = false");
-      var url = 'https://www.googleapis.com/drive/v3/files?q=' + q +
-                '&fields=files(id,name)&pageSize=18&orderBy=createdTime%20desc&key=' + API_KEY;
-
-      fetch(url)
+      fetch('/.netlify/functions/gallery')
         .then(function (r) { return r.json(); })
-        .then(function (data) {
-          if (!data.files || data.files.length === 0) {
+        .then(function (photos) {
+          if (!photos.length) {
             grid.innerHTML = '<p class="gallery__empty">No photos yet — check back soon.</p>';
             return;
           }
-          grid.innerHTML = data.files.map(function (f) {
-            return '<a class="gallery__item" href="https://drive.google.com/file/d/' + f.id + '/view" ' +
-                   'target="_blank" rel="noopener noreferrer" aria-label="' + f.name + '">' +
-                   '<img src="https://drive.google.com/thumbnail?id=' + f.id + '&sz=w600" ' +
-                   'alt="' + f.name + '" loading="lazy"></a>';
+          grid.innerHTML = photos.map(function (p) {
+            var thumb = p.url.replace('/upload/', '/upload/c_fill,w_600,h_600,q_auto,f_auto/');
+            var desc  = p.description || '';
+            return '<a class="gallery__item" href="' + p.url + '" target="_blank" rel="noopener noreferrer"' +
+                   (desc ? ' aria-label="' + desc + '"' : '') + '>' +
+                   '<img src="' + thumb + '" alt="' + desc + '" loading="lazy">' +
+                   (desc ? '<span class="gallery__caption">' + desc + '</span>' : '') +
+                   '</a>';
           }).join('');
         })
         .catch(function () {
-          grid.innerHTML = '<p class="gallery__empty">Gallery unavailable right now.</p>';
+          grid.innerHTML = '<p class="gallery__empty">Gallery coming soon.</p>';
         });
     })();
   </script>
