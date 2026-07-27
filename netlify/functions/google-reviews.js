@@ -1,27 +1,26 @@
 'use strict';
 
 /**
- * TMW Productions — Google Reviews
+ * TMW Productions — Google Reviews  (Places API — NEW)
  * GET /api/google-reviews
  *
- * Fetches genuine reviews for the business from the Google Places API and
- * returns a trimmed, front-end-friendly JSON payload. The response is cached
- * at Netlify's CDN for 6 hours so we don't hit the Google API (or its billing)
- * on every page view.
+ * Fetches genuine reviews for the business from the Google Places API (New)
+ * and returns a trimmed, front-end-friendly JSON payload. Cached at Netlify's
+ * CDN for 6 hours so we don't hit the Google API (or its billing) per view.
  *
- * Requires env vars (set in Netlify → Site settings → Environment variables):
- *   GOOGLE_PLACES_API_KEY   your Google Cloud "Places API" key   (required)
- *   GOOGLE_PLACE_ID         your business's Place ID             (optional)
- *   GOOGLE_PLACE_QUERY      business name to look up             (optional)
+ * Requires env vars (Netlify → Site settings → Environment variables):
+ *   GOOGLE_PLACES_API_KEY   Google Cloud API key with "Places API (New)" enabled  (required)
+ *   GOOGLE_PLACE_ID         business Place ID (ChIJ…)                              (optional)
+ *   GOOGLE_PLACE_QUERY      business name to look up                              (optional)
  *
- * You only need the API key. If GOOGLE_PLACE_ID isn't set, the function looks
- * up the Place ID automatically from GOOGLE_PLACE_QUERY (default:
- * "TMW Productions Leicester") via the Find Place endpoint.
+ * You only need the API key. If GOOGLE_PLACE_ID isn't set, the function resolves
+ * it automatically from GOOGLE_PLACE_QUERY (default "TMW Productions Leicester")
+ * via Text Search (New).
  *
  * Notes / limitations:
- *   - The Google Places Details endpoint returns a maximum of 5 reviews.
- *     For a homepage that's plenty — we surface the best of them.
+ *   - Places API (New) returns a maximum of 5 reviews. For a homepage that's plenty.
  *   - `min_rating` (default 4) filters out anything below that star rating.
+ *   - Enable "Places API (New)" in Google Cloud — NOT the legacy "Places API".
  */
 
 const https = require('https');
@@ -29,7 +28,6 @@ const https = require('https');
 const HEADERS = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
-  // Cache at the CDN for 6h, serve stale for a day while revalidating.
   'Cache-Control': 'public, max-age=0, s-maxage=21600, stale-while-revalidate=86400'
 };
 
@@ -37,34 +35,40 @@ function respond(statusCode, data) {
   return { statusCode, headers: HEADERS, body: JSON.stringify(data) };
 }
 
-// ── Fetch a URL and parse JSON ───────────────────────────────────────────────
-function fetchJson(url) {
+// ── Generic JSON request (GET or POST) ───────────────────────────────────────
+function request(method, url, headers, body) {
   return new Promise((resolve, reject) => {
-    const req = https.get(url, (res) => {
+    const u = new URL(url);
+    const opts = {
+      method,
+      hostname: u.hostname,
+      path: u.pathname + u.search,
+      headers: Object.assign({ 'Content-Type': 'application/json' }, headers || {})
+    };
+    const req = https.request(opts, (res) => {
       let data = '';
       res.on('data', (chunk) => (data += chunk));
       res.on('end', () => {
-        try { resolve(JSON.parse(data)); }
-        catch (e) { reject(new Error('Bad JSON from Google Places API')); }
+        try { resolve({ status: res.statusCode, json: data ? JSON.parse(data) : {} }); }
+        catch (e) { reject(new Error('Bad JSON from Google Places API (New)')); }
       });
     });
     req.on('error', reject);
     req.setTimeout(8000, () => { req.destroy(); reject(new Error('Google Places request timed out')); });
+    if (body) req.write(typeof body === 'string' ? body : JSON.stringify(body));
+    req.end();
   });
 }
 
-// Resolve a Place ID from a text query (business name) so the user doesn't
-// have to hunt one down manually.
+// ── Resolve a Place ID from a business name via Text Search (New) ─────────────
 async function resolvePlaceId(query, apiKey) {
-  const url =
-    'https://maps.googleapis.com/maps/api/place/findplacefromtext/json' +
-    `?input=${encodeURIComponent(query)}` +
-    '&inputtype=textquery&fields=place_id' +
-    `&key=${encodeURIComponent(apiKey)}`;
-  const json = await fetchJson(url);
-  if (json.status === 'OK' && json.candidates && json.candidates.length) {
-    return json.candidates[0].place_id;
-  }
+  const { json } = await request(
+    'POST',
+    'https://places.googleapis.com/v1/places:searchText',
+    { 'X-Goog-Api-Key': apiKey, 'X-Goog-FieldMask': 'places.id' },
+    { textQuery: query }
+  );
+  if (json.places && json.places.length) return json.places[0].id;
   return null;
 }
 
@@ -74,16 +78,12 @@ exports.handler = async function (event) {
   const query     = process.env.GOOGLE_PLACE_QUERY || 'TMW Productions Leicester';
   let   placeId   = process.env.GOOGLE_PLACE_ID;
   const minRating = parseInt(params.min_rating, 10) || 4;
-  // 'most_relevant' (default) usually surfaces the strongest reviews;
-  // pass ?sort=newest to get the most recent instead.
-  const sort      = params.sort === 'newest' ? 'newest' : 'most_relevant';
 
-  // Only the API key is strictly required now.
   if (!apiKey) {
     return respond(200, {
       configured: false,
       reviews: [],
-      message: 'Set GOOGLE_PLACES_API_KEY in Netlify to enable live Google reviews.'
+      message: 'Set GOOGLE_PLACES_API_KEY in Netlify (with "Places API (New)" enabled) to show live Google reviews.'
     });
   }
 
@@ -96,51 +96,48 @@ exports.handler = async function (event) {
           configured: true,
           reviews: [],
           resolvedFrom: query,
-          message: 'Could not resolve a Place ID from GOOGLE_PLACE_QUERY. Set GOOGLE_PLACE_ID explicitly.'
+          message: 'Could not resolve a Place ID. Check the business name, or set GOOGLE_PLACE_ID explicitly.'
         });
       }
     }
 
-    const url =
-      'https://maps.googleapis.com/maps/api/place/details/json' +
-      `?place_id=${encodeURIComponent(placeId)}` +
-      '&fields=name,rating,user_ratings_total,reviews' +
-      `&reviews_sort=${sort}` +
-      '&reviews_no_translations=true' +
-      '&language=en' +
-      `&key=${encodeURIComponent(apiKey)}`;
+    // Place Details (New) — request only the fields we need.
+    const fieldMask = 'id,displayName,rating,userRatingCount,googleMapsUri,reviews';
+    const { status, json } = await request(
+      'GET',
+      `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}?languageCode=en`,
+      { 'X-Goog-Api-Key': apiKey, 'X-Goog-FieldMask': fieldMask }
+    );
 
-    const json = await fetchJson(url);
-
-    if (json.status !== 'OK') {
+    if (status !== 200 || json.error) {
       return respond(502, {
         configured: true,
-        error: json.status,
-        message: json.error_message || 'Google Places API returned an error.',
+        error: (json.error && json.error.status) || 'API_ERROR',
+        message: (json.error && json.error.message) || 'Google Places API (New) returned an error.',
         reviews: []
       });
     }
 
-    const result  = json.result || {};
-    const reviews = (result.reviews || [])
-      .filter((r) => (r.rating || 0) >= minRating && r.text && r.text.trim())
+    const reviews = (json.reviews || [])
       .map((r) => ({
-        author: r.author_name,
+        author: (r.authorAttribution && r.authorAttribution.displayName) || 'Google reviewer',
         rating: r.rating,
-        text: r.text.trim(),
-        when: r.relative_time_description,
-        time: r.time,
-        photo: r.profile_photo_url || null,
-        url: r.author_url || null
+        text: (r.text && r.text.text) || (r.originalText && r.originalText.text) || '',
+        when: r.relativePublishTimeDescription || '',
+        time: r.publishTime ? Date.parse(r.publishTime) : 0,
+        photo: (r.authorAttribution && r.authorAttribution.photoUri) || null,
+        url: (r.authorAttribution && r.authorAttribution.uri) || null
       }))
+      .filter((r) => (r.rating || 0) >= minRating && r.text.trim())
       .sort((a, b) => (b.rating - a.rating) || (b.time - a.time));
 
     return respond(200, {
       configured: true,
       placeId: placeId,
-      name: result.name || 'TMW Productions',
-      rating: result.rating || null,
-      total: result.user_ratings_total || null,
+      name: (json.displayName && json.displayName.text) || 'TMW Productions',
+      rating: json.rating || null,
+      total: json.userRatingCount || null,
+      mapsUri: json.googleMapsUri || null,
       count: reviews.length,
       reviews
     });
