@@ -76,7 +76,10 @@ exports.handler = async function (event) {
   const params    = event.queryStringParameters || {};
   const apiKey    = process.env.GOOGLE_PLACES_API_KEY;
   const query     = process.env.GOOGLE_PLACE_QUERY || 'TMW Productions Leicester';
-  let   placeId   = process.env.GOOGLE_PLACE_ID;
+  // TMW's Google listing is a service-area business (address hidden), so name
+  // search can't resolve it — default to the known Place ID. It's a public,
+  // non-sensitive identifier and exposes no address. Override via env if needed.
+  let   placeId   = process.env.GOOGLE_PLACE_ID || 'ChIJO57iTpq5lQoRPV0ZdScesmY';
   const minRating = parseInt(params.min_rating, 10) || 4;
 
   if (!apiKey) {
