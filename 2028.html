@@ -22,21 +22,25 @@
     }
     .p2028-intro { max-width: 760px; margin: 0 auto; text-align: center; padding: clamp(3rem,7vw,5rem) 6%; }
     .p2028-intro p { opacity: 0.86; margin-bottom: 1.3rem; line-height: 1.85; }
+    .p2028-changes { padding: clamp(3rem,7vw,5rem) 6%; text-align: center; }
     .p2028-points {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem;
-      max-width: 1000px; margin: 2.5rem auto 0; padding: 0 6%;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem;
+      max-width: 1120px; margin: 2.5rem auto 0;
     }
     .p2028-point {
       border: 1px solid rgba(186,141,189,0.2); border-radius: 14px;
-      padding: 1.8rem 1.4rem; text-align: center;
+      padding: 2rem 1.4rem; text-align: center;
+      background: rgba(186,141,189,0.04);
     }
-    .p2028-point i { color: var(--purple-mist); font-size: 1.5rem; margin-bottom: 0.9rem; }
-    .p2028-point h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-    .p2028-point p { font-size: 0.9rem; opacity: 0.8; line-height: 1.6; }
+    .p2028-point i { color: var(--purple-mist); font-size: 1.6rem; margin-bottom: 1rem; }
+    .p2028-point h3 { font-size: 1.25rem; margin-bottom: 0.5rem; line-height: 1.15; }
+    .p2028-point p { font-size: 0.9rem; opacity: 0.82; line-height: 1.6; }
+    .p2028-reassure { max-width: 680px; margin: 3rem auto 0; opacity: 0.85; line-height: 1.85; }
     .p2028-cta { text-align: center; padding: clamp(4rem,8vw,6rem) 6%; }
     .p2028-cta h2 { margin-bottom: 1rem; }
     .p2028-cta p { opacity: 0.85; max-width: 520px; margin: 0 auto 2rem; }
-    @media (max-width: 760px) { .p2028-points { grid-template-columns: 1fr; max-width: 380px; } }
+    @media (max-width: 980px) { .p2028-points { grid-template-columns: repeat(2, 1fr); max-width: 620px; } }
+    @media (max-width: 560px) { .p2028-points { grid-template-columns: 1fr; max-width: 380px; } }
   </style>
 </head>
 <body>
@@ -75,51 +79,59 @@
       <span class="p2028-badge"><i class="fa-solid fa-champagne-glasses"></i> Now Open</span>
       <h1 style="animation: fadeInUp 0.8s ease 0.15s both;">2028 Bookings<br>Are Now Open</h1>
       <p style="max-width: 560px; opacity: 0.85; margin: 1.2rem auto 0; animation: fadeInUp 0.8s ease 0.35s both;">
-        I'm opening my 2028 diary — and changing the way I work to give every couple and client more of my time and attention.
+        The 2028 diary is open. After 30 years behind the decks, I'm refining how I work — here's what that means, and how to secure your date.
       </p>
     </div>
   </section>
 
   <!-- INTRO — EDIT THIS COPY -->
   <section class="p2028-intro">
-    <span class="section__label">A New Way of Working</span>
-    <h2 style="margin-bottom: 1.5rem;">More personal. More considered.</h2>
-    <!-- TODO(Tom): replace the two paragraphs below with the real detail of
-         how you're changing how you run the business for 2028 onwards. -->
+    <span class="section__label">A Few Changes for 2028</span>
+    <h2 style="margin-bottom: 1.5rem;">Same service. Refined approach.</h2>
     <p>
-      From 2028 I'm evolving how TMW Productions takes bookings. Rather than filling
-      every available date, I'm choosing to take on a smaller number of events each
-      year — so every couple gets more of my time, more planning, and a night built
-      entirely around them.
+      After more than 30 years behind the decks, I still love every event. Alongside
+      TMW Productions I now work full-time in education, so from 2028 I'm refining how
+      I work to protect the same high standard across the Midlands.
     </p>
     <p>
-      It means securing your date early matters more than ever. If you're planning a
-      2028 wedding or event, now is the moment to get in touch.
+      Everything you get on the night stays the same — a packed dance floor, a personal
+      service, and fair pricing. It simply means the best dates go early.
     </p>
+  </section>
 
+  <!-- CHANGES -->
+  <section class="p2028-changes">
+    <span class="section__label">What's Changing</span>
+    <h2>From 2028</h2>
     <div class="p2028-points">
       <div class="p2028-point">
+        <i class="fa-solid fa-calendar-xmark"></i>
+        <h3>No Bank Holidays</h3>
+        <p>No bookings on UK public bank holidays.</p>
+      </div>
+      <div class="p2028-point">
+        <i class="fa-solid fa-moon"></i>
+        <h3>Sunday Evenings Closed</h3>
+        <p>Sundays are closed to evening bookings.</p>
+      </div>
+      <div class="p2028-point">
         <i class="fa-solid fa-calendar-check"></i>
-        <h3>Limited Dates</h3>
-        <p>Fewer bookings each year, so your event gets my full focus.</p>
+        <h3>Fewer Dates</h3>
+        <p>A reduced number of bookings each year.</p>
       </div>
       <div class="p2028-point">
-        <i class="fa-solid fa-user-check"></i>
-        <h3>Personal Service</h3>
-        <p>Planned and delivered by me — never an agency, never a stranger.</p>
-      </div>
-      <div class="p2028-point">
-        <i class="fa-solid fa-clock"></i>
-        <h3>Early Access</h3>
-        <p>Be first to secure a 2028 date before the diary fills.</p>
+        <i class="fa-solid fa-bed"></i>
+        <h3>Travel &amp; Stays</h3>
+        <p>Events over an hour away include an overnight stay, reflected in the price.</p>
       </div>
     </div>
+    <p class="p2028-reassure">Planning a 2028 event? Dates are limited — the sooner you're in the diary, the better.</p>
   </section>
 
   <!-- CTA -->
   <section class="p2028-cta">
     <h2>Secure Your 2028 Date</h2>
-    <p>Tell me when and where — I'll come back to you within 24 hours.</p>
+    <p>Tell me your date and venue — I'll reply within 24 hours.</p>
     <a href="contact.html" class="btn btn--primary">Check Your 2028 Date</a>
   </section>
 
