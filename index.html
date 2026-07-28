@@ -56,9 +56,308 @@
     ]
   }
   </script>
+
+  <style>
+    /* =====================================================
+       CONCEPT — lean, big-visual, one-journey landing page
+       Scoped to .c- classes so it can't touch the live site
+    ===================================================== */
+
+    /* Page canvas = dark grey; true black kept for contrast sections */
+    .c-body { --black: #27272d; --ink: #0b0b0d; background: var(--black); }
+
+    /* ---------- HERO ---------- */
+    .c-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 8rem 6% 6rem;
+    }
+    .c-hero__img {
+      position: absolute; inset: 0;
+      background: url('images/QuornShootEdited-173.jpg') center 30% / cover no-repeat;
+      z-index: 0;
+      will-change: transform;
+    }
+    .c-hero__veil {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        radial-gradient(ellipse 120% 85% at 50% 45%, transparent 30%, rgba(8,8,10,0.72) 100%),
+        linear-gradient(to top,
+          rgba(8,8,10,0.96) 0%,
+          rgba(8,8,10,0.55) 26%,
+          rgba(8,8,10,0.18) 55%,
+          rgba(8,8,10,0.40) 100%);
+    }
+    .c-hero__content { position: relative; z-index: 2; max-width: 860px; }
+
+    .c-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--purple-mist);
+      margin-bottom: 1.8rem;
+      opacity: 0; animation: cUp 0.9s ease 0.2s forwards;
+    }
+    .c-eyebrow i { font-size: 0.85rem; }
+
+    .c-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      margin: 0 0 1.6rem;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.6);
+      opacity: 0; animation: cUp 0.9s ease 0.35s forwards;
+    }
+    .c-hero__title span { color: var(--purple-mist); }
+
+    .c-hero__sub {
+      font-family: var(--font-body);
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 560px;
+      margin: 0 auto 2.8rem;
+      opacity: 0; animation: cUp 0.9s ease 0.5s forwards;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.6);
+    }
+    .c-hero__sub b { color: var(--white); font-weight: 600; }
+
+    .c-hero__cta {
+      display: flex; gap: 1.1rem; justify-content: center; flex-wrap: wrap; align-items: center;
+      opacity: 0; animation: cUp 0.9s ease 0.65s forwards;
+    }
+    .c-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-body); font-weight: 600;
+      font-size: 0.9rem; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 1.1rem 2.6rem; border-radius: 50px;
+      transition: transform var(--transition), background var(--transition), box-shadow var(--transition), color var(--transition);
+    }
+    .c-btn--primary {
+      background: var(--white); color: var(--purple-clarity);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+    .c-btn--primary:hover { transform: translateY(-3px); background: var(--purple-mist); color: var(--white); box-shadow: 0 16px 50px rgba(186,141,189,0.35); }
+    .c-btn--ghost {
+      color: var(--white);
+      font-size: 0.82rem; letter-spacing: 0.14em;
+      padding: 1.1rem 0.4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+      border-radius: 0;
+    }
+    .c-btn--ghost:hover { color: var(--purple-mist); border-bottom-color: var(--purple-mist); }
+
+    .c-scroll {
+      position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--white); opacity: 0.55; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      animation: cBounce 2.4s ease infinite;
+    }
+    .c-scroll span { width: 1px; height: 34px; background: linear-gradient(var(--white), transparent); }
+
+    /* ---------- OCCASIONS RIBBON ---------- */
+    .c-occasions {
+      background: #141417;
+      padding: 1.5rem 6%;
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 1rem 2rem;
+      text-align: center;
+    }
+    .c-occasions__label {
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--purple-mist);
+    }
+    .c-occasions__list {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.4rem;
+      list-style: none; margin: 0; padding: 0;
+    }
+    .c-occasions__list li {
+      position: relative;
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 300;
+      letter-spacing: 0.04em; color: rgba(245,240,247,0.9);
+    }
+    .c-occasions__list li:not(:last-child)::after {
+      content: '·'; position: absolute; right: -0.85rem; color: rgba(186,141,189,0.5);
+    }
+
+    /* ---------- TRUST STRIP ---------- */
+    .c-trust {
+      background: var(--black);
+      border-top: 1px solid rgba(186,141,189,0.12);
+      border-bottom: 1px solid rgba(186,141,189,0.12);
+      display: flex; justify-content: center; align-items: center;
+      flex-wrap: wrap; gap: clamp(1.5rem, 5vw, 5rem);
+      padding: 2rem 6%;
+    }
+    .c-trust__item {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-family: var(--font-body); font-size: 0.82rem; letter-spacing: 0.06em;
+      color: rgba(245,240,247,0.85);
+    }
+    .c-trust__item i { color: var(--purple-mist); font-size: 1.1rem; }
+    .c-trust__item b { color: var(--white); font-weight: 600; }
+
+    /* ---------- VALUE TRIO ---------- */
+    .c-value {
+      background: var(--ink);
+      padding: clamp(5rem, 10vw, 8rem) 6%;
+      text-align: center;
+    }
+    .c-value__lead {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      line-height: 1.1; max-width: 760px; margin: 0 auto clamp(3rem, 6vw, 5rem);
+    }
+    .c-value__lead em { color: var(--purple-mist); font-style: normal; }
+    .c-value__grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.2rem, 3vw, 2.4rem); max-width: 1100px; margin: 0 auto;
+    }
+    .c-card {
+      position: relative; overflow: hidden;
+      border-radius: 16px; min-height: 340px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 2rem 1.8rem;
+      text-align: left;
+      border: 1px solid rgba(186,141,189,0.16);
+      background: #292930;
+    }
+    .c-card__bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.5; transition: transform 0.7s ease, opacity 0.5s ease; z-index: 0; }
+    .c-card::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(9,9,11,0.95) 8%, rgba(9,9,11,0.2) 70%); }
+    .c-card:hover .c-card__bg { transform: scale(1.06); opacity: 0.62; }
+    .c-card__num { position: relative; z-index: 2; font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.2em; color: var(--purple-mist); margin-bottom: 0.7rem; }
+    .c-card__title { position: relative; z-index: 2; font-family: var(--font-display); font-size: 1.9rem; margin-bottom: 0.5rem; }
+    .c-card__text { position: relative; z-index: 2; font-family: var(--font-body); font-size: 0.9rem; font-weight: 300; line-height: 1.6; color: rgba(245,240,247,0.82); }
+
+    /* ---------- BIG QUOTE ---------- */
+    .c-quote {
+      position: relative; overflow: hidden;
+      padding: clamp(6rem, 12vw, 10rem) 6%;
+      text-align: center;
+    }
+    .c-quote__bg { position: absolute; inset: 0; background: url('images/IMG_0628.jpg') center / cover no-repeat; opacity: 0.28; z-index: 0; }
+    .c-quote__veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(9,9,11,0.85), rgba(9,9,11,0.7)); }
+    .c-quote__inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+    .c-quote__mark { font-family: var(--font-display); font-size: 5rem; line-height: 0.5; color: var(--purple-mist); opacity: 0.5; display: block; margin-bottom: 1rem; }
+    .c-quote__text { font-family: var(--font-display); font-size: clamp(1.8rem, 3.6vw, 3rem); line-height: 1.25; margin-bottom: 1.8rem; }
+    .c-quote__by { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--purple-mist); }
+    .c-quote__stars { color: var(--purple-mist); margin-bottom: 1.4rem; letter-spacing: 0.3em; }
+
+    /* ---------- MEET TOM ---------- */
+    .c-tom {
+      display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
+      background: var(--black);
+    }
+    .c-tom__img { min-height: 480px; background: url('images/tom-westwood.jpg') center 20% / cover no-repeat; }
+    .c-tom__body { padding: clamp(3rem, 7vw, 6rem); display: flex; flex-direction: column; justify-content: center; }
+    .c-tom__eyebrow { font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--purple-mist); margin-bottom: 1rem; }
+    .c-tom__title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.4rem; line-height: 1.1; }
+    .c-tom__text { font-family: var(--font-body); font-weight: 300; font-size: 1.02rem; line-height: 1.8; color: rgba(245,240,247,0.85); margin-bottom: 2rem; max-width: 460px; }
+
+    /* ---------- FINAL CTA ---------- */
+    .c-final {
+      position: relative; overflow: hidden; text-align: center;
+      padding: clamp(6rem, 13vw, 11rem) 6%;
+    }
+    .c-final__bg { position: absolute; inset: 0; background: url('images/QuornShootEdited-173.jpg') center 25% / cover no-repeat; opacity: 0.4; z-index: 0; }
+    .c-final__veil { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at center, rgba(114,46,128,0.35) 0%, rgba(8,8,10,0.9) 75%); }
+    .c-final__inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+    .c-final__title { font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 1.05; margin-bottom: 1.2rem; }
+    .c-final__sub { font-family: var(--font-body); font-weight: 300; font-size: 1.1rem; color: rgba(245,240,247,0.85); margin-bottom: 2.6rem; }
+
+    @keyframes cUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes cBounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 860px) {
+      .c-value__grid { grid-template-columns: 1fr; max-width: 420px; }
+      .c-tom { grid-template-columns: 1fr; }
+      .c-tom__img { min-height: 360px; }
+    }
+    /* ============ POLISH PASS — filmic depth & motion ============ */
+
+    /* Film grain — subtle, fixed, premium texture over everything */
+    .c-grain {
+      position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+      opacity: 0.05; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Consistent purple colour-grade — unifies the mixed photography */
+    .c-hero__img, .c-card__bg, .c-quote__bg, .c-final__bg, .c-tom__img {
+      filter: saturate(0.9) contrast(1.05);
+    }
+    .c-hero__grade, .c-quote__grade, .c-final__grade,
+    .c-card__grade, .c-tom__grade {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(150deg, rgba(114,46,128,0.16) 0%, transparent 50%, rgba(186,141,189,0.07) 100%);
+      mix-blend-mode: soft-light;
+    }
+    .c-hero__grade { z-index: 1; }
+    .c-card__grade { z-index: 1; }
+    .c-quote__grade { z-index: 1; }
+    .c-tom__grade  { position: absolute; inset: 0; z-index: 1; }
+    .c-final__grade { z-index: 1; }
+    .c-tom__img { position: relative; }
+
+    /* Ken Burns — slow, near-imperceptible life in the hero */
+    @media (prefers-reduced-motion: no-preference) {
+      .c-hero__img { animation: cKen 24s ease-in-out infinite alternate; }
+    }
+    @keyframes cKen {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+
+    /* Headline glow — draws the eye, pure accent */
+    .c-hero__glow {
+      position: absolute; z-index: 1; left: 50%; top: 44%;
+      width: min(680px, 80vw); height: min(680px, 80vw);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(186,141,189,0.22) 0%, transparent 62%);
+      pointer-events: none; filter: blur(20px);
+    }
+
+    /* Scroll-reveal choreography */
+    .c-reveal { opacity: 0; transform: translateY(34px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .c-reveal.is-in { opacity: 1; transform: none; }
+    .c-reveal[data-d="1"] { transition-delay: 0.08s; }
+    .c-reveal[data-d="2"] { transition-delay: 0.16s; }
+    .c-reveal[data-d="3"] { transition-delay: 0.24s; }
+
+    /* CTA glow pulse */
+    @media (prefers-reduced-motion: no-preference) {
+      .c-btn--primary { animation: cPulse 3.4s ease-in-out infinite; }
+    }
+    @keyframes cPulse {
+      0%, 100% { box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 0 rgba(186,141,189,0); }
+      50%      { box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 34px rgba(186,141,189,0.35); }
+    }
+
+    /* Ghost-link arrow slide */
+    .c-btn--ghost { transition: color var(--transition), border-color var(--transition), letter-spacing var(--transition); }
+    .c-btn--ghost:hover { letter-spacing: 0.18em; }
+
+    /* Accent rule under the value lead */
+    .c-rule { width: 60px; height: 2px; margin: 0 auto clamp(3rem,6vw,5rem); background: linear-gradient(90deg, transparent, var(--purple-mist), transparent); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .c-eyebrow, .c-hero__title, .c-hero__sub, .c-hero__cta { animation: none !important; opacity: 1 !important; transform: none !important; }
+      .c-scroll, .c-hero__img, .c-btn--primary { animation: none !important; }
+      .c-reveal { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
 </head>
-<body>
-  <a class="skip-link" href="#main-content">Skip to content</a>
+<body class="c-body">
+  <a class="skip-link" href="#c-main">Skip to content</a>
+  <div class="c-grain" aria-hidden="true"></div>
 
   <!-- ======================== 2028 ANNOUNCEMENT LIGHTBOX ======================== -->
   <style>
@@ -73,7 +372,7 @@
     .promo-overlay.is-open { opacity: 1; visibility: visible; }
     .promo-modal {
       position: relative; width: 100%; max-width: 460px; text-align: center;
-      background: linear-gradient(160deg, #2a0d38 0%, var(--black) 100%);
+      background: linear-gradient(160deg, #2a0d38 0%, #0b0b0d 100%);
       border: 1px solid rgba(186,141,189,0.35);
       border-radius: 18px;
       padding: 3rem 2.2rem 2.4rem;
@@ -113,17 +412,16 @@
       <span class="promo-modal__badge">✦ Big News ✦</span>
       <h2 class="promo-modal__title" id="promoTitle">2028 Bookings<br>Are <span>Now Open</span></h2>
       <p class="promo-modal__text">After 30 years behind the decks, I'm refining how I work for 2028 — and the diary is open. Dates are limited, so secure yours early.</p>
-      <a href="2028.html" class="btn btn--primary" id="promoCta" style="width:100%;">See 2028 Bookings</a>
+      <a href="2028.html" class="c-btn c-btn--primary" id="promoCta" style="width:100%; justify-content:center;">See 2028 Bookings</a>
       <button class="promo-modal__dismiss" id="promoDismiss">No thanks, maybe later</button>
     </div>
   </div>
 
-    <!-- ======================== TOPBAR ======================== -->
+  <!-- TOPBAR -->
   <div class="topbar" id="topbar">
     <div class="topbar__inner">
       <a href="mailto:info@tmwproductions.co.uk" class="topbar__contact">
-        <i class="fa-solid fa-envelope"></i>
-        info@tmwproductions.co.uk
+        <i class="fa-solid fa-envelope"></i> info@tmwproductions.co.uk
       </a>
       <div class="topbar__social">
         <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -132,7 +430,7 @@
     </div>
   </div>
 
-<!-- ======================== NAV ======================== -->
+  <!-- NAV -->
   <nav class="nav" id="nav">
     <a href="index.html" class="nav__logo"><img src="images/TMW_Full_PurpleWhite.webp" alt="TMW Productions" class="nav__logo-img"></a>
     <ul class="nav__links" id="navLinks">
@@ -150,439 +448,177 @@
     </div>
   </nav>
 
-  <!-- ======================== HERO ======================== -->
-  <section class="hero" id="main-content">
-    <div class="hero__bg"></div>
-
-    <!-- Animated particles -->
-    <div class="hero__particles" id="particles"></div>
-
-    <div class="hero__image"></div>
-    <div class="hero__overlay"></div>
-
-    <!-- Liquid blobs -->
-    <div class="hero__liquid" aria-hidden="true">
-      <div class="liquid-blob liquid-blob--1"></div>
-      <div class="liquid-blob liquid-blob--2"></div>
-      <div class="liquid-blob liquid-blob--3"></div>
-    </div>
-
-    <div class="hero__content">
-      <div class="hero__award">
-        <span class="hero__award-icon"><i class="fa-solid fa-trophy"></i></span>
-        Multi Award Winner — TWIA 2024 &amp; IDO 2026
-      </div>
-
-      <h1 class="hero__title">
-        Leicester's Multi Award-Winning <br><span>Wedding DJ</span>
-      </h1>
-
-      <p class="hero__subtitle">
-        Over 25 years behind the decks. Two awards on the shelf. And a genuine love for the moment a room full of people stops worrying about everything and just dances. That's what I do.
-      </p>
-
-      <div class="hero__buttons">
-        <a href="contact.html" class="btn btn--primary">Check Your Date</a>
-        <a href="weddings.html" class="btn btn--outline">See Options</a>
+  <!-- HERO -->
+  <section class="c-hero" id="c-main">
+    <div class="c-hero__img" id="cHeroImg"></div>
+    <div class="c-hero__grade"></div>
+    <div class="c-hero__veil"></div>
+    <div class="c-hero__glow"></div>
+    <div class="c-hero__content">
+      <div class="c-eyebrow"><i class="fa-solid fa-trophy"></i> Multi Award-Winning · Leicestershire</div>
+      <h1 class="c-hero__title">A dance floor<br>that <span>never empties</span></h1>
+      <p class="c-hero__sub">Weddings, parties and events across the East Midlands, run by <b>one DJ who reads the room</b> and keeps it moving.</p>
+      <div class="c-hero__cta">
+        <a href="contact.html" class="c-btn c-btn--primary">Check Your Date</a>
+        <a href="weddings.html" class="c-btn c-btn--ghost">See how it works →</a>
       </div>
     </div>
+    <div class="c-scroll"><span></span>Scroll</div>
+  </section>
 
-    <div class="hero__scroll">
-      <div class="hero__scroll-line"></div>
-      <span>Scroll</span>
-      <i class="fa-solid fa-chevron-down hero__scroll-chevron" aria-hidden="true"></i>
+  <!-- OCCASIONS RIBBON -->
+  <div class="c-occasions">
+    <span class="c-occasions__label">For every occasion</span>
+    <ul class="c-occasions__list">
+      <li>Weddings</li>
+      <li>Birthday Parties</li>
+      <li>Corporate Events</li>
+      <li>Anniversaries</li>
+      <li>Kids' Discos</li>
+    </ul>
+  </div>
+
+  <!-- TRUST STRIP -->
+  <div class="c-trust">
+    <div class="c-trust__item"><i class="fa-solid fa-award"></i> <span><b>TWIA 2024</b> &amp; IDO 2026 Winner</span></div>
+    <div class="c-trust__item"><i class="fa-solid fa-clock-rotate-left"></i> <span><b>25+ years</b> behind the decks</span></div>
+    <div class="c-trust__item"><i class="fa-solid fa-star"></i> <span><b>5-star</b> reviewed</span></div>
+  </div>
+
+  <!-- VALUE TRIO -->
+  <section class="c-value">
+    <h2 class="c-value__lead c-reveal">No packages to decode. No agency. Just <em>the right music, at the right moment</em>, all night long.</h2>
+    <div class="c-rule c-reveal"></div>
+    <div class="c-value__grid">
+      <div class="c-card c-reveal" data-d="1">
+        <div class="c-card__bg" style="background-image:url('images/QuornShootEdited-173.jpg')"></div>
+        <div class="c-card__grade"></div>
+        <div class="c-card__num">01</div>
+        <div class="c-card__title">The Music</div>
+        <div class="c-card__text">Your must-plays, your no-gos, and a room read live on the night.</div>
+      </div>
+      <div class="c-card c-reveal" data-d="2">
+        <div class="c-card__bg" style="background-image:url('images/IMG_0628.jpg')"></div>
+        <div class="c-card__grade"></div>
+        <div class="c-card__num">02</div>
+        <div class="c-card__title">The Moment</div>
+        <div class="c-card__text">Your night, built around you — whether it's a first dance or a full-on party.</div>
+      </div>
+      <div class="c-card c-reveal" data-d="3">
+        <div class="c-card__bg" style="background-image:url('images/tom-westwood.jpg')"></div>
+        <div class="c-card__grade"></div>
+        <div class="c-card__num">03</div>
+        <div class="c-card__title">The Ease</div>
+        <div class="c-card__text">One planning portal, one person, zero chasing. Simple from day one.</div>
+      </div>
     </div>
   </section>
 
-  <!-- ======================== AWARD STRIP ======================== -->
-  <div class="award-strip">
-    <div class="award-strip__inner">
-      <div class="award-strip__item">
-        <span class="award-strip__icon"><i class="fa-solid fa-trophy"></i></span>
-        <div class="award-strip__text">
-          <strong>Multi Award Winner</strong>
-          <span>TWIA 2024 &amp; IDO 2026</span>
-        </div>
-      </div>
-      <div class="award-strip__divider"></div>
-      <div class="award-strip__item">
-        <span class="award-strip__icon"><i class="fa-solid fa-star"></i></span>
-        <div class="award-strip__text">
-          <strong>5-Star Rated</strong>
-          <span>Across Google, Bridebook &amp; more</span>
-        </div>
-      </div>
-      <div class="award-strip__divider"></div>
-      <div class="award-strip__item">
-        <span class="award-strip__icon"><i class="fa-solid fa-shield-halved"></i></span>
-        <div class="award-strip__text">
-          <strong>Fully Insured</strong>
-          <span>£10,000,000 Public Liability</span>
-        </div>
-      </div>
+  <!-- BIG QUOTE -->
+  <section class="c-quote">
+    <div class="c-quote__bg"></div>
+    <div class="c-quote__grade"></div>
+    <div class="c-quote__veil"></div>
+    <div class="c-quote__inner c-reveal" id="cReview" data-source="fallback">
+      <div class="c-quote__stars" id="cReviewStars">★ ★ ★ ★ ★</div>
+      <p class="c-quote__text" id="cReviewText">"He read the room to perfection — despite it being the hottest Saturday of the year, the dance floor was never empty. A truly personalised service, with no glitches."</p>
+      <div class="c-quote__by" id="cReviewBy">Wedding Client · Leicestershire</div>
     </div>
-  </div>
+  </section>
 
-  <!-- ======================== AVAILABILITY ======================== -->
+  <!-- MEET TOM -->
+  <section class="c-tom">
+    <div class="c-tom__img"><div class="c-tom__grade"></div></div>
+    <div class="c-tom__body c-reveal">
+      <div class="c-tom__eyebrow">The DJ Behind It</div>
+      <h2 class="c-tom__title">Hi, I'm Tom</h2>
+      <p class="c-tom__text">25 years reading dance floors — weddings, parties, corporate nights, the lot. When you book TMW, you're booking a personal, quality-controlled service — never an agency, never a stranger.</p>
+      <a href="about.html" class="c-btn c-btn--ghost" style="align-self:flex-start;">More about me →</a>
+    </div>
+  </section>
+
+  <!-- AVAILABILITY -->
   <section class="availability">
     <div class="container text-center">
-      <span class="section__label">Availability</span>
-      <h2 class="section__title">How Quickly Dates Go</h2>
-      <p class="section__subtitle">Weekends book up fast — especially summer. Here's a live look at how full each year is.</p>
+      <span class="section__label c-reveal">Availability</span>
+      <h2 class="section__title c-reveal">How Quickly Dates Go</h2>
+      <p class="section__subtitle c-reveal">Weekends book up fast — especially summer. Here's a live look at how full each year is.</p>
     </div>
     <div class="container">
-      <div class="avail__bars">
-
+      <div class="avail__bars c-reveal">
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2026</span>
-            <span class="avail__stat" id="avail-2026-stat"><strong>90%</strong> booked</span>
+            <span class="avail__stat" id="avail-2026-stat"><strong>50%</strong> booked</span>
           </div>
-          <div class="avail__track">
-            <div class="avail__fill" id="avail-2026-fill" style="--pct: 90%"></div>
-          </div>
-          <p class="avail__note" id="avail-2026-note">No availability before October — a few autumn dates remain</p>
+          <div class="avail__track"><div class="avail__fill" id="avail-2026-fill" style="--pct: 50%"></div></div>
+          <p class="avail__note" id="avail-2026-note">Filling fast — check your date soon</p>
         </div>
-
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2027</span>
-            <span class="avail__stat" id="avail-2027-stat"><strong>53%</strong> booked</span>
+            <span class="avail__stat" id="avail-2027-stat"><strong>28%</strong> booked</span>
           </div>
-          <div class="avail__track">
-            <div class="avail__fill" id="avail-2027-fill" style="--pct: 53%"></div>
-          </div>
-          <p class="avail__note" id="avail-2027-note">Over half of 2027 is gone — enquire now to secure your date</p>
+          <div class="avail__track"><div class="avail__fill" id="avail-2027-fill" style="--pct: 28%"></div></div>
+          <p class="avail__note" id="avail-2027-note">Dates still available — enquire now</p>
         </div>
-
+        <div class="avail__row">
+          <div class="avail__meta">
+            <span class="avail__year">2028</span>
+            <span class="avail__stat" id="avail-2028-stat"><strong>5%</strong> booked</span>
+          </div>
+          <div class="avail__track"><div class="avail__fill" id="avail-2028-fill" style="--pct: 5%"></div></div>
+          <p class="avail__note" id="avail-2028-note">2028 now open — be first to secure your date</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ======================== INTRO ======================== -->
-  <section class="intro">
-    <div class="intro__grid">
-      <div class="intro__image-wrap reveal-left">
-        <img loading="lazy" decoding="async" src="images/tom-westwood.webp" alt="Tom Westwood — Award-Winning Wedding DJ in Leicester" class="intro__image">
-      </div>
-      <div class="reveal-right">
-        <span class="section__label">About Tom</span>
-        <h2 class="section__title">The DJ Behind the Dancefloor</h2>
-        <p style="margin-bottom: 1.2rem; opacity: 0.85;">
-          Hi, I'm Tom. I've been doing this for 25 years. Having played everywhere from a castle to a shopping centre, I've spent every one of those years learning how to read a room and keep people moving.
-        </p>
-        <p style="opacity: 0.85;">
-          TMW Productions is a personal service from start to finish. I'm the DJ behind the decks — the same person you spoke with, planned with, and trusted. On occasion I work alongside other DJs I know personally and trust completely. No agencies, no strangers, no uncertainty about the standard you're getting.
-        </p>
-        <div class="intro__stats">
-          <div class="stat">
-            <div class="stat__number">25+</div>
-            <div class="stat__label">Years Experience</div>
-          </div>
-          <div class="stat">
-            <div class="stat__number stat__number--award" style="font-size:1.1rem;">2× Award<br>Winner</div>
-            <div class="stat__label">TWIA '24 &amp; IDO '26</div>
-          </div>
-          <div class="stat">
-            <div class="stat__number">70+</div>
-            <div class="stat__label">5★ Google Reviews</div>
-          </div>
-          <div class="stat">
-            <div class="stat__number">100%</div>
-            <div class="stat__label">Personal Service</div>
-          </div>
-        </div>
-        <br>
-        <a href="about.html" class="btn btn--outline">More About Tom</a>
-      </div>
+  <!-- FINAL CTA -->
+  <section class="c-final">
+    <div class="c-final__bg"></div>
+    <div class="c-final__grade"></div>
+    <div class="c-final__veil"></div>
+    <div class="c-final__inner c-reveal">
+      <h2 class="c-final__title">Let's check your date</h2>
+      <p class="c-final__sub">Tell me when and where — I'll come back within 24 hours.</p>
+      <a href="contact.html" class="c-btn c-btn--primary">Check Your Date</a>
     </div>
   </section>
 
-  <!-- ======================== SERVICES ======================== -->
-  <section class="services">
-    <div class="container text-center">
-      <span class="section__label reveal">What I Do</span>
-      <h2 class="section__title reveal">Whatever You're Celebrating</h2>
-      <p class="section__subtitle reveal">Wedding, birthday, corporate night out, kids' disco. The occasion changes. The commitment doesn't.</p>
-    </div>
-    <div class="services__grid">
-
-      <!-- Weddings -->
-      <div class="service-card reveal">
-        <div class="service-card__placeholder" style="background: linear-gradient(135deg, #3d1545, #722E80);"><i class="fa-solid fa-ring"></i><i class="fa-solid fa-ring" style="margin-left:-0.3em; font-size:0.8em; vertical-align:0.15em;"></i></div>
-        <div class="service-card__overlay"></div>
-        <div class="service-card__content">
-          <span class="service-card__icon"><i class="fa-solid fa-ring"></i><i class="fa-solid fa-ring" style="margin-left:-0.3em; font-size:0.8em; vertical-align:0.15em;"></i></span>
-          <div class="service-card__title">Weddings</div>
-          <p class="service-card__desc">From the moment your guests arrive to the very last dance. Ceremony music, full-day hosting, evening entertainment. Your wedding, your soundtrack.</p>
-          <a href="weddings.html" class="service-card__link">Find Out More →</a>
-        </div>
-      </div>
-
-      <!-- Parties & Events -->
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-card__placeholder" style="background: linear-gradient(135deg, #1a0a1f, #4a1e55);"><i class="fa-solid fa-champagne-glasses"></i></div>
-        <div class="service-card__overlay"></div>
-        <div class="service-card__content">
-          <span class="service-card__icon"><i class="fa-solid fa-champagne-glasses"></i></span>
-          <div class="service-card__title">Parties & Events</div>
-          <p class="service-card__desc">Birthdays, charity fundraisers, corporate nights out. Whatever it is, I'll bring the energy and keep it going all night.</p>
-          <a href="events.html" class="service-card__link">Find Out More →</a>
-        </div>
-      </div>
-
-      <!-- Kids' Disco -->
-      <div class="service-card reveal reveal-delay-2">
-        <div class="service-card__placeholder" style="background: linear-gradient(135deg, #0a0010, #2d0d3a);"><i class="fa-solid fa-microphone"></i></div>
-        <div class="service-card__overlay"></div>
-        <div class="service-card__content">
-          <span class="service-card__icon"><i class="fa-solid fa-microphone"></i></span>
-          <div class="service-card__title">Kids' Disco</div>
-          <p class="service-card__desc">School discos and children's parties — fun, safe, and always age-appropriate entertainment they'll be talking about for weeks.</p>
-          <a href="events.html" class="service-card__link">Find Out More →</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================== TESTIMONIALS ======================== -->
-  <section class="testimonials">
-    <div class="container text-center">
-      <span class="section__label reveal">What People Say</span>
-      <h2 class="section__title reveal">Straight From the Dancefloor</h2>
-      <p class="section__subtitle reveal">Don't just take my word for it — these are real words from real people who trusted me with their most important moments.</p>
-    </div>
-    <div class="container">
-      <div class="testimonials__grid">
-
-        <div class="testimonial-card reveal">
-          <div class="testimonial-card__stars">★★★★★</div>
-          <p class="testimonial-card__text">"Tom is fantastic — our dance floor was filled from start to finish! He kept all our guests dancing with songs from every era. I have never seen so many people on the dance floor all night."</p>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar" aria-label="Google Review">G</div>
-            <div>
-              <div class="testimonial-card__name">Google Review</div>
-              <div class="testimonial-card__event">Wedding — Leicestershire</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal reveal-delay-1">
-          <div class="testimonial-card__stars">★★★★★</div>
-          <p class="testimonial-card__text">"We couldn't have asked for a better DJ for our wedding. From start to finish, Tom provided exceptional service, creating the perfect atmosphere for every part of our day. He was there every step of the way."</p>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar" aria-label="Google Review">G</div>
-            <div>
-              <div class="testimonial-card__name">Google Review</div>
-              <div class="testimonial-card__event">All Day Wedding Hosting</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card reveal reveal-delay-2">
-          <div class="testimonial-card__stars">★★★★★</div>
-          <p class="testimonial-card__text">"He is a true professional. On the night he read the room to perfection — despite it being the hottest Saturday of the year, the dance floor was never empty. Absolutely brilliant."</p>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar" aria-label="Bridebook Review">B</div>
-            <div>
-              <div class="testimonial-card__name">Bridebook Review</div>
-              <div class="testimonial-card__event">Wedding — Leicestershire</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="text-center" style="margin-top: 3rem;">
-        <a href="reviews.html" class="btn btn--outline reveal">Read All Reviews</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================== PROCESS ======================== -->
-  <section class="process">
-    <div class="process__glow"></div>
-    <div class="process__deco process__deco--1" aria-hidden="true"></div>
-    <div class="process__deco process__deco--2" aria-hidden="true"></div>
-    <div class="process__deco process__deco--3" aria-hidden="true"></div>
-
-    <div class="container text-center">
-      <span class="section__label reveal">How It Works</span>
-      <h2 class="section__title reveal">The TMW Experience</h2>
-      <p class="section__subtitle reveal" style="margin: 0 auto;">From first message to last song — here's exactly what to expect when you book with me.</p>
-    </div>
-
-    <div class="process__timeline">
-
-      <div class="process__line">
-        <div class="process__line-fill" id="processLineFill"></div>
-      </div>
-
-      <!-- Step 1 -->
-      <div class="process__step process__step--left" data-step="1">
-        <div class="process__content reveal-left">
-          <div class="process__icon"><i class="fa-solid fa-calendar-check"></i></div>
-          <span class="process__step-label">Step 01</span>
-          <h3>Check Your Date</h3>
-          <p>Live availability in seconds — right on the contact page. No waiting, no back-and-forth emails. You'll know instantly whether your date is still free.</p>
-        </div>
-        <div class="process__dot"></div>
-        <div class="process__num" aria-hidden="true">01</div>
-      </div>
-
-      <!-- Step 2 -->
-      <div class="process__step process__step--right" data-step="2">
-        <div class="process__num" aria-hidden="true">02</div>
-        <div class="process__dot"></div>
-        <div class="process__content reveal-right">
-          <div class="process__icon"><i class="fa-solid fa-phone"></i></div>
-          <span class="process__step-label">Step 02</span>
-          <h3>A Quick Chat</h3>
-          <p>A free 30-minute call — no pitch, no pressure. Just two people talking about your night, what matters to you, and what you want people to feel on the dancefloor.</p>
-        </div>
-      </div>
-
-      <!-- Step 3 -->
-      <div class="process__step process__step--left" data-step="3">
-        <div class="process__content reveal-left">
-          <div class="process__icon"><i class="fa-solid fa-music"></i></div>
-          <span class="process__step-label">Step 03</span>
-          <h3>Plan Together</h3>
-          <p>Your own online planning portal. Build your playlist, lock in the timeline, add must-plays and must-not-plays — all at your own pace, even if inspiration strikes at 11pm.</p>
-        </div>
-        <div class="process__dot"></div>
-        <div class="process__num" aria-hidden="true">03</div>
-      </div>
-
-      <!-- Step 4 -->
-      <div class="process__step process__step--right" data-step="4">
-        <div class="process__num" aria-hidden="true">04</div>
-        <div class="process__dot"></div>
-        <div class="process__content reveal-right">
-          <div class="process__icon"><i class="fa-solid fa-volume-high"></i></div>
-          <span class="process__step-label">Step 04</span>
-          <h3>Leave It to Tom</h3>
-          <p>Show up on the night. Setup, sound check, reading the room, keeping the energy — it's all handled. You've done the planning. Now enjoy every single moment.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="process__cta reveal">
-      <a href="contact.html" class="btn btn--primary">Check Your Date</a>
-    </div>
-  </section>
-
-  <!-- ======================== VENUES ======================== -->
-  <section class="venues">
-    <div class="container">
-      <span class="section__label reveal">Trusted By the Best</span>
-      <h2 class="section__title reveal">Recommended Venues</h2>
-      <p class="section__subtitle reveal" style="margin: 0 auto;">I'm a recommended supplier at some of Leicestershire's finest venues — which means they trust me to deliver, every single time.</p>
-      <div class="venues__logos">
-        <a href="venues/prestwold-hall.html" class="venue-logo reveal">
-          <img loading="lazy" decoding="async" src="images/venue-prestwold-hall.webp" alt="Prestwold Hall" />
-          <span class="venue-logo__name">Prestwold Hall</span>
-        </a>
-        <a href="venues/quorn-grange.html" class="venue-logo reveal reveal-delay-1">
-          <img loading="lazy" decoding="async" src="images/venue-quorn-grange.webp" alt="Quorn Grange Hotel" />
-          <span class="venue-logo__name">Quorn Grange Hotel</span>
-        </a>
-        <a href="venues/manor-house-quorn.html" class="venue-logo reveal reveal-delay-2">
-          <img loading="lazy" decoding="async" src="images/venue-manor-house.webp" alt="The Manor House" />
-          <span class="venue-logo__name">The Manor House</span>
-        </a>
-        <a href="venues/hall-barns.html" class="venue-logo reveal reveal-delay-3">
-          <img loading="lazy" decoding="async" src="images/venue-hall-barns.webp" alt="Hall Barns" />
-          <span class="venue-logo__name">Hall Barns</span>
-        </a>
-        <a href="venues/beedles-lake.html" class="venue-logo reveal">
-          <img loading="lazy" decoding="async" src="images/venue-beedles-lake.webp" alt="Beedles Lake" />
-          <span class="venue-logo__name">Beedles Lake</span>
-        </a>
-        <a href="venues/old-cow-shed.html" class="venue-logo reveal reveal-delay-1">
-          <img loading="lazy" decoding="async" src="images/venue-old-cow-shed.webp" alt="Old Cow Shed" />
-          <span class="venue-logo__name">Old Cow Shed</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================== PARTNER BANNER ======================== -->
-  <section class="partner-banner">
-    <a href="https://www.trustedsuppliernetwork.co.uk/" target="_blank" rel="noopener noreferrer" aria-label="Trusted Supplier Network">
-      <img loading="lazy" decoding="async" src="images/Main_Banner.webp" alt="Trusted Supplier Network" class="partner-banner__img">
-    </a>
-  </section>
-
-  </section>
-
-  <!-- ======================== CTA BANNER ======================== -->
-  <section class="cta-banner">
-    <span class="section__label reveal">Ready to Book?</span>
-    <h2 class="reveal">Let's Make It Unforgettable</h2>
-    <p class="reveal">Dates fill up fast — especially for weekends and summer. Get in touch today and let's check your date is still available.</p>
-    <div class="reveal">
-      <a href="contact.html" class="btn btn--primary" style="margin-right: 1rem;">Check Your Date</a>
-    </div>
-    <p style="margin-top: 2rem; opacity: 0.5; font-size: 0.8rem; text-align: center; width: 100%;" class="reveal"><span style="white-space: nowrap;">Evening entertainment from £545</span><span style="margin: 0 0.6em; opacity: 0.5;">&middot;</span><span style="white-space: nowrap;">Full day hosting from £995</span><span style="margin: 0 0.6em; opacity: 0.5;">&middot;</span><span style="white-space: nowrap;">£100 deposit to secure your date</span></p>
-  </section>
-
-  <!-- ======================== FOOTER ======================== -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer__grid">
       <div>
         <div class="footer__logo"><img src="images/TMW_Full_PurpleWhite.webp" alt="TMW Productions" class="footer__logo-img"></div>
-        <p class="footer__tagline">Award-winning DJ & event host serving Leicestershire and the East Midlands.</p>
-        <div class="footer__social">
-          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-        </div>
+        <p class="footer__tagline">Award-winning DJ &amp; event host serving Leicestershire and the East Midlands.</p>
       </div>
       <div>
-        <div class="footer__heading">Services</div>
+        <div class="footer__heading">Explore</div>
         <ul class="footer__links">
           <li><a href="weddings.html">Weddings</a></li>
-          <li><a href="events.html">Parties & Events</a></li>
-          <li><a href="events.html">Corporate Events</a></li>
-          <li><a href="events.html">Kids' Discos</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer__heading">Quick Links</div>
-        <ul class="footer__links">
-          <li><a href="about.html">About Tom</a></li>
+          <li><a href="events.html">Events</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="reviews.html">Reviews</a></li>
-      <li><a href="planning-portal.html">Planning Portal</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="certificates.html">Certificates</a></li>
-          <li><a href="people-i-recommend.html">Recommended by Me</a></li>
-          
         </ul>
       </div>
       <div class="footer__contact">
-        <div class="footer__heading"><a href="contact.html" style="color: inherit;">Get In Touch</a></div>
+        <div class="footer__heading">Get In Touch</div>
         <p>Leicestershire &amp; East Midlands</p>
         <p><a href="mailto:info@tmwproductions.co.uk" style="color: var(--purple-mist);">info@tmwproductions.co.uk</a></p>
         <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
       </div>
     </div>
-    <div class="footer__bottom">
-      <p>© 2024–2026 TMW Productions. All rights reserved.</p>
-    </div>
+    <div class="footer__bottom"><p>© 2024–2026 TMW Productions. All rights reserved.</p></div>
   </footer>
 
   <script>
     // ── 2028 announcement lightbox ──────────────────────────────────────────
-    // Shows once per visitor (remembered), until we bump the KEY below.
     (function () {
-      var KEY = 'tmw_promo_2028_v1';       // change this string to re-show to everyone
-      var DELAY = 1200;                     // ms before it appears
+      var KEY = 'tmw_promo_2028_v1';       // change to re-show to everyone
+      var DELAY = 1200;
       var overlay = document.getElementById('promoOverlay');
       if (!overlay) return;
-
-      var modal    = overlay.querySelector('.promo-modal');
       var closeBtn = document.getElementById('promoClose');
       var dismiss  = document.getElementById('promoDismiss');
       var cta      = document.getElementById('promoCta');
@@ -606,15 +642,11 @@
         try { localStorage.setItem(KEY, '1'); } catch (e) {}
         if (lastFocus && lastFocus.focus) lastFocus.focus();
       }
-      function onKey(e) {
-        if (e.key === 'Escape') close();
-      }
+      function onKey(e) { if (e.key === 'Escape') close(); }
 
       if (closeBtn) closeBtn.addEventListener('click', close);
       if (dismiss)  dismiss.addEventListener('click', close);
-      // Remember the choice when they click through, too.
       if (cta) cta.addEventListener('click', function () { try { localStorage.setItem(KEY, '1'); } catch (e) {} });
-      // Click outside the modal closes it.
       overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
 
       setTimeout(open, DELAY);
@@ -623,32 +655,86 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Load availability data from availability.json and update the bars
-    (async function loadAvailability() {
-      const fallback = {
-        '2026': { percent: 90, label: 'No availability before October — a few autumn dates remain' },
-        '2027': { percent: 53, label: 'Over half of 2027 is gone — enquire now to secure your date' }
-      };
-      let data = fallback;
-      try {
-        const res = await fetch('availability.json');
-        if (res.ok) data = await res.json();
-      } catch (e) { /* use fallback */ }
+    // Scroll-reveal choreography
+    (function(){
+      var els = document.querySelectorAll('.c-reveal');
+      if (!('IntersectionObserver' in window) || !window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+        els.forEach(function(el){ el.classList.add('is-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+      els.forEach(function(el){ io.observe(el); });
+    })();
 
-      ['2026', '2027'].forEach(function(yr) {
-        const yr_data = data[yr] || fallback[yr];
-        const pct = yr_data.percent;
-        const label = yr_data.label;
-        const statEl = document.getElementById('avail-' + yr + '-stat');
-        const fillEl = document.getElementById('avail-' + yr + '-fill');
-        const noteEl = document.getElementById('avail-' + yr + '-note');
-        if (statEl) statEl.innerHTML = '<strong>' + pct + '%</strong> booked';
-        if (fillEl) fillEl.style.setProperty('--pct', pct + '%');
-        if (noteEl) noteEl.textContent = label;
-      });
+    // Note: hero Ken Burns is CSS-driven; parallax is intentionally
+    // dropped here so it doesn't fight the zoom animation.
+
+    // Live Google reviews — pulls real reviews via the Netlify function.
+    // Falls back silently to the static quote if unconfigured/unreachable.
+    (function(){
+      var stars = document.getElementById('cReviewStars');
+      var text  = document.getElementById('cReviewText');
+      var by    = document.getElementById('cReviewBy');
+      var root  = document.getElementById('cReview');
+      if (!text || !by) return;
+
+      function star(n){ return Array(Math.round(n || 5) + 1).join('★ ').trim(); }
+
+      fetch('/api/google-reviews')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(data){
+          if (!data || !data.configured || !data.reviews || !data.reviews.length) return;
+
+          var reviews = data.reviews;
+          var i = 0;
+
+          function render(rev){
+            if (stars) stars.textContent = star(rev.rating);
+            text.textContent = '"' + rev.text + '"';
+            by.textContent = rev.author + (rev.when ? ' · ' + rev.when : '') + ' · Google';
+          }
+
+          root.setAttribute('data-source', 'google');
+          render(reviews[0]);
+
+          // Gently rotate if there's more than one.
+          if (reviews.length > 1) {
+            setInterval(function(){
+              i = (i + 1) % reviews.length;
+              root.style.transition = 'opacity 0.4s ease';
+              root.style.opacity = '0';
+              setTimeout(function(){ render(reviews[i]); root.style.opacity = '1'; }, 400);
+            }, 7000);
+          }
+        })
+        .catch(function(){ /* keep the static fallback */ });
+    })();
+
+    // Availability bars — pull live percentages from availability.json
+    (function(){
+      var fallback = {
+        '2026': { percent: 50, label: 'Filling fast — check your date soon' },
+        '2027': { percent: 28, label: 'Dates still available — enquire now' },
+        '2028': { percent: 5,  label: '2028 now open — be first to secure your date' }
+      };
+      function apply(data){
+        ['2026','2027','2028'].forEach(function(yr){
+          var d = (data && data[yr]) || fallback[yr];
+          var statEl = document.getElementById('avail-'+yr+'-stat');
+          var fillEl = document.getElementById('avail-'+yr+'-fill');
+          var noteEl = document.getElementById('avail-'+yr+'-note');
+          if (statEl) statEl.innerHTML = '<strong>'+d.percent+'%</strong> booked';
+          if (fillEl) fillEl.style.setProperty('--pct', d.percent+'%');
+          if (noteEl) noteEl.textContent = d.label;
+        });
+      }
+      fetch('availability.json')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(data){ apply(data || fallback); })
+        .catch(function(){ apply(fallback); });
     })();
   </script>
-
-
 </body>
 </html>

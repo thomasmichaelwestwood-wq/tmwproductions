@@ -192,7 +192,7 @@ exports.handler = async function (event) {
       }
 
       const MAX_BOOKINGS = parseInt(process.env.AVAILABILITY_MAX_BOOKINGS, 10) || 40;
-      const YEARS = ['2026', '2027'];
+      const YEARS = ['2026', '2027', '2028'];
       const counts = {};
       YEARS.forEach(yr => { counts[yr] = 0; });
 
