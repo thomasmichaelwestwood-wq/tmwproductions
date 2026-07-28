@@ -537,6 +537,43 @@
     </div>
   </section>
 
+  <!-- AVAILABILITY -->
+  <section class="availability">
+    <div class="container text-center">
+      <span class="section__label c-reveal">Availability</span>
+      <h2 class="section__title c-reveal">How Quickly Dates Go</h2>
+      <p class="section__subtitle c-reveal">Weekends book up fast — especially summer. Here's a live look at how full each year is.</p>
+    </div>
+    <div class="container">
+      <div class="avail__bars c-reveal">
+        <div class="avail__row">
+          <div class="avail__meta">
+            <span class="avail__year">2026</span>
+            <span class="avail__stat" id="avail-2026-stat"><strong>50%</strong> booked</span>
+          </div>
+          <div class="avail__track"><div class="avail__fill" id="avail-2026-fill" style="--pct: 50%"></div></div>
+          <p class="avail__note" id="avail-2026-note">Filling fast — check your date soon</p>
+        </div>
+        <div class="avail__row">
+          <div class="avail__meta">
+            <span class="avail__year">2027</span>
+            <span class="avail__stat" id="avail-2027-stat"><strong>28%</strong> booked</span>
+          </div>
+          <div class="avail__track"><div class="avail__fill" id="avail-2027-fill" style="--pct: 28%"></div></div>
+          <p class="avail__note" id="avail-2027-note">Dates still available — enquire now</p>
+        </div>
+        <div class="avail__row">
+          <div class="avail__meta">
+            <span class="avail__year">2028</span>
+            <span class="avail__stat" id="avail-2028-stat"><strong>5%</strong> booked</span>
+          </div>
+          <div class="avail__track"><div class="avail__fill" id="avail-2028-fill" style="--pct: 5%"></div></div>
+          <p class="avail__note" id="avail-2028-note">2028 now open — be first to secure your date</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FINAL CTA -->
   <section class="c-final">
     <div class="c-final__bg"></div>
@@ -673,6 +710,30 @@
           }
         })
         .catch(function(){ /* keep the static fallback */ });
+    })();
+
+    // Availability bars — pull live percentages from availability.json
+    (function(){
+      var fallback = {
+        '2026': { percent: 50, label: 'Filling fast — check your date soon' },
+        '2027': { percent: 28, label: 'Dates still available — enquire now' },
+        '2028': { percent: 5,  label: '2028 now open — be first to secure your date' }
+      };
+      function apply(data){
+        ['2026','2027','2028'].forEach(function(yr){
+          var d = (data && data[yr]) || fallback[yr];
+          var statEl = document.getElementById('avail-'+yr+'-stat');
+          var fillEl = document.getElementById('avail-'+yr+'-fill');
+          var noteEl = document.getElementById('avail-'+yr+'-note');
+          if (statEl) statEl.innerHTML = '<strong>'+d.percent+'%</strong> booked';
+          if (fillEl) fillEl.style.setProperty('--pct', d.percent+'%');
+          if (noteEl) noteEl.textContent = d.label;
+        });
+      }
+      fetch('availability.json')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(data){ apply(data || fallback); })
+        .catch(function(){ apply(fallback); });
     })();
   </script>
 </body>
