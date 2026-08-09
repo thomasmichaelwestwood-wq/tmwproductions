@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wedding venues Tom Westwood of TMW Productions knows and recommends across Leicestershire and the East Midlands — an honest guide from a DJ who has worked them, starting with Quorn Grange Hotel." />
+  <title>Recommended Venues | TMW Productions</title>
+  <link rel="canonical" href="https://www.tmwproductions.co.uk/venues.html" />
+  <link rel="icon" type="image/png" href="images/favcon.png" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="TMW Productions">
+  <meta property="og:title" content="Recommended Venues | TMW Productions">
+  <meta property="og:description" content="Wedding venues I know and recommend across Leicestershire and the East Midlands — an honest guide from a DJ who has actually worked them.">
+  <meta property="og:url" content="https://www.tmwproductions.co.uk/venues.html">
+  <meta property="og:image" content="https://www.tmwproductions.co.uk/images/QuornShootEdited-173.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Recommended Venues | TMW Productions">
+  <meta name="twitter:description" content="Wedding venues I know and recommend across Leicestershire and the East Midlands — an honest guide from a DJ who has actually worked them.">
+  <meta name="twitter:image" content="https://www.tmwproductions.co.uk/images/QuornShootEdited-173.jpg">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ── Recommended venues — page-specific styles ── */
+
+    .page-hero--venues::before { background-image: url('images/QuornShootEdited-173.jpg'); }
+
+    /* Intro band */
+    .venues-intro {
+      background: linear-gradient(158deg, #5c2568 0%, var(--purple-clarity) 46%, #34123c 100%);
+      padding: 4.5rem 5% 1rem;
+    }
+    .venues-intro__inner {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .venues-intro p {
+      opacity: 0.85;
+      line-height: 1.8;
+      margin-top: 1rem;
+    }
+
+    /* Venue feature block */
+    .venue-feature {
+      background: var(--purple-clarity);
+      padding: 4rem 5% 5rem;
+    }
+    .venue-feature:nth-of-type(even) {
+      background: #34123c;
+    }
+    .venue-feature__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .venue-feature__media {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid rgba(186,141,189,0.25);
+      min-height: 300px;
+      padding: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .venue-feature__media img {
+      width: 100%;
+      height: auto;
+      max-height: 340px;
+      object-fit: contain;
+      display: block;
+    }
+    .venue-feature__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: rgba(186,141,189,0.22);
+      border: 1px solid rgba(186,141,189,0.4);
+      padding: 0.4rem 0.9rem;
+      margin-bottom: 1.2rem;
+    }
+    .venue-feature__eyebrow i { color: var(--purple-mist); font-size: 0.8rem; }
+    .venue-feature__name {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      margin-bottom: 0.4rem;
+    }
+    .venue-feature__where {
+      font-size: 0.85rem;
+      opacity: 0.6;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.4rem;
+    }
+    .venue-feature__where i { color: var(--purple-mist); margin-right: 0.4rem; }
+    .venue-feature p.venue-feature__body {
+      opacity: 0.85;
+      line-height: 1.8;
+      margin-bottom: 1.1rem;
+    }
+
+    /* Good-to-know fact grid */
+    .venue-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(186,141,189,0.22);
+      border: 1px solid rgba(186,141,189,0.22);
+      margin: 1.8rem 0 2rem;
+    }
+    .venue-facts__item {
+      background: rgba(0,0,0,0.22);
+      padding: 1rem 1.2rem;
+    }
+    .venue-facts__label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--purple-mist);
+      margin-bottom: 0.3rem;
+    }
+    .venue-facts__value {
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .venue-pricing {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      background: rgba(186,141,189,0.1);
+      border: 1px solid var(--purple-mist);
+      padding: 1.1rem 1.3rem;
+      margin: 0 0 1.8rem;
+    }
+    .venue-pricing__amount {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      line-height: 1;
+      color: var(--purple-mist);
+      flex-shrink: 0;
+    }
+    .venue-pricing__detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .venue-pricing__detail strong {
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+    }
+    .venue-pricing__detail span {
+      font-size: 0.82rem;
+      opacity: 0.7;
+    }
+
+    .venue-feature__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.4rem;
+    }
+    .venue-feature__note {
+      font-size: 0.75rem;
+      opacity: 0.5;
+      margin-top: 1.4rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 860px) {
+      .venue-feature__inner { grid-template-columns: 1fr; gap: 2rem; }
+      .venue-feature__media { order: -1; }
+      .venue-feature__media img { max-height: 320px; }
+    }
+    @media (max-width: 480px) {
+      .venue-facts { grid-template-columns: 1fr; }
+    }
+
+    /* More venues grid */
+    .more-venues {
+      background: var(--black);
+      padding: 5rem 5%;
+    }
+    .more-venues__grid {
+      max-width: 1100px;
+      margin: 2.5rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .more-venue-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(186,141,189,0.2);
+      background: rgba(0,0,0,0.25);
+      text-align: center;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .more-venue-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--purple-mist);
+    }
+    .more-venue-card__logo {
+      background: #ffffff;
+      height: 140px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .more-venue-card__logo img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .more-venue-card__cap {
+      padding: 1.1rem 1rem 1.4rem;
+    }
+    .more-venue-card__name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+    }
+    .more-venue-card__where {
+      font-size: 0.78rem;
+      opacity: 0.6;
+      margin-top: 0.35rem;
+    }
+    .more-venue-card__where i { color: var(--purple-mist); margin-right: 0.3rem; font-size: 0.72rem; }
+    @media (max-width: 860px) { .more-venues__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .more-venues__grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- ======================== TOPBAR ======================== -->
+  <div class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <a href="mailto:info@tmwproductions.co.uk" class="topbar__contact">
+        <i class="fa-solid fa-envelope"></i>
+        info@tmwproductions.co.uk
+      </a>
+      <div class="topbar__social">
+        <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo"><img src="images/TMW_Full_PurpleWhite.webp" alt="TMW Productions" class="nav__logo-img"></a>
+    <ul class="nav__links" id="navLinks">
+      <li class="nav__has-dropdown"><a href="weddings.html">Weddings <i class="fa-solid fa-chevron-down nav__chevron"></i></a><ul class="nav__dropdown"><li><a href="weddings.html">Weddings</a></li><li><a href="venues.html">Recommended Venues</a></li><li><a href="checklist.html">Just Got Engaged?</a></li></ul></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li class="nav__has-dropdown"><a href="about.html">About <i class="fa-solid fa-chevron-down nav__chevron"></i></a><ul class="nav__dropdown"><li><a href="about.html">About Tom</a></li><li><a href="people-i-recommend.html">Recommended by Me</a></li></ul></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="2028.html">2028</a></li>
+      <li><a href="contact.html" class="nav__cta">Book Now</a></li>
+    </ul>
+    <div class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- ======================== PAGE HERO ======================== -->
+  <section class="page-hero page-hero--venues" id="main-content">
+    <div class="page-hero__content">
+      <span class="section__label" style="animation: fadeInDown 0.8s ease both;">Venues I Know Well</span>
+      <h1 style="animation: fadeInUp 0.8s ease 0.2s both;">Recommended Venues</h1>
+      <p style="max-width: 580px; opacity: 0.85; margin-top: 1rem; line-height: 1.8; animation: fadeInUp 0.8s ease 0.4s both;">
+        Twenty-five years in, I've played most of the venues in this part of the world more times than I can count. These are the ones I know inside out — the rooms, the teams, and exactly how to make each one sing.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================== INTRO ======================== -->
+  <section class="venues-intro">
+    <div class="venues-intro__inner reveal">
+      <span class="section__label">An Honest Guide</span>
+      <p>
+        There's no substitute for a DJ who has actually worked a room. Below is my genuine take on the venues I'm recommended at — what they're like, who they suit, and the practical things worth knowing before you book. I'll keep adding to this as I go.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================== QUORN GRANGE ======================== -->
+  <section class="venue-feature" id="quorn-grange">
+    <div class="venue-feature__inner">
+      <div class="venue-feature__text reveal-left">
+        <span class="venue-feature__eyebrow"><i class="fa-solid fa-award"></i> Recommended Supplier</span>
+        <h2 class="venue-feature__name">Quorn Grange Hotel</h2>
+        <div class="venue-feature__where"><i class="fa-solid fa-location-dot"></i>Wood Lane, Quorn, Leicestershire · LE12 8DB</div>
+
+        <p class="venue-feature__body">
+          A 19th-century country house hotel sitting in eight acres of its own gardens on the edge of Quorn village. It's warm and characterful rather than cavernous — the kind of place that feels like a proper occasion the moment you walk in, without ever feeling stuffy.
+        </p>
+        <p class="venue-feature__body">
+          Most weddings here run through the <strong>Goodacre Suite</strong>, which takes you from ceremony to wedding breakfast to evening party in one flow, with the gardens and their gazebo on hand for an outdoor ceremony when the weather plays ball. For smaller, more intimate days the <strong>Oak Panel Room</strong> is a lovely fit.
+        </p>
+        <p class="venue-feature__body">
+          I'm a recommended supplier here, so I know the team, the timings, and where to set up for the best sound in the room. That familiarity is the difference between a night that ticks along and one that genuinely lifts off — no working it out on the day.
+        </p>
+
+        <div class="venue-facts">
+          <div class="venue-facts__item">
+            <div class="venue-facts__label">Style</div>
+            <div class="venue-facts__value">Country house hotel · relaxed &amp; intimate</div>
+          </div>
+          <div class="venue-facts__item">
+            <div class="venue-facts__label">Main Space</div>
+            <div class="venue-facts__value">The Goodacre Suite</div>
+          </div>
+          <div class="venue-facts__item">
+            <div class="venue-facts__label">Capacity</div>
+            <div class="venue-facts__value">Around 120 seated · up to ~180 in the evening</div>
+          </div>
+          <div class="venue-facts__item">
+            <div class="venue-facts__label">Handy to Know</div>
+            <div class="venue-facts__value">On-site bedrooms &amp; gardens for outdoor ceremonies</div>
+          </div>
+        </div>
+
+        <div class="venue-pricing">
+          <div class="venue-pricing__amount">£450</div>
+          <div class="venue-pricing__detail">
+            <strong>Evening DJ — venue only</strong>
+            <span>7pm–midnight · any event</span>
+          </div>
+        </div>
+
+        <div class="venue-feature__actions">
+          <a href="venues/quorn-grange.html" class="btn btn--primary">DJ Packages for Quorn Grange</a>
+          <a href="contact.html" class="btn btn--outline">Check Your Date</a>
+        </div>
+
+        <p class="venue-feature__note">
+          Good to know: from 1 August 2026, all payments are made directly with TMW Productions. On some dates your DJ may be another member of the TMW Productions team rather than Tom in person — every one of them is held to exactly the same standard. Capacities, room names and layouts can change, so the Quorn Grange team will confirm the latest for your date and guest numbers.
+        </p>
+      </div>
+
+      <div class="venue-feature__media reveal-right">
+        <picture>
+          <source srcset="images/venue-quorn-grange.webp" type="image/webp">
+          <img src="images/venue-quorn-grange.png" alt="Quorn Grange Hotel wedding venue, Leicestershire" loading="lazy" width="800" height="600">
+        </picture>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== MORE VENUES ======================== -->
+  <section class="more-venues">
+    <div class="container text-center">
+      <span class="section__label reveal">More To Come</span>
+      <h2 class="section__title reveal">Other Venues I Cover</h2>
+      <p class="section__subtitle reveal">Full guides are on the way. In the meantime, here's where else you'll find me — tap through for DJ details at each.</p>
+
+      <div class="more-venues__grid">
+        <a href="venues/prestwold-hall.html" class="more-venue-card reveal">
+          <span class="more-venue-card__logo">
+            <picture>
+              <source srcset="images/venue-prestwold-hall.webp" type="image/webp">
+              <img src="images/venue-prestwold-hall.png" alt="Prestwold Hall logo" loading="lazy">
+            </picture>
+          </span>
+          <span class="more-venue-card__cap">
+            <span class="more-venue-card__name">Prestwold Hall</span>
+            <span class="more-venue-card__where" style="display:block;"><i class="fa-solid fa-location-dot"></i>Loughborough</span>
+          </span>
+        </a>
+        <a href="venues/manor-house-quorn.html" class="more-venue-card reveal reveal-delay-1">
+          <span class="more-venue-card__logo">
+            <picture>
+              <source srcset="images/venue-manor-house.webp" type="image/webp">
+              <img src="images/venue-manor-house.png" alt="Manor House Quorn logo" loading="lazy">
+            </picture>
+          </span>
+          <span class="more-venue-card__cap">
+            <span class="more-venue-card__name">Manor House Quorn</span>
+            <span class="more-venue-card__where" style="display:block;"><i class="fa-solid fa-location-dot"></i>Quorn</span>
+          </span>
+        </a>
+        <a href="venues/beedles-lake.html" class="more-venue-card reveal reveal-delay-2">
+          <span class="more-venue-card__logo">
+            <picture>
+              <source srcset="images/venue-beedles-lake.webp" type="image/webp">
+              <img src="images/venue-beedles-lake.png" alt="Beedles Lake logo" loading="lazy">
+            </picture>
+          </span>
+          <span class="more-venue-card__cap">
+            <span class="more-venue-card__name">Beedles Lake</span>
+            <span class="more-venue-card__where" style="display:block;"><i class="fa-solid fa-location-dot"></i>East Goscote</span>
+          </span>
+        </a>
+        <a href="venues/hall-barns.html" class="more-venue-card reveal">
+          <span class="more-venue-card__logo">
+            <picture>
+              <source srcset="images/venue-hall-barns.webp" type="image/webp">
+              <img src="images/venue-hall-barns.png" alt="Hall Barns logo" loading="lazy">
+            </picture>
+          </span>
+          <span class="more-venue-card__cap">
+            <span class="more-venue-card__name">Hall Barns</span>
+            <span class="more-venue-card__where" style="display:block;"><i class="fa-solid fa-location-dot"></i>Leicestershire</span>
+          </span>
+        </a>
+        <a href="venues/old-cow-shed.html" class="more-venue-card reveal reveal-delay-1">
+          <span class="more-venue-card__logo">
+            <picture>
+              <source srcset="images/venue-old-cow-shed.webp" type="image/webp">
+              <img src="images/venue-old-cow-shed.jpg" alt="Old Cow Shed logo" loading="lazy">
+            </picture>
+          </span>
+          <span class="more-venue-card__cap">
+            <span class="more-venue-card__name">Old Cow Shed</span>
+            <span class="more-venue-card__where" style="display:block;"><i class="fa-solid fa-location-dot"></i>Leicestershire</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CTA ======================== -->
+  <section class="cta-banner">
+    <span class="section__label reveal">Got Your Venue?</span>
+    <h2 class="reveal">Let's Talk About Your Day</h2>
+    <p class="reveal">Tell me where you're getting married and I'll tell you exactly how I'd make the night yours.</p>
+    <div class="reveal">
+      <a href="contact.html" class="btn btn--primary">Check Your Date</a>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><img src="images/TMW_Full_PurpleWhite.webp" alt="TMW Productions" class="footer__logo-img"></div>
+        <p class="footer__tagline">Award-winning DJ &amp; event host serving Leicestershire and the East Midlands.</p>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/tmwproductionsuk/" target="_blank" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://www.instagram.com/tmwproductionsuk/" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Services</div>
+        <ul class="footer__links">
+          <li><a href="weddings.html">Weddings</a></li>
+          <li><a href="events.html">Parties &amp; Events</a></li>
+          <li><a href="events.html">Corporate Events</a></li>
+          <li><a href="events.html">Kids' Discos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="about.html">About Tom</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="venues.html">Recommended Venues</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="certificates.html">Certificates</a></li>
+          <li><a href="people-i-recommend.html">Recommended by Me</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <div class="footer__heading"><a href="contact.html" style="color: inherit;">Get In Touch</a></div>
+        <p>Leicestershire &amp; East Midlands</p>
+        <p><a href="mailto:info@tmwproductions.co.uk" style="color: var(--purple-mist);">info@tmwproductions.co.uk</a></p>
+        <a href="contact.html" class="btn btn--outline" style="font-size: 0.85rem; padding: 0.6rem 1.4rem;">Book Now</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2024–2026 TMW Productions. All rights reserved. · <a href="terms.html" style="color:inherit; text-decoration:underline;">Terms &amp; Conditions</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
