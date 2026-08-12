@@ -36,6 +36,27 @@
     .p2028-point h3 { font-size: 1.25rem; margin-bottom: 0.5rem; line-height: 1.15; }
     .p2028-point p { font-size: 0.9rem; opacity: 0.82; line-height: 1.6; }
     .p2028-reassure { max-width: 680px; margin: 3rem auto 0; opacity: 0.85; line-height: 1.85; }
+    /* 2028 pricing */
+    .p2028-pricing { padding: clamp(3rem,7vw,5rem) 6%; text-align: center; }
+    .p2028-pricing__sub { opacity: 0.82; max-width: 560px; margin: 0.8rem auto 0; line-height: 1.7; }
+    .p2028-prices {
+      display: flex; flex-wrap: wrap; gap: 1.6rem; justify-content: center;
+      max-width: 720px; margin: 2.5rem auto 0;
+    }
+    .p2028-price {
+      flex: 1 1 260px; max-width: 320px;
+      border: 1px solid rgba(186,141,189,0.25); border-radius: 14px;
+      padding: 2.2rem 1.6rem; background: rgba(186,141,189,0.04);
+    }
+    .p2028-price--featured { border-color: var(--purple-mist); background: rgba(186,141,189,0.09); }
+    .p2028-price__name {
+      font-family: var(--font-display); font-size: 1.3rem;
+      letter-spacing: 0.06em; margin-bottom: 0.6rem;
+    }
+    .p2028-price__amount {
+      font-family: var(--font-display); font-size: 3rem; line-height: 1; color: var(--purple-mist);
+    }
+    .p2028-price__note { font-size: 0.85rem; opacity: 0.7; margin-top: 0.6rem; }
     .p2028-cta { text-align: center; padding: clamp(4rem,8vw,6rem) 6%; }
     .p2028-cta h2 { margin-bottom: 1rem; }
     .p2028-cta p { opacity: 0.85; max-width: 520px; margin: 0 auto 2rem; }
@@ -127,6 +148,26 @@
       </div>
     </div>
     <p class="p2028-reassure">Planning a 2028 event? Dates are limited — the sooner you're in the diary, the better.</p>
+  </section>
+
+  <!-- 2028 PRICING -->
+  <section class="p2028-pricing">
+    <span class="section__label">2028 Pricing</span>
+    <h2>Prices From 2028</h2>
+    <p class="p2028-pricing__sub">Fair, fixed and upfront — no hidden extras. Here's how pricing looks for 2028 dates.</p>
+    <div class="p2028-prices">
+      <div class="p2028-price">
+        <div class="p2028-price__name">Evening Disco</div>
+        <div class="p2028-price__amount">£650</div>
+        <div class="p2028-price__note">Typically 7pm–midnight</div>
+      </div>
+      <div class="p2028-price p2028-price--featured">
+        <div class="p2028-price__name">Full Day Hosting</div>
+        <div class="p2028-price__amount">£1,200</div>
+        <div class="p2028-price__note">Ceremony through to the last dance</div>
+      </div>
+    </div>
+    <p class="p2028-reassure">2026 &amp; 2027 dates stay at current rates — £545 evening, £995 full day. A £100 deposit secures any date, whichever year you're planning.</p>
   </section>
 
   <!-- CTA -->
