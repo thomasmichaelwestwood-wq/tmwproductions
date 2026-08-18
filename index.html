@@ -153,6 +153,9 @@
       border-radius: 0;
     }
     .c-btn--ghost:hover { color: var(--purple-mist); border-bottom-color: var(--purple-mist); }
+    /* Press feedback — instant tactile response on tap/click */
+    .c-btn:active { transform: scale(0.97); }
+    .c-btn--primary:active { transform: translateY(-1px) scale(0.97); }
 
     .c-scroll {
       position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
@@ -332,14 +335,7 @@
     .c-reveal[data-d="2"] { transition-delay: 0.16s; }
     .c-reveal[data-d="3"] { transition-delay: 0.24s; }
 
-    /* CTA glow pulse */
-    @media (prefers-reduced-motion: no-preference) {
-      .c-btn--primary { animation: cPulse 3.4s ease-in-out infinite; }
-    }
-    @keyframes cPulse {
-      0%, 100% { box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 0 rgba(186,141,189,0); }
-      50%      { box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 34px rgba(186,141,189,0.35); }
-    }
+    /* (Removed the looping CTA glow pulse — brand rule: no infinite animations on the main page) */
 
     /* Ghost-link arrow slide */
     .c-btn--ghost { transition: color var(--transition), border-color var(--transition), letter-spacing var(--transition); }
