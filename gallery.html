@@ -108,6 +108,21 @@
       transform: scale(1);
     }
 
+    /* Photographer credit badge */
+    .gallery-masonry__credit {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      z-index: 2;
+      padding: 1.1rem 0.8rem 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.92);
+      background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+      pointer-events: none;
+    }
+    .gallery-masonry__credit i { color: var(--purple-mist); margin-right: 0.35rem; font-size: 0.7rem; }
+
     /* Loading / empty states */
     .gallery-loading,
     .gallery-empty {
@@ -384,6 +399,8 @@
     let galleryItems = [];
     let currentIndex = 0;
 
+    function escapeHtml(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
     // ── Fetch and render ──────────────────────────────────────────────────
     (async function init() {
       const grid = document.getElementById('galleryGrid');
@@ -422,6 +439,12 @@
 
           wrap.appendChild(img);
           wrap.appendChild(overlay);
+          if (item.credit) {
+            const cr = document.createElement('div');
+            cr.className = 'gallery-masonry__credit';
+            cr.innerHTML = '<i class="fa-solid fa-camera"></i>' + escapeHtml(item.credit);
+            wrap.appendChild(cr);
+          }
           wrap.addEventListener('click', () => openLightbox(i));
           wrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openLightbox(i); });
 
@@ -455,7 +478,13 @@
       const item = galleryItems[currentIndex];
       document.getElementById('lightboxImg').src = item.src;
       document.getElementById('lightboxImg').alt = item.alt || '';
-      document.getElementById('lightboxCaption').textContent = item.alt || '';
+      const cap = document.getElementById('lightboxCaption');
+      if (item.credit) {
+        const url = item.creditUrl || ('https://www.instagram.com/' + String(item.credit).replace(/^@/, '') + '/');
+        cap.innerHTML = escapeHtml(item.alt || '') + ' <span style="opacity:0.5">·</span> <a href="' + escapeHtml(url) + '" target="_blank" rel="noopener" style="color:var(--purple-mist); text-decoration:underline;">Photo: ' + escapeHtml(item.credit) + '</a>';
+      } else {
+        cap.textContent = item.alt || '';
+      }
       document.getElementById('lightboxPrev').disabled = currentIndex === 0;
       document.getElementById('lightboxNext').disabled = currentIndex === galleryItems.length - 1;
     }
