@@ -157,6 +157,21 @@
     .c-btn:active { transform: scale(0.97); }
     .c-btn--primary:active { transform: translateY(-1px) scale(0.97); }
 
+    .c-hero__meta {
+      margin: 1.6rem auto 0;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: rgba(245,240,247,0.82);
+      text-shadow: 0 2px 14px rgba(0,0,0,0.6);
+      opacity: 0; animation: cUp 0.9s ease 0.8s forwards;
+    }
+    .c-hero__meta strong { color: var(--white); font-weight: 600; }
+    .c-hero__meta a { color: var(--purple-mist); text-decoration: underline; text-underline-offset: 2px; }
+    .c-hero__meta i { color: var(--purple-mist); margin-right: 0.3rem; }
+    .c-hero__meta-reply { display: block; margin-top: 0.5rem; opacity: 0.9; }
+
     .c-scroll {
       position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
       z-index: 2; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
@@ -451,13 +466,14 @@
     <div class="c-hero__veil"></div>
     <div class="c-hero__glow"></div>
     <div class="c-hero__content">
-      <div class="c-eyebrow"><i class="fa-solid fa-trophy"></i> Multi Award-Winning · Leicestershire</div>
+      <div class="c-eyebrow"><i class="fa-solid fa-star"></i> 70+ Five-Star Reviews · Leicestershire</div>
       <h1 class="c-hero__title">A dance floor<br>that <span>never empties</span></h1>
       <p class="c-hero__sub">Weddings, parties and events across the East Midlands, run by <b>one DJ who reads the room</b> and keeps it moving.</p>
       <div class="c-hero__cta">
         <a href="contact.html" class="c-btn c-btn--primary">Check Your Date</a>
         <a href="weddings.html" class="c-btn c-btn--ghost">See how it works →</a>
       </div>
+      <p class="c-hero__meta">Evening DJ from <strong>£595</strong> · All-day from <strong>£995</strong> · <a href="weddings.html#pricing">see what's included</a><span class="c-hero__meta-reply"><i class="fa-regular fa-clock"></i> I reply within 24 hours</span></p>
     </div>
     <div class="c-scroll"><span></span>Scroll</div>
   </section>
