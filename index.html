@@ -79,19 +79,19 @@
     }
     .c-hero__img {
       position: absolute; inset: 0;
-      background: url('images/QuornShootEdited-173.jpg') center 30% / cover no-repeat;
+      background: url('images/hero-dance.jpg') center 32% / cover no-repeat;
       z-index: 0;
       will-change: transform;
     }
     .c-hero__veil {
       position: absolute; inset: 0; z-index: 1;
       background:
-        radial-gradient(ellipse 120% 85% at 50% 45%, transparent 30%, rgba(8,8,10,0.72) 100%),
+        radial-gradient(ellipse 120% 85% at 50% 46%, transparent 24%, rgba(26,8,37,0.78) 100%),
         linear-gradient(to top,
-          rgba(8,8,10,0.96) 0%,
-          rgba(8,8,10,0.55) 26%,
-          rgba(8,8,10,0.18) 55%,
-          rgba(8,8,10,0.40) 100%);
+          rgba(16,5,26,0.96) 0%,
+          rgba(114,46,128,0.58) 30%,
+          rgba(114,46,128,0.26) 58%,
+          rgba(26,8,37,0.55) 100%);
     }
     .c-hero__content { position: relative; z-index: 2; max-width: 860px; }
 
@@ -171,6 +171,13 @@
     .c-hero__meta a { color: var(--purple-mist); text-decoration: underline; text-underline-offset: 2px; }
     .c-hero__meta i { color: var(--purple-mist); margin-right: 0.3rem; }
     .c-hero__meta-reply { display: block; margin-top: 0.5rem; opacity: 0.9; }
+    .c-hero__credit {
+      position: absolute; z-index: 2; right: 1rem; bottom: 0.9rem;
+      font-family: var(--font-body); font-size: 0.66rem; letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.7); text-decoration: none;
+    }
+    .c-hero__credit i { color: var(--purple-mist); margin-right: 0.3rem; }
+    .c-hero__credit:hover { color: #fff; }
 
     .c-scroll {
       position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
@@ -476,6 +483,7 @@
       <p class="c-hero__meta">Evening DJ from <strong>£595</strong> · All-day from <strong>£995</strong> · <a href="weddings.html#pricing">see what's included</a><span class="c-hero__meta-reply"><i class="fa-regular fa-clock"></i> I reply within 24 hours</span></p>
     </div>
     <div class="c-scroll"><span></span>Scroll</div>
+    <a class="c-hero__credit" href="https://www.instagram.com/thomasbone.photo/" target="_blank" rel="noopener"><i class="fa-solid fa-camera"></i>@thomasbone.photo</a>
   </section>
 
   <!-- OCCASIONS RIBBON -->
