@@ -11,16 +11,16 @@ const fs    = require('fs');
 const path  = require('path');
 
 const AVAILABILITY_PATH = path.join(__dirname, '..', 'availability.json');
-const YEARS = ['2026', '2027'];
+const YEARS = ['2026', '2027', '2028'];
 
-// Total bookable weekend days per year (Fri + Sat, 52 weeks each)
-// 2026: 52 Fridays + 52 Saturdays = 104
-// 2027: 52 Fridays + 53 Saturdays = 105  (Jan 1 2027 is a Friday)
-const TOTAL_DATES = { '2026': 104, '2027': 105 };
+// Bookings per year that count as "fully booked" (100%).
+// Tom caps at ~30 bookings a year, so 30 = full.
+const TOTAL_DATES = { '2026': 30, '2027': 30, '2028': 30 };
 
 // ── Label thresholds ──────────────────────────────────────────────────────────
 
 function labelForPercent(pct) {
+  if (pct === 0)  return 'Now open — be first to secure your date';
   if (pct >= 90) return 'Almost fully booked — contact immediately';
   if (pct >= 75) return 'Limited dates remaining';
   if (pct >= 50) return 'Filling fast — check your date soon';
@@ -124,7 +124,7 @@ async function main() {
       if (d.startsWith(yr + '-')) booked++;
     });
 
-    const total  = TOTAL_DATES[yr] || 104;
+    const total  = TOTAL_DATES[yr] || 30;
     const pct    = Math.round((booked / total) * 100);
     const label  = labelForPercent(pct);
 
