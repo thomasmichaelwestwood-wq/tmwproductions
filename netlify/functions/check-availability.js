@@ -191,7 +191,7 @@ exports.handler = async function (event) {
         return respond(502, { error: 'Unexpected response from calendar' });
       }
 
-      const MAX_BOOKINGS = parseInt(process.env.AVAILABILITY_MAX_BOOKINGS, 10) || 40;
+      const MAX_BOOKINGS = parseInt(process.env.AVAILABILITY_MAX_BOOKINGS, 10) || 30;
       const YEARS = ['2026', '2027', '2028'];
       const counts = {};
       YEARS.forEach(yr => { counts[yr] = 0; });
@@ -208,6 +208,7 @@ exports.handler = async function (event) {
       }
 
       function labelFor(pct) {
+        if (pct === 0)  return 'Now open — be first to secure your date';
         if (pct >= 90) return 'Almost fully booked — contact immediately';
         if (pct >= 75) return 'Limited dates remaining';
         if (pct >= 50) return 'Filling fast — check your date soon';

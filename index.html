@@ -582,26 +582,26 @@
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2026</span>
-            <span class="avail__stat" id="avail-2026-stat"><strong>50%</strong> booked</span>
+            <span class="avail__stat" id="avail-2026-stat"><strong>100%</strong> booked</span>
           </div>
-          <div class="avail__track"><div class="avail__fill" id="avail-2026-fill" style="--pct: 50%"></div></div>
-          <p class="avail__note" id="avail-2026-note">Filling fast — check your date soon</p>
+          <div class="avail__track"><div class="avail__fill" id="avail-2026-fill" style="--pct: 100%"></div></div>
+          <p class="avail__note" id="avail-2026-note">Almost fully booked — contact immediately</p>
         </div>
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2027</span>
-            <span class="avail__stat" id="avail-2027-stat"><strong>28%</strong> booked</span>
+            <span class="avail__stat" id="avail-2027-stat"><strong>100%</strong> booked</span>
           </div>
-          <div class="avail__track"><div class="avail__fill" id="avail-2027-fill" style="--pct: 28%"></div></div>
-          <p class="avail__note" id="avail-2027-note">Dates still available — enquire now</p>
+          <div class="avail__track"><div class="avail__fill" id="avail-2027-fill" style="--pct: 100%"></div></div>
+          <p class="avail__note" id="avail-2027-note">Almost fully booked — contact immediately</p>
         </div>
         <div class="avail__row">
           <div class="avail__meta">
             <span class="avail__year">2028</span>
-            <span class="avail__stat" id="avail-2028-stat"><strong>5%</strong> booked</span>
+            <span class="avail__stat" id="avail-2028-stat"><strong>0%</strong> booked</span>
           </div>
-          <div class="avail__track"><div class="avail__fill" id="avail-2028-fill" style="--pct: 5%"></div></div>
-          <p class="avail__note" id="avail-2028-note">2028 now open — be first to secure your date</p>
+          <div class="avail__track"><div class="avail__fill" id="avail-2028-fill" style="--pct: 0%"></div></div>
+          <p class="avail__note" id="avail-2028-note">Now open — be first to secure your date</p>
         </div>
       </div>
     </div>
@@ -769,9 +769,9 @@
     // Availability bars — pull live percentages from availability.json
     (function(){
       var fallback = {
-        '2026': { percent: 50, label: 'Filling fast — check your date soon' },
-        '2027': { percent: 28, label: 'Dates still available — enquire now' },
-        '2028': { percent: 5,  label: '2028 now open — be first to secure your date' }
+        '2026': { percent: 100, label: 'Almost fully booked — contact immediately' },
+        '2027': { percent: 100, label: 'Almost fully booked — contact immediately' },
+        '2028': { percent: 0,  label: 'Now open — be first to secure your date' }
       };
       function apply(data){
         ['2026','2027','2028'].forEach(function(yr){

@@ -1,14 +1,14 @@
 {
   "2026": {
-    "percent": 52,
-    "label": "Filling fast — check your date soon"
+    "percent": 100,
+    "label": "Almost fully booked — contact immediately"
   },
   "2027": {
-    "percent": 34,
-    "label": "Dates still available — enquire now"
+    "percent": 100,
+    "label": "Almost fully booked — contact immediately"
   },
   "2028": {
-    "percent": 5,
-    "label": "2028 now open — be first to secure your date"
+    "percent": 0,
+    "label": "Now open — be first to secure your date"
   }
 }
