@@ -191,7 +191,10 @@ exports.handler = async function (event) {
         return respond(502, { error: 'Unexpected response from calendar' });
       }
 
-      const MAX_BOOKINGS = parseInt(process.env.AVAILABILITY_MAX_BOOKINGS, 10) || 30;
+      // Bookings that count as "fully booked" per year. 2028 is capped at 30;
+      // 2026/2027 keep the standard 40. Overridable via AVAILABILITY_MAX_BOOKINGS.
+      const DEFAULT_MAX = parseInt(process.env.AVAILABILITY_MAX_BOOKINGS, 10) || 40;
+      const MAX_BY_YEAR = { '2026': DEFAULT_MAX, '2027': DEFAULT_MAX, '2028': 30 };
       const YEARS = ['2026', '2027', '2028'];
       const counts = {};
       YEARS.forEach(yr => { counts[yr] = 0; });
@@ -217,7 +220,8 @@ exports.handler = async function (event) {
 
       const result = {};
       YEARS.forEach(yr => {
-        const pct = Math.min(100, Math.round((counts[yr] / MAX_BOOKINGS) * 100));
+        const cap = MAX_BY_YEAR[yr] || DEFAULT_MAX;
+        const pct = Math.min(100, Math.round((counts[yr] / cap) * 100));
         result[yr] = { percent: pct, label: labelFor(pct) };
       });
 
