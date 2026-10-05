@@ -14,8 +14,8 @@ const AVAILABILITY_PATH = path.join(__dirname, '..', 'availability.json');
 const YEARS = ['2026', '2027', '2028'];
 
 // Bookings per year that count as "fully booked" (100%).
-// Tom caps at ~30 bookings a year, so 30 = full.
-const TOTAL_DATES = { '2026': 30, '2027': 30, '2028': 30 };
+// 2028 is capped at 30; 2026/2027 use the standard 40.
+const TOTAL_DATES = { '2026': 40, '2027': 40, '2028': 30 };
 
 // ── Label thresholds ──────────────────────────────────────────────────────────
 
