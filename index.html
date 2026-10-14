@@ -179,6 +179,46 @@
     .c-hero__credit i { color: var(--purple-mist); margin-right: 0.3rem; }
     .c-hero__credit:hover { color: #fff; }
 
+    /* ── Date checker + unavailable pop-up ── */
+    .datecheck { max-width: 640px; margin: 2.75rem auto 0; text-align: center; }
+    .datecheck__title { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.05em; margin-bottom: 1rem; }
+    .datecheck__row { display: flex; gap: 0.7rem; justify-content: center; flex-wrap: wrap; }
+    .datecheck__input {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(186,141,189,0.4);
+      color: var(--white); font-family: var(--font-body); font-size: 1rem;
+      padding: 0.95rem 1.2rem; border-radius: 50px; outline: none; color-scheme: dark;
+    }
+    .datecheck__input:focus { border-color: var(--purple-mist); }
+    .datecheck__btn { border: none; cursor: pointer; }
+    .datecheck__result { margin-top: 1.1rem; font-size: 0.95rem; min-height: 1.2em; opacity: 0.9; }
+    .datecheck__result.is-free { color: #7ce0a8; opacity: 1; }
+    .datecheck__result a { color: var(--white); text-decoration: underline; }
+
+    .dc-modal {
+      position: fixed; inset: 0; z-index: 3000; display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem; background: rgba(8,2,14,0.72);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .dc-modal.is-open { opacity: 1; visibility: visible; }
+    .dc-modal__box {
+      position: relative; width: 100%; max-width: 460px; text-align: center;
+      background: linear-gradient(160deg, #2a0d38 0%, #0b0b0d 100%);
+      border: 1px solid rgba(186,141,189,0.35); border-radius: 18px;
+      padding: 2.8rem 2.2rem 2.2rem; box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+      transform: translateY(16px) scale(0.98); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .dc-modal.is-open .dc-modal__box { transform: none; }
+    .dc-modal__close { position: absolute; top: 0.8rem; right: 1rem; background: none; border: none; color: var(--white); opacity: 0.6; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+    .dc-modal__close:hover { opacity: 1; }
+    .dc-modal__badge { display: inline-block; font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--purple-mist); margin-bottom: 0.8rem; }
+    .dc-modal__title { font-family: var(--font-display); font-size: clamp(1.8rem,5vw,2.4rem); line-height: 1.05; margin-bottom: 0.9rem; }
+    .dc-modal__text { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.7; opacity: 0.88; margin-bottom: 1.6rem; }
+    .dc-modal__text strong { color: var(--white); }
+    .dc-modal__dismiss { display: block; margin: 1rem auto 0; background: none; border: none; color: var(--white); opacity: 0.5; font-family: var(--font-body); font-size: 0.8rem; cursor: pointer; }
+    .dc-modal__dismiss:hover { opacity: 0.85; text-decoration: underline; }
+    @media (prefers-reduced-motion: reduce) { .dc-modal, .dc-modal__box { transition: none !important; } }
+
     .c-scroll {
       position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
       z-index: 2; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
@@ -604,6 +644,15 @@
           <p class="avail__note" id="avail-2028-note">Now open — be first to secure your date</p>
         </div>
       </div>
+
+      <div class="datecheck c-reveal" id="datecheck">
+        <h3 class="datecheck__title">Check your exact date</h3>
+        <div class="datecheck__row">
+          <input type="date" id="datecheckInput" class="datecheck__input" aria-label="Your event date">
+          <button type="button" id="datecheckBtn" class="c-btn c-btn--primary datecheck__btn">Check my date</button>
+        </div>
+        <p class="datecheck__result" id="datecheckResult" aria-live="polite"></p>
+      </div>
     </div>
   </section>
 
@@ -788,6 +837,72 @@
         .then(function(r){ return r.ok ? r.json() : null; })
         .then(function(data){ apply(data || fallback); })
         .catch(function(){ apply(fallback); });
+    })();
+  </script>
+
+  <!-- ── Date-unavailable pop-up ── -->
+  <div class="dc-modal" id="dcModal" role="dialog" aria-modal="true" aria-labelledby="dcModalTitle" aria-hidden="true">
+    <div class="dc-modal__box">
+      <button class="dc-modal__close" id="dcModalClose" aria-label="Close">&times;</button>
+      <span class="dc-modal__badge">Date Check</span>
+      <h2 class="dc-modal__title" id="dcModalTitle">That date's already booked</h2>
+      <p class="dc-modal__text">I'm already booked on <strong id="dcModalDate">that date</strong> — but it's always worth asking. Dates occasionally free up, and after 25 years in the business I can often point you to a trusted DJ I'd happily recommend. Drop me a message and I'll do what I can.</p>
+      <a href="contact.html" class="c-btn c-btn--primary" style="width:100%; justify-content:center;">Send me a message</a>
+      <button class="dc-modal__dismiss" id="dcModalDismiss">Pick another date</button>
+    </div>
+  </div>
+
+  <script>
+    // ── Date checker → pop-up when unavailable ─────────────────────────────
+    (function(){
+      var input  = document.getElementById('datecheckInput');
+      var btn    = document.getElementById('datecheckBtn');
+      var result = document.getElementById('datecheckResult');
+      var modal  = document.getElementById('dcModal');
+      if (!input || !btn || !result) return;
+
+      try { input.min = new Date().toISOString().split('T')[0]; } catch (e) {}
+
+      function fmt(iso){
+        try { return new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' }); }
+        catch (e) { return iso; }
+      }
+      function onKey(e){ if (e.key === 'Escape') closeModal(); }
+      function openModal(iso){
+        var dEl = document.getElementById('dcModalDate'); if (dEl) dEl.textContent = fmt(iso);
+        modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false');
+        document.addEventListener('keydown', onKey);
+      }
+      function closeModal(){
+        modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true');
+        document.removeEventListener('keydown', onKey);
+      }
+      var cBtn = document.getElementById('dcModalClose'), dBtn = document.getElementById('dcModalDismiss');
+      if (cBtn) cBtn.addEventListener('click', closeModal);
+      if (dBtn) dBtn.addEventListener('click', function(){ closeModal(); input.focus(); });
+      if (modal) modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+
+      var FAIL = 'Couldn’t check just now — <a href="contact.html">send me your date</a> and I’ll confirm.';
+
+      btn.addEventListener('click', function(){
+        var val = input.value;
+        if (!val){ result.className = 'datecheck__result'; result.textContent = 'Pick a date first.'; input.focus(); return; }
+        result.className = 'datecheck__result'; result.textContent = 'Checking…'; btn.disabled = true;
+        fetch('/api/check-availability?date=' + encodeURIComponent(val))
+          .then(function(r){ return r.ok ? r.json() : null; })
+          .then(function(data){
+            btn.disabled = false;
+            if (!data || typeof data.available === 'undefined'){ result.className='datecheck__result'; result.innerHTML = FAIL; return; }
+            if (data.available){
+              result.className = 'datecheck__result is-free';
+              result.innerHTML = 'Good news — ' + fmt(val) + ' looks free! <a href="contact.html">Let’s lock it in →</a>';
+            } else {
+              result.textContent = '';
+              openModal(val);
+            }
+          })
+          .catch(function(){ btn.disabled = false; result.className='datecheck__result'; result.innerHTML = FAIL; });
+      });
     })();
   </script>
 </body>
