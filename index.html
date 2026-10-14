@@ -217,6 +217,13 @@
     .dc-modal__text strong { color: var(--white); }
     .dc-modal__dismiss { display: block; margin: 1rem auto 0; background: none; border: none; color: var(--white); opacity: 0.5; font-family: var(--font-body); font-size: 0.8rem; cursor: pointer; }
     .dc-modal__dismiss:hover { opacity: 0.85; text-decoration: underline; }
+    .dc-modal__djs { list-style: none; margin: 0 0 1.3rem; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
+    .dc-modal__djs li { border: 1px solid rgba(186,141,189,0.25); border-radius: 10px; }
+    .dc-modal__djs a { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.75rem 1rem; color: var(--white); text-decoration: none; font-family: var(--font-body); font-size: 0.95rem; transition: background var(--transition), border-color var(--transition); }
+    .dc-modal__djs a:hover { background: rgba(186,141,189,0.14); }
+    .dc-modal__djs li:hover { border-color: var(--purple-mist); }
+    .dc-modal__djs i { color: var(--purple-mist); font-size: 0.72rem; flex-shrink: 0; }
+    .dc-modal__ornote { font-size: 0.82rem; opacity: 0.6; margin-bottom: 1.2rem; line-height: 1.6; }
     @media (prefers-reduced-motion: reduce) { .dc-modal, .dc-modal__box { transition: none !important; } }
 
     .c-scroll {
@@ -846,7 +853,14 @@
       <button class="dc-modal__close" id="dcModalClose" aria-label="Close">&times;</button>
       <span class="dc-modal__badge">Date Check</span>
       <h2 class="dc-modal__title" id="dcModalTitle">That date's already booked</h2>
-      <p class="dc-modal__text">I'm already booked on <strong id="dcModalDate">that date</strong> — but it's always worth asking. Dates occasionally free up, and after 25 years in the business I can often point you to a trusted DJ I'd happily recommend. Drop me a message and I'll do what I can.</p>
+      <p class="dc-modal__text">I'm already booked on <strong id="dcModalDate">that date</strong> — but you're in good hands. Here are a few brilliant DJs I'd happily recommend:</p>
+      <ul class="dc-modal__djs">
+        <li><a href="https://www.djwilko.com/" target="_blank" rel="noopener">DJ Wilko <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+        <li><a href="https://www.dancefloor-djs-events.com/" target="_blank" rel="noopener">Dancefloor DJs &amp; Events <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+        <li><a href="https://youreventdj.co.uk/" target="_blank" rel="noopener">Your Event DJ <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+        <li><a href="https://sensationaldjs.co.uk/" target="_blank" rel="noopener">Sensational Sound &amp; Lights <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+      </ul>
+      <p class="dc-modal__ornote">Or message me anyway — dates occasionally free up, and I'm always happy to help point you in the right direction.</p>
       <a href="contact.html" class="c-btn c-btn--primary" style="width:100%; justify-content:center;">Send me a message</a>
       <button class="dc-modal__dismiss" id="dcModalDismiss">Pick another date</button>
     </div>
