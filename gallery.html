@@ -68,6 +68,18 @@
       overflow: hidden;
       cursor: pointer;
       position: relative;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s var(--ease-out, ease), transform 0.6s var(--ease-out, ease);
+    }
+
+    .gallery-masonry__item.is-in {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gallery-masonry__item { opacity: 1 !important; transform: none !important; transition: none !important; }
     }
 
     .gallery-masonry__img {
@@ -451,6 +463,18 @@
 
           grid.appendChild(wrap);
         });
+
+        // Gentle scroll-reveal for each image as it enters view
+        const gItems = grid.querySelectorAll('.gallery-masonry__item');
+        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!('IntersectionObserver' in window) || reduce) {
+          gItems.forEach(el => el.classList.add('is-in'));
+        } else {
+          const gio = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); gio.unobserve(e.target); } });
+          }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+          gItems.forEach(el => gio.observe(el));
+        }
 
       } catch (err) {
         grid.innerHTML = `
