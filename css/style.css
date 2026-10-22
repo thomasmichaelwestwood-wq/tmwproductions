@@ -11,9 +11,7 @@
 
 @font-face {
   font-family: 'Bitcheese';
-  src: url('../fonts/Bitcheese.woff2') format('woff2'),
-       url('../fonts/Bitcheese.woff') format('woff'),
-       url('../fonts/Bitcheese.otf') format('opentype'),
+  src: url('../fonts/Bitcheese.otf') format('opentype'),
        url('../fonts/Bitcheese.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
@@ -22,12 +20,7 @@
 
 @font-face {
   font-family: 'Gotham';
-  src: url('../fonts/Gotham-Light.woff2') format('woff2'),
-       url('../fonts/Gotham-Light.woff') format('woff'),
-       url('../fonts/GothamLight.woff2') format('woff2'),
-       url('../fonts/Gotham Light.woff2') format('woff2'),
-       url('../fonts/Gotham-Light.otf') format('opentype'),
-       url('../fonts/Gotham-Light.ttf') format('truetype');
+  src: url('../fonts/Gotham-Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
