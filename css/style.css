@@ -280,10 +280,12 @@ p {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 0;
+  width: 100%;
   height: 2px;
   background: var(--purple-mist);
-  transition: width var(--transition);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
 }
 
 .nav__links a:hover,
@@ -293,7 +295,7 @@ p {
 
 .nav__links a:hover::after,
 .nav__links a:focus-visible::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 .nav__cta {
@@ -1359,12 +1361,14 @@ section {
 .footer__links a {
   font-size: 0.85rem;
   opacity: 0.65;
-  transition: opacity var(--transition), color var(--transition);
+  display: inline-block;
+  transition: opacity var(--transition), color var(--transition), transform var(--transition);
 }
 
 .footer__links a:hover {
   opacity: 1;
   color: var(--purple-mist);
+  transform: translateX(3px);
 }
 
 .footer__contact p {
