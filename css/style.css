@@ -43,8 +43,10 @@
   --font-display: 'Bitcheese', 'Bebas Neue', sans-serif;
   --font-body: 'Gotham', 'Montserrat', sans-serif;
 
-  --transition: 0.3s ease;
-  --transition-slow: 0.6s ease;
+  --transition: 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-slow: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 /* --- Reset & Base --- */
@@ -394,7 +396,7 @@ p {
   text-transform: uppercase;
   border: none;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
   position: relative;
   overflow: hidden;
 }
@@ -411,6 +413,9 @@ p {
 .btn:hover::before {
   left: 100%;
 }
+
+/* Press feedback — instant tactile response (Emil) */
+.btn:active { transform: scale(0.97); }
 
 .btn--primary {
   background: var(--white);
@@ -1688,7 +1693,7 @@ section {
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
 }
 
 .testimonial-card.reveal {
@@ -1707,7 +1712,7 @@ section {
 .reveal-left {
   opacity: 0;
   transform: translateX(-40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
 }
 
 .reveal-left.visible {
@@ -1718,7 +1723,7 @@ section {
 .reveal-right {
   opacity: 0;
   transform: translateX(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
 }
 
 .reveal-right.visible {
@@ -2089,4 +2094,16 @@ section {
   .liquid-blob {
     animation: none !important;
   }
+}
+
+/* =============================================
+   PAGE TRANSITIONS — smooth cross-page fades (motion pass)
+   MPA View Transitions: a subtle whole-page cross-fade on navigation
+   in supporting browsers; no effect (and no harm) where unsupported.
+============================================= */
+@view-transition { navigation: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none !important; }
 }
