@@ -594,6 +594,51 @@
     </div>
   </section>
 
+  <!-- VENUE ENDORSEMENT -->
+  <style>
+    .c-venue { background: var(--black); padding: clamp(3.5rem, 7vw, 6rem) 6%; }
+    .c-venue__card {
+      max-width: 920px; margin: 0 auto; display: flex; gap: clamp(1.5rem, 4vw, 3rem); align-items: center;
+      background: linear-gradient(135deg, rgba(114,46,128,0.22), rgba(114,46,128,0.06));
+      border: 1px solid rgba(186,141,189,0.28); border-radius: 18px; padding: clamp(1.6rem, 3.5vw, 2.8rem);
+    }
+    .c-venue__photo {
+      flex: 0 0 auto; width: 150px; height: 150px; border-radius: 14px; object-fit: cover;
+      border: 1px solid rgba(186,141,189,0.3);
+    }
+    .c-venue__eyebrow {
+      font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--purple-mist); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .c-venue__quote {
+      font-family: var(--font-body); font-size: clamp(1rem, 1.6vw, 1.15rem); font-style: italic;
+      line-height: 1.75; color: rgba(255,255,255,0.92); margin: 0 0 1.4rem;
+    }
+    .c-venue__by { font-family: var(--font-body); font-size: 0.9rem; color: var(--white); margin-bottom: 0.5rem; }
+    .c-venue__by strong { font-weight: 600; }
+    .c-venue__link {
+      display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--font-body);
+      font-size: 0.82rem; letter-spacing: 0.06em; color: var(--purple-mist); text-decoration: none;
+      border-bottom: 1px solid rgba(186,141,189,0.4); padding-bottom: 0.15rem; transition: color 0.2s ease;
+    }
+    .c-venue__link:hover { color: var(--white); }
+    @media (max-width: 640px) {
+      .c-venue__card { flex-direction: column; text-align: center; }
+      .c-venue__eyebrow, .c-venue__link { justify-content: center; }
+    }
+  </style>
+  <section class="c-venue">
+    <div class="c-venue__card c-reveal">
+      <img src="images/venue-prestwold-hall.webp" alt="Prestwold Hall" class="c-venue__photo" loading="lazy" width="150" height="150">
+      <div>
+        <div class="c-venue__eyebrow"><i class="fa-solid fa-building-columns"></i> Recommended by the Venue</div>
+        <p class="c-venue__quote">"Tom has been on our recommended suppliers list at Prestwold Hall and The Barns for many years, and it's easy to see why. He's friendly, professional and always delivers, reading the room brilliantly so the dance floor is packed from start to finish. Couples and guests love him, and we love working with him. Highly recommended!"</p>
+        <div class="c-venue__by"><strong>Emma Kirtland</strong> · General Manager</div>
+        <a href="venues/prestwold-hall.html" class="c-venue__link">Prestwold Hall <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
   <!-- MEET TOM -->
   <section class="c-tom">
     <div class="c-tom__img"><div class="c-tom__grade"></div><span style="position:absolute; z-index:2; right:0.8rem; bottom:0.6rem; font-family:var(--font-body); font-size:0.68rem; letter-spacing:0.04em; color:rgba(255,255,255,0.85); background:linear-gradient(to left, rgba(0,0,0,0.5), transparent); padding:0.3rem 0.6rem;"><i class="fa-solid fa-camera" style="color:var(--purple-mist); margin-right:0.3rem;"></i><a href="https://www.instagram.com/thomasbone.photo/" target="_blank" rel="noopener" style="color:inherit;">@thomasbone.photo</a></span></div>
