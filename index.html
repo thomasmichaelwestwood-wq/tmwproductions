@@ -602,9 +602,8 @@
       background: linear-gradient(135deg, rgba(114,46,128,0.22), rgba(114,46,128,0.06));
       border: 1px solid rgba(186,141,189,0.28); border-radius: 18px; padding: clamp(1.6rem, 3.5vw, 2.8rem);
     }
-    .c-venue__photo {
-      flex: 0 0 auto; width: 150px; height: 150px; border-radius: 14px; object-fit: cover;
-      border: 1px solid rgba(186,141,189,0.3);
+    .c-venue__logo {
+      flex: 0 0 auto; width: clamp(150px, 22vw, 200px); height: auto; object-fit: contain;
     }
     .c-venue__eyebrow {
       font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -629,12 +628,12 @@
   </style>
   <section class="c-venue">
     <div class="c-venue__card c-reveal">
-      <img src="images/venue-prestwold-hall.webp" alt="Prestwold Hall" class="c-venue__photo" loading="lazy" width="150" height="150">
+      <img src="images/prestwold-hall-logo.png" alt="Prestwold Hall" class="c-venue__logo" loading="lazy" width="200" height="142">
       <div>
         <div class="c-venue__eyebrow"><i class="fa-solid fa-building-columns"></i> Recommended by the Venue</div>
         <p class="c-venue__quote">"Tom has been on our recommended suppliers list at Prestwold Hall and The Barns for many years, and it's easy to see why. He's friendly, professional and always delivers, reading the room brilliantly so the dance floor is packed from start to finish. Couples and guests love him, and we love working with him. Highly recommended!"</p>
         <div class="c-venue__by"><strong>Emma Kirtland</strong> · General Manager</div>
-        <a href="venues/prestwold-hall.html" class="c-venue__link">Prestwold Hall <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="https://prestwold-hall.com/" target="_blank" rel="noopener" class="c-venue__link">Visit Prestwold Hall <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
       </div>
     </div>
   </section>
