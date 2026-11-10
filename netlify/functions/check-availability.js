@@ -212,6 +212,7 @@ exports.handler = async function (event) {
 
       function labelFor(pct) {
         if (pct === 0)  return 'Now open — be first to secure your date';
+        if (pct >= 100) return 'Fully booked';
         if (pct >= 90) return 'Almost fully booked — contact immediately';
         if (pct >= 75) return 'Limited dates remaining';
         if (pct >= 50) return 'Filling fast — check your date soon';

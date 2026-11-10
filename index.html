@@ -209,13 +209,13 @@
       transform: translateY(16px) scale(0.98); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
     }
     .dc-modal.is-open .dc-modal__box { transform: none; }
-    .dc-modal__close { position: absolute; top: 0.8rem; right: 1rem; background: none; border: none; color: var(--white); opacity: 0.6; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+    .dc-modal__close { position: absolute; top: 0.5rem; right: 0.6rem; min-width: 44px; min-height: 44px; background: none; border: none; color: var(--white); opacity: 0.6; font-size: 1.4rem; line-height: 1; cursor: pointer; }
     .dc-modal__close:hover { opacity: 1; }
     .dc-modal__badge { display: inline-block; font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--purple-mist); margin-bottom: 0.8rem; }
     .dc-modal__title { font-family: var(--font-display); font-size: clamp(1.8rem,5vw,2.4rem); line-height: 1.05; margin-bottom: 0.9rem; }
     .dc-modal__text { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.7; opacity: 0.88; margin-bottom: 1.6rem; }
     .dc-modal__text strong { color: var(--white); }
-    .dc-modal__dismiss { display: block; margin: 1rem auto 0; background: none; border: none; color: var(--white); opacity: 0.5; font-family: var(--font-body); font-size: 0.8rem; cursor: pointer; }
+    .dc-modal__dismiss { display: block; margin: 0.6rem auto 0; min-height: 44px; padding: 0 1rem; background: none; border: none; color: var(--white); opacity: 0.5; font-family: var(--font-body); font-size: 0.8rem; cursor: pointer; }
     .dc-modal__dismiss:hover { opacity: 0.85; text-decoration: underline; }
     .dc-modal__djs { list-style: none; margin: 0 0 1.3rem; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; text-align: left; }
     .dc-modal__djs li { border: 1px solid rgba(186,141,189,0.25); border-radius: 10px; }
@@ -426,28 +426,30 @@
 
   <!-- ======================== 2028 ANNOUNCEMENT LIGHTBOX ======================== -->
   <style>
+    /* Non-blocking corner card (was a full-screen lightbox; full-screen pop-ups
+       on mobile are penalised by Google and hide the hero). */
     .promo-overlay {
-      position: fixed; inset: 0; z-index: 3000;
-      display: flex; align-items: center; justify-content: center;
-      padding: 1.5rem;
-      background: rgba(8,2,14,0.72);
-      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-      opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+      position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 3000;
+      width: min(380px, calc(100vw - 2rem));
+      opacity: 0; visibility: hidden; transform: translateY(16px); pointer-events: none;
+      transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
     }
-    .promo-overlay.is-open { opacity: 1; visibility: visible; }
+    .promo-overlay.is-open { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
     .promo-modal {
-      position: relative; width: 100%; max-width: 460px; text-align: center;
+      position: relative; width: 100%; text-align: left;
       background: linear-gradient(160deg, #2a0d38 0%, #0b0b0d 100%);
       border: 1px solid rgba(186,141,189,0.35);
       border-radius: 18px;
-      padding: 3rem 2.2rem 2.4rem;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 50px rgba(186,141,189,0.12);
-      transform: translateY(20px) scale(0.98);
-      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+      padding: 1.5rem 1.5rem 1.2rem;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.5);
     }
-    .promo-overlay.is-open .promo-modal { transform: none; }
+    @media (max-width: 560px) {
+      .promo-overlay { right: 0.75rem; left: 0.75rem; bottom: 0.75rem; width: auto; }
+      .promo-modal { padding: 1.2rem 1.2rem 1rem; }
+      .promo-modal__text { display: none; }
+    }
     .promo-modal__close {
-      position: absolute; top: 0.9rem; right: 1rem;
+      position: absolute; top: 0.6rem; right: 0.6rem; width: 44px; height: 44px;
       background: none; border: none; color: var(--white); opacity: 0.6;
       font-size: 1.4rem; line-height: 1; cursor: pointer; transition: opacity 0.2s ease;
     }
@@ -455,13 +457,13 @@
     .promo-modal__badge {
       display: inline-block; font-family: var(--font-body); font-size: 0.68rem;
       font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
-      color: var(--purple-mist); margin-bottom: 1rem;
+      color: var(--purple-mist); margin-bottom: 0.6rem;
     }
-    .promo-modal__title { font-family: var(--font-display); font-size: clamp(2.2rem, 7vw, 3rem); line-height: 1.05; margin-bottom: 0.9rem; }
+    .promo-modal__title { font-family: var(--font-display); font-size: clamp(1.6rem, 5vw, 2rem); line-height: 1.05; margin-bottom: 0.6rem; padding-right: 1.5rem; }
     .promo-modal__title span { color: var(--purple-mist); }
-    .promo-modal__text { font-family: var(--font-body); font-weight: 300; font-size: 0.98rem; line-height: 1.7; opacity: 0.88; margin-bottom: 1.8rem; }
+    .promo-modal__text { font-family: var(--font-body); font-weight: 300; font-size: 0.88rem; line-height: 1.6; opacity: 0.88; margin-bottom: 1.1rem; }
     .promo-modal__dismiss {
-      display: block; margin: 1rem auto 0; background: none; border: none;
+      display: block; margin: 0.5rem auto 0; min-height: 44px; padding: 0 1rem; background: none; border: none;
       color: var(--white); opacity: 0.5; font-family: var(--font-body);
       font-size: 0.78rem; letter-spacing: 0.06em; cursor: pointer; transition: opacity 0.2s ease;
     }
@@ -471,11 +473,11 @@
     }
   </style>
 
-  <div class="promo-overlay" id="promoOverlay" role="dialog" aria-modal="true" aria-labelledby="promoTitle" aria-hidden="true">
+  <div class="promo-overlay" id="promoOverlay" role="region" aria-labelledby="promoTitle" aria-hidden="true">
     <div class="promo-modal">
       <button class="promo-modal__close" id="promoClose" aria-label="Close announcement">&times;</button>
       <span class="promo-modal__badge">✦ Big News ✦</span>
-      <h2 class="promo-modal__title" id="promoTitle">2028 Bookings<br>Are <span>Now Open</span></h2>
+      <h2 class="promo-modal__title" id="promoTitle">2028 Bookings Are <span>Now&nbsp;Open</span></h2>
       <p class="promo-modal__text">After 30 years behind the decks, I'm refining how I work for 2028 and the diary is open. Dates are limited, so secure yours early.</p>
       <a href="2028.html" class="c-btn c-btn--primary" id="promoCta" style="width:100%; justify-content:center;">See 2028 Bookings</a>
       <button class="promo-modal__dismiss" id="promoDismiss">No thanks, maybe later</button>
@@ -521,7 +523,7 @@
     <div class="c-hero__glow"></div>
     <div class="c-hero__content">
       <div class="c-eyebrow"><i class="fa-solid fa-star"></i> 90+ Five-Star Reviews · Leicestershire</div>
-      <h1 class="c-hero__title">Your dance floor,<br>in <span>safe hands</span></h1>
+      <h1 class="c-hero__title">Your dance&nbsp;floor,<br>in <span>safe hands</span></h1>
       <p class="c-hero__sub">Weddings, parties and events across the East Midlands, run by <b>one DJ who reads the room</b> and keeps it moving.</p>
       <div class="c-hero__cta">
         <a href="contact.html" class="c-btn c-btn--primary">Check Your Date</a>
@@ -621,6 +623,8 @@
       border-bottom: 1px solid rgba(186,141,189,0.4); padding-bottom: 0.15rem; transition: color 0.2s ease;
     }
     .c-venue__link:hover { color: var(--white); }
+    .c-venue__link { position: relative; }
+    .c-venue__link::before { content: ''; position: absolute; inset: -10px -8px; }
     @media (max-width: 640px) {
       .c-venue__card { flex-direction: column; text-align: center; }
       .c-venue__eyebrow, .c-venue__link { justify-content: center; }
@@ -770,23 +774,25 @@
     // ── 2028 announcement lightbox ──────────────────────────────────────────
     (function () {
       var KEY = 'tmw_promo_2028_v1';       // change to re-show to everyone
-      var DELAY = 1200;
+      var DELAY = 15000;                   // or sooner, once the visitor scrolls past the hero
       var overlay = document.getElementById('promoOverlay');
       if (!overlay) return;
       var closeBtn = document.getElementById('promoClose');
       var dismiss  = document.getElementById('promoDismiss');
       var cta      = document.getElementById('promoCta');
-      var lastFocus;
 
       var seen;
       try { seen = localStorage.getItem(KEY); } catch (e) { seen = null; }
       if (seen) return;
 
+      var shown = false, timer;
       function open() {
-        lastFocus = document.activeElement;
+        if (shown) return;
+        shown = true;
+        clearTimeout(timer);
+        window.removeEventListener('scroll', onScroll);
         overlay.classList.add('is-open');
         overlay.setAttribute('aria-hidden', 'false');
-        if (closeBtn) closeBtn.focus();
         document.addEventListener('keydown', onKey);
       }
       function close() {
@@ -794,16 +800,15 @@
         overlay.setAttribute('aria-hidden', 'true');
         document.removeEventListener('keydown', onKey);
         try { localStorage.setItem(KEY, '1'); } catch (e) {}
-        if (lastFocus && lastFocus.focus) lastFocus.focus();
       }
+      function onScroll() { if (window.scrollY > window.innerHeight * 0.8) open(); }
       function onKey(e) { if (e.key === 'Escape') close(); }
 
       if (closeBtn) closeBtn.addEventListener('click', close);
       if (dismiss)  dismiss.addEventListener('click', close);
       if (cta) cta.addEventListener('click', function () { try { localStorage.setItem(KEY, '1'); } catch (e) {} });
-      overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
-
-      setTimeout(open, DELAY);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      timer = setTimeout(open, DELAY);
     })();
   </script>
 
