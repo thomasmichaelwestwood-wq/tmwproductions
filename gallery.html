@@ -264,7 +264,8 @@
 
     .instagram-cta__handle {
       font-family: var(--font-display);
-      font-size: 3rem;
+      font-size: clamp(1.8rem, 8vw, 3rem); /* one long word: must shrink to fit phones */
+      overflow-wrap: anywhere;
       color: var(--purple-mist);
       margin: 1rem 0;
     }

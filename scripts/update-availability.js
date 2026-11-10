@@ -21,6 +21,7 @@ const TOTAL_DATES = { '2026': 40, '2027': 40, '2028': 30 };
 
 function labelForPercent(pct) {
   if (pct === 0)  return 'Now open — be first to secure your date';
+  if (pct >= 100) return 'Fully booked';
   if (pct >= 90) return 'Almost fully booked — contact immediately';
   if (pct >= 75) return 'Limited dates remaining';
   if (pct >= 50) return 'Filling fast — check your date soon';
@@ -125,7 +126,7 @@ async function main() {
     });
 
     const total  = TOTAL_DATES[yr] || 30;
-    const pct    = Math.round((booked / total) * 100);
+    const pct    = Math.min(100, Math.round((booked / total) * 100));
     const label  = labelForPercent(pct);
 
     console.log('[update-availability] ' + yr + ': ' + booked + ' booked / ' + total + ' total = ' + pct + '% — "' + label + '"');
